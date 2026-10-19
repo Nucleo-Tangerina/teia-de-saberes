@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T00:00:00Z",
+  "title": "Design System: Teia de Saberes",
+  "extensions": {
+    "colorMeta": {
+      "navy": { "role": "primary", "displayName": "Institutional Navy", "canonical": "#153A62", "tonalRamp": ["#0A1D31", "#0F2B4A", "#153A62", "#2A5583", "#4E77A3", "#7E9DC0", "#B4C8DD", "#E6EEF6"] },
+      "navy-deep": { "role": "primary", "displayName": "Deep Night Navy", "canonical": "#0F2B4A", "tonalRamp": ["#071626", "#0F2B4A", "#1C3D63", "#33577F", "#55769C", "#829DBB", "#B6C8DA", "#E5ECF3"] },
+      "blue": { "role": "secondary", "displayName": "Network Blue", "canonical": "#2679AD", "tonalRamp": ["#0C2A3E", "#134263", "#1C5D88", "#2679AD", "#4C95C6", "#7EB3D8", "#B6D4EA", "#E4EFF7"] },
+      "orange": { "role": "tertiary", "displayName": "Action Orange", "canonical": "#ED8C32", "tonalRamp": ["#3E2208", "#6B3A0C", "#A3550F", "#D1711A", "#ED8C32", "#F29D4D", "#F8C795", "#FDF1E4"] },
+      "orange-hover": { "role": "tertiary", "displayName": "Action Orange Hover", "canonical": "#F29D4D" },
+      "orange-ink": { "role": "tertiary", "displayName": "Orange Ink", "canonical": "#A3550F" },
+      "soft": { "role": "neutral", "displayName": "Soft Field", "canonical": "#F4F7FA", "tonalRamp": ["#1E2833", "#3B4A5A", "#5E6F81", "#8C9CAD", "#B9CCDD", "#D5DFE8", "#E3E9EF", "#F4F7FA"] },
+      "white": { "role": "neutral", "displayName": "White", "canonical": "#FFFFFF" },
+      "body": { "role": "neutral", "displayName": "Body Slate", "canonical": "#4A5B6E" },
+      "muted": { "role": "neutral", "displayName": "Muted Slate", "canonical": "#6B7B8C" },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#E3E9EF" },
+      "on-navy": { "role": "neutral", "displayName": "On-Navy Mist", "canonical": "#D6E2EE" },
+      "tint-blue": { "role": "neutral", "displayName": "Blue Tint", "canonical": "#E4EFF7" },
+      "tint-orange": { "role": "neutral", "displayName": "Orange Tint", "canonical": "#FDF1E4" },
+      "thread-magenta": { "role": "tertiary", "displayName": "Pattern Magenta (threads only)", "canonical": "#F02A89" },
+      "thread-lime": { "role": "tertiary", "displayName": "Pattern Lime (threads only)", "canonical": "#90D518" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only." },
+      "headline": { "displayName": "Headline", "purpose": "Section h2." },
+      "title": { "displayName": "Title", "purpose": "Card, step, team and article h3; buttons share the face and weight." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs, max 62ch." },
+      "lead": { "displayName": "Lead", "purpose": "Hero and intro paragraphs, max 540px." },
+      "label": { "displayName": "Label", "purpose": "Card categories, project field names, footer heads, solution indices." }
+    },
+    "shadows": [
+      { "name": "card", "value": "0 2px 6px rgba(21,58,98,0.05), 0 12px 32px rgba(21,58,98,0.07)", "purpose": "Resting solution and article cards." },
+      { "name": "lift", "value": "0 4px 10px rgba(21,58,98,0.06), 0 24px 48px rgba(21,58,98,0.14)", "purpose": "Card hover, with translateY(-4 to -6px)." },
+      { "name": "float", "value": "0 2px 6px rgba(21,58,98,0.05), 0 24px 56px rgba(21,58,98,0.12)", "purpose": "Panel overlapping the hero." },
+      { "name": "header-scrolled", "value": "0 8px 24px rgba(21,58,98,0.08)", "purpose": "Sticky header after scroll." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart", "value": "cubic-bezier(0.165, 0.84, 0.44, 1)", "purpose": "State transitions, pops, rise-in reveals, card lift." },
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.19, 1, 0.22, 1)", "purpose": "Thread drawing and image wipes/unveils." },
+      { "name": "draw", "value": "stroke-dashoffset 1 to 0, 2.6s ease-out-expo, staggered 0.35s", "purpose": "Hero threads draw in." },
+      { "name": "pop", "value": "opacity 0 + scale(0.4) to none, 0.6s ease-out-quart", "purpose": "Nodes and the pattern tile appear." },
+      { "name": "rise", "value": "translateY(24-28px) + opacity 0 to none, 0.8-0.9s ease-out-quart, 90ms stagger", "purpose": "Content reveals on load and scroll." },
+      { "name": "marquee", "value": "linear infinite: ticker 70s, pattern band 28s, CTA drift 30s alternate", "purpose": "Ambient movement of crests and the pattern strip; pauses on hover/focus for the ticker." },
+      { "name": "scroll-thread", "value": "transform: scaleX/scaleY(var(--p)) driven by scroll progress", "purpose": "Methodology thread fill and lit steps." },
+      { "name": "reduced-motion", "value": "prefers-reduced-motion: durations 0.01ms; marquees and pulses off", "purpose": "Every animation resolves instantly or stops." }
+    ],
+    "breakpoints": [
+      { "name": "nav-collapse", "value": "1180px" },
+      { "name": "tablet", "value": "960px" },
+      { "name": "mobile", "value": "720px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Orange pill for the main action of a section.",
+      "html": "<a class=\"ds-btn ds-btn-orange\" href=\"#\">Fale com nossa equipe</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; padding: 15px 28px; border: 2px solid transparent; border-radius: 999px; font: 700 16px/1.35 Manrope, system-ui, sans-serif; text-decoration: none; cursor: pointer; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, transform 120ms cubic-bezier(0.165,0.84,0.44,1); } .ds-btn:active { transform: scale(0.97); } .ds-btn:focus-visible { outline: 3px solid #ED8C32; outline-offset: 3px; } .ds-btn-orange { background: #ED8C32; color: #153A62; } .ds-btn-orange:hover { background: #F29D4D; }"
+    },
+    {
+      "name": "Dark Button",
+      "kind": "button",
+      "refersTo": "button-dark",
+      "description": "Navy pill for actions on light grounds when orange is already present.",
+      "html": "<a class=\"ds-btn-dark\" href=\"#\">Ver todas as soluções</a>",
+      "css": ".ds-btn-dark { display: inline-flex; align-items: center; min-height: 56px; padding: 15px 28px; border: 2px solid transparent; border-radius: 999px; background: #153A62; color: #fff; font: 700 16px/1.35 Manrope, system-ui, sans-serif; text-decoration: none; transition: background-color 150ms ease; } .ds-btn-dark:hover { background: #2679AD; } .ds-btn-dark:focus-visible { outline: 3px solid #ED8C32; outline-offset: 3px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary pill beside a primary action.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">Conheça nossas soluções</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; min-height: 56px; padding: 15px 28px; border: 2px solid #153A62; border-radius: 999px; background: transparent; color: #153A62; font: 700 16px/1.35 Manrope, system-ui, sans-serif; text-decoration: none; transition: background-color 150ms ease, color 150ms ease; } .ds-btn-outline:hover { background: #153A62; color: #fff; } .ds-btn-outline:focus-visible { outline: 3px solid #ED8C32; outline-offset: 3px; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Small pill label on solution cards.",
+      "html": "<span class=\"ds-tag\">Formação</span> <span class=\"ds-tag ds-tag-main\">Destaque</span>",
+      "css": ".ds-tag { font: 600 11px Inter, system-ui, sans-serif; letter-spacing: 0.06em; color: #4A5B6E; background: #EDF1F5; padding: 4px 10px; border-radius: 999px; } .ds-tag-main { color: #1F5F8A; background: #E4EFF7; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Header links with an orange underline that scales in.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Início</a><a href=\"#\">Quem somos</a><a href=\"#\">Soluções</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 28px; } .ds-nav a { position: relative; padding: 8px 0; font: 600 15px Manrope, system-ui, sans-serif; color: #4A5B6E; text-decoration: none; transition: color 150ms ease; } .ds-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: #ED8C32; transform: scaleX(0); transform-origin: left; transition: transform 240ms cubic-bezier(0.165,0.84,0.44,1); } .ds-nav a:hover, .ds-nav a[aria-current='page'] { color: #153A62; } .ds-nav a:hover::after, .ds-nav a[aria-current='page']::after { transform: scaleX(1); } .ds-nav a:focus-visible { outline: 3px solid #ED8C32; outline-offset: 3px; }"
+    },
+    {
+      "name": "Solution Card",
+      "kind": "card",
+      "refersTo": "card-solution",
+      "description": "Rail card with media, colored marker bar, title, text and arrow link; lifts on hover.",
+      "html": "<a class=\"ds-sol\" href=\"#\"><div class=\"ds-sol-media\"></div><div class=\"ds-sol-body\"><span class=\"ds-sol-num\"><i></i>01</span><h3>Tear: Plano Municipal de Educação</h3><p>Conduz o município na construção e no monitoramento do PME.</p><span class=\"ds-link\">Saiba mais <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></div></a>",
+      "css": ".ds-sol { display: flex; flex-direction: column; width: 272px; background: #fff; border-radius: 20px; overflow: hidden; text-decoration: none; box-shadow: 0 2px 6px rgba(21,58,98,0.05), 0 12px 32px rgba(21,58,98,0.07); transition: transform 260ms cubic-bezier(0.165,0.84,0.44,1), box-shadow 260ms cubic-bezier(0.165,0.84,0.44,1); } .ds-sol:hover { transform: translateY(-6px); box-shadow: 0 4px 10px rgba(21,58,98,0.06), 0 24px 48px rgba(21,58,98,0.14); } .ds-sol:focus-visible { outline: 3px solid #ED8C32; outline-offset: 3px; } .ds-sol-media { height: 190px; background: #F4F7FA; } .ds-sol-body { display: flex; flex-direction: column; gap: 12px; padding: 24px 24px 26px; } .ds-sol-num { display: flex; align-items: center; gap: 10px; font: 700 12px Manrope, system-ui, sans-serif; letter-spacing: 0.08em; color: #6B7B8C; } .ds-sol-num i { width: 28px; height: 4px; border-radius: 2px; background: #4A2582; } .ds-sol h3 { margin: 0; font: 700 19px/1.28 Manrope, system-ui, sans-serif; color: #153A62; } .ds-sol p { margin: 0; font: 400 14px/1.6 Inter, system-ui, sans-serif; color: #4A5B6E; } .ds-link { display: inline-flex; align-items: center; gap: 8px; font: 700 15px Manrope, system-ui, sans-serif; color: #2679AD; } .ds-link svg { transition: transform 180ms cubic-bezier(0.165,0.84,0.44,1); } .ds-sol:hover .ds-link svg { transform: translateX(4px); }"
+    },
+    {
+      "name": "Round Control",
+      "kind": "button",
+      "refersTo": "round-button",
+      "description": "Circular carousel arrow; dark variant for the forward action.",
+      "html": "<button class=\"ds-round\" aria-label=\"Anterior\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/></svg></button> <button class=\"ds-round ds-round-dark\" aria-label=\"Próximo\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-round { width: 52px; height: 52px; display: inline-grid; place-items: center; border: 2px solid #153A62; border-radius: 50%; background: #fff; color: #153A62; cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease; } .ds-round:hover { background: #F4F7FA; } .ds-round-dark { background: #153A62; color: #fff; } .ds-round-dark:hover { background: #2679AD; border-color: #2679AD; } .ds-round:focus-visible { outline: 3px solid #ED8C32; outline-offset: 3px; } .ds-round:disabled { opacity: 0.35; cursor: default; }"
+    },
+    {
+      "name": "Methodology Thread",
+      "kind": "custom",
+      "description": "Signature: dashed thread through ringed step markers; fill scales with scroll (--p) and lit steps tint to their hue.",
+      "html": "<div class=\"ds-steps\" style=\"--p:0.6\"><div class=\"ds-thread\"><div class=\"ds-thread-fill\"></div></div><ol><li class=\"lit\" style=\"--accent:#ED8C32\"><span>1</span>Escuta</li><li class=\"lit\" style=\"--accent:#2679AD\"><span>2</span>Planejamento</li><li style=\"--accent:#F02A89\"><span>3</span>Ações</li><li style=\"--accent:#90D518\"><span>4</span>Acompanhamento</li></ol></div>",
+      "css": ".ds-steps { position: relative; } .ds-steps ol { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin: 0; padding: 0; list-style: none; } .ds-steps li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; font: 700 17px/1.3 Manrope, system-ui, sans-serif; color: #153A62; } .ds-steps li span { width: 64px; height: 64px; display: grid; place-items: center; border: 2px solid var(--accent); border-radius: 50%; background: #fff; font: 800 20px Manrope, system-ui, sans-serif; transition: background-color 360ms cubic-bezier(0.165,0.84,0.44,1); } .ds-steps li.lit span { background: color-mix(in srgb, var(--accent) 22%, #fff); } .ds-thread { position: absolute; top: 31px; left: 12.5%; right: 12.5%; border-top: 2px dashed #B9CCDD; } .ds-thread-fill { position: absolute; left: 0; right: 0; top: -2px; height: 2px; background: linear-gradient(90deg, #ED8C32, #2679AD 38%, #F02A89 70%, #90D518); transform: scaleX(var(--p)); transform-origin: left center; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Woven Network",
+    "overview": "Education is drawn as a network of threads: people, municipalities and steps of the work joined by thin blue lines that end in colored nodes. The world is calm and institutional at rest (light #F4F7FA and white fields, deep navy bands) and comes alive through motion that draws, pops and rises, never through decoration piled on the page.\n\nThe brand's saturated geometric pattern strip (`public/pattern-strip.png`, used as-is) is the only loud material. It appears as a small floating tile beside the hero photo, a moving marquee band under the navy section, and the drifting side column of the closing CTA. Everything else stays quiet so the pattern and the orange actions read.\n\nDensity is generous: wide section padding, large rounded media, soft navy-tinted shadows, pill buttons. Shapes are friendly and rounded, never sharp.",
+    "keyCharacteristics": [
+      "Light fields alternate with deep navy bands; orange is reserved for actions.",
+      "Thin blue threads with colored nodes are the reusable signature.",
+      "The pattern strip is the brand motif, shown in bands and tiles, never redrawn.",
+      "Generous radii (20-28px) on media and cards, pills on every button and tag.",
+      "Shadows are soft and navy-tinted, used for lift, not outline."
+    ],
+    "rules": [
+      { "name": "The Orange Acts Rule", "body": "Orange fills mean \"do something\": buttons, focus, the current nav item. It is not a background or a decorative fill. Orange text on light grounds uses orange-ink.", "section": "colors" },
+      { "name": "The Pattern Hues Stay On Threads Rule", "body": "Magenta, lime and the other pattern hues appear only as nodes, rings, marker bars and the thread gradient, never as surfaces, buttons or text.", "section": "colors" },
+      { "name": "The Manrope Speaks, Inter Explains Rule", "body": "Headings, buttons, nav and labels are Manrope; anything read as a paragraph is Inter. Headlines use `text-wrap: balance`, paragraphs `pretty`.", "section": "typography" },
+      { "name": "The Navy Shadow Rule", "body": "Every shadow is tinted with navy rgb(21,58,98), never black, and stays diffuse.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep orange for actions and focus; use orange-ink for orange text on light grounds.",
+      "Do connect things with thin blue threads and colored nodes when a surface shows relationships or sequence.",
+      "Do use the pattern strip image as-is for bands, tiles and columns.",
+      "Do tint every shadow navy and keep it soft and layered.",
+      "Do animate with draw, pop, rise-in (24-28px, 0.8-0.9s, ease-out-quart) and slow marquees; stagger by about 90ms.",
+      "Do honor reduced motion: marquees and pulses stop, reveals and draws resolve instantly."
+    ],
+    "donts": [
+      "Don't redraw or recolor the logo or the pattern strip.",
+      "Don't use pattern hues (magenta, lime, purple, cyan, amber) as surfaces, buttons or text.",
+      "Don't use black, hard or offset shadows.",
+      "Don't use square corners on buttons, cards or media."
+    ]
+  }
+}
