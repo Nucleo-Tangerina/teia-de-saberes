@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/solucoes-educacionais" },
 };
 
-// Methodology copy from the content brief (issue #7); content.ts `steps` still holds the old text.
+// Methodology copy from the content brief (issue #7).
 const steps = [
   { accent: "#ED8C32", title: "Escuta e compreensão", text: "Conhecer o território, a rede e as urgências." },
   {

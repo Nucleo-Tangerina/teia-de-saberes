@@ -26,7 +26,7 @@ export const nav = [
 export const diffs = [
   { icon: "user-check", title: "Atendimento Personalizado", text: "Cada desafio recebe atenção exclusiva." },
   { icon: "calendar-clock", title: "Mentorias Estratégicas", text: "Reuniões quinzenais para soluções direcionadas." },
-  { icon: "messages-square", title: "Atendimento Multicanal", text: "WhatsApp, e-mail, telefone, videoconferências e visitas presenciais." },
+  { icon: "messages-square", title: "Atendimento Multicanal", text: "WhatsApp, e-mail, telefone, videoconferência e visitas presenciais." },
 ] as const;
 
 const B = "/brasoes/";
@@ -53,10 +53,10 @@ export const municipios = [
 ];
 
 export const audience = [
-  { icon: "landmark", title: "Secretarias Municipais de Educação", text: "Apoio à gestão, ao planejamento e às ações educacionais." },
-  { icon: "briefcase", title: "Secretários de Educação", text: "Acompanhamento e suporte para decisões de gestão." },
-  { icon: "school", title: "Gestores Escolares", text: "Formação e desenvolvimento das lideranças escolares." },
-  { icon: "users", title: "Equipes Técnicas", text: "Qualificação e fortalecimento das práticas de trabalho." },
+  { icon: "landmark", title: "Secretarias Municipais de Educação e seus secretários", text: "" },
+  { icon: "school", title: "Gestores escolares e equipes técnicas", text: "" },
+  { icon: "users", title: "Escolas e redes de ensino", text: "" },
+  { icon: "handshake", title: "Empresas e institutos parceiros (ESG)", text: "" },
 ] as const;
 
 export type FioKey = "rede" | "escola" | "pessoas" | "trama";
@@ -210,13 +210,6 @@ export const solutions: Solution[] = [
     accent: "#8F2DE2",
     href: "/mentoria-gestao-publica#assessoria-tecnica",
   },
-];
-
-export const steps = [
-  { accent: "#ED8C32", title: "Escuta e compreensão", text: "Conhecer contexto, necessidades e objetivos." },
-  { accent: "#2679AD", title: "Planejamento colaborativo", text: "Estruturar ações adequadas à realidade local." },
-  { accent: "#F02A89", title: "Desenvolvimento das ações", text: "Realizar mentorias, formações e atividades técnicas." },
-  { accent: "#90D518", title: "Acompanhamento", text: "Refletir sobre avanços, desafios e oportunidades." },
 ];
 
 export type Article = {

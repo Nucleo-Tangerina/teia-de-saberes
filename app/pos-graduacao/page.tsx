@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckList, CtaBlock, Facts, FiosLigados, PageHero, Ponte, SectionHead, stagger } from "../ui";
+import { CheckList, CtaBlock, Facts, FiosLigados, PageHero, Ponte, SectionHead, initials, stagger } from "../ui";
 
 export const metadata: Metadata = {
   title: { absolute: "Pós-graduação para o Novo Contrato Social – Teia de Saberes" },
@@ -64,15 +64,6 @@ const faculty = [
   { name: "Pacelli Henrique Silva Lopes", degree: "Mestre em História, UNIVERSO", accent: "#90D518" },
   { name: "Laura Ituassu", degree: "Mestre em Administração, FEAD-MG", accent: "#8F2DE2" },
 ];
-
-// Same initials rule as app/nossa-equipe/page.tsx.
-const initials = (name: string) =>
-  name
-    .split(" ")
-    .filter((w) => w.length > 2 && !["Júnior", "Filho", "Neto"].includes(w))
-    .map((w) => w[0])
-    .filter((_, i, a) => i === 0 || i === a.length - 1)
-    .join("");
 
 export default function PosGraduacao() {
   return (

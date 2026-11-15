@@ -46,6 +46,15 @@ export const icons: Record<string, LucideIcon> = {
 
 export const stagger = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
+// No authorized portraits yet: initials stand in rather than stock faces.
+export const initials = (name: string) =>
+  name
+    .split(" ")
+    .filter((w) => w.length > 2 && !["Júnior", "Filho", "Neto"].includes(w))
+    .map((w) => w[0])
+    .filter((_, i, a) => i === 0 || i === a.length - 1)
+    .join("");
+
 export function HeroThreads() {
   const paths = [
     "M-20 640 C 240 560, 420 700, 640 600 S 980 380, 1180 420 S 1400 300, 1470 220",
@@ -262,12 +271,12 @@ export function StepsThread({ steps }: { steps: readonly { accent: string; title
   );
 }
 
-export function SolutionCard({ s, i, draggable }: { s: Solution; i: number; draggable?: boolean }) {
+export function SolutionCard({ s, i }: { s: Solution; i: number }) {
   const external = s.href.startsWith("http");
   return (
     <article className="sol-card" data-reveal style={stagger(Math.min(i % 4, 4))}>
       <div className={`sol-media${s.fit === "contain" ? " is-contain" : ""}`}>
-        <Image src={s.img} alt="" fill sizes="(max-width: 720px) 264px, 272px" draggable={draggable} />
+        <Image src={s.img} alt="" fill sizes="(max-width: 720px) 264px, 272px" />
       </div>
       <div className="sol-body">
         <div className="sol-meta">
@@ -280,43 +289,12 @@ export function SolutionCard({ s, i, draggable }: { s: Solution; i: number; drag
         <h3>{s.title}</h3>
         <p className="sol-phrase">{s.phrase}</p>
         <p>{s.text}</p>
-        <a href={s.href} className="link-arrow" draggable={draggable} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
+        <a href={s.href} className="link-arrow" {...(external ? { target: "_blank", rel: "noopener" } : {})}>
           Saiba mais<span className="sr-only"> sobre {s.title}</span>
           <ArrowRight size={18} aria-hidden />
         </a>
       </div>
     </article>
-  );
-}
-
-export function ProjectPlaceholders({ count = 2 }: { count?: number }) {
-  return (
-    <ul className="projects">
-      {Array.from({ length: count }, (_, i) => (
-        <li key={i} data-reveal style={stagger(i)}>
-          <div className="proj-photo">
-            <Image src={`/images/proj${i % 2}.jpg`} alt="" fill sizes="(max-width: 720px) 100vw, 568px" />
-          </div>
-          <div className="proj-body">
-            <div className="proj-top">
-              <span className="proj-place">Município / Instituição</span>
-              <span className="proj-period">Período</span>
-            </div>
-            <dl className="proj-fields">
-              {["DESAFIO", "AÇÕES", "RESULTADOS"].map((f) => (
-                <div key={f}>
-                  <dt>{f}</dt>
-                  <dd aria-label="a validar">
-                    <span />
-                    <span />
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </li>
-      ))}
-    </ul>
   );
 }
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { team, type TeamMember } from "../content";
-import { CtaBlock, PageHero, stagger } from "../ui";
+import { CtaBlock, PageHero, initials, stagger } from "../ui";
 
 const lead =
   "A equipe da Teia de Saberes reúne formação acadêmica sólida, experiência prática com redes públicas de ensino e compromisso ético com a transformação social por meio da educação.";
@@ -11,15 +11,6 @@ export const metadata: Metadata = {
   description: lead,
   alternates: { canonical: "/nossa-equipe" },
 };
-
-// No authorized portraits yet: initials stand in rather than stock faces.
-const initials = (name: string) =>
-  name
-    .split(" ")
-    .filter((w) => w.length > 2 && !["Júnior", "Filho", "Neto"].includes(w))
-    .map((w) => w[0])
-    .filter((_, i, a) => i === 0 || i === a.length - 1)
-    .join("");
 
 function Profile({ p, i }: { p: TeamMember; i: number }) {
   return (
