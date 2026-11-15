@@ -4,10 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  Award,
   BookOpen,
   Briefcase,
   CalendarClock,
   Check,
+  CircleHelp,
+  Clock,
+  Compass,
   GraduationCap,
   Handshake,
   Landmark,
@@ -17,6 +21,8 @@ import {
   Mic,
   MonitorPlay,
   School,
+  ShieldCheck,
+  Smartphone,
   Sprout,
   Target,
   UserCheck,
@@ -42,6 +48,12 @@ export const icons: Record<string, LucideIcon> = {
   "graduation-cap": GraduationCap,
   mic: Mic,
   "monitor-play": MonitorPlay,
+  "shield-check": ShieldCheck,
+  "circle-help": CircleHelp,
+  compass: Compass,
+  smartphone: Smartphone,
+  clock: Clock,
+  award: Award,
 };
 
 export const stagger = (i: number) => ({ "--i": i }) as React.CSSProperties;
@@ -104,6 +116,8 @@ export function PageHero({
   img,
   imgAlt = "",
   imgFit,
+  caption,
+  after,
   children,
 }: {
   eyebrow: string;
@@ -113,6 +127,10 @@ export function PageHero({
   img?: string;
   imgAlt?: string;
   imgFit?: "contain";
+  /** Short text pinned to the photo (who is pictured). */
+  caption?: React.ReactNode;
+  /** Extra copy under the buttons (a trust line). */
+  after?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
@@ -143,6 +161,11 @@ export function PageHero({
               {children}
             </div>
           )}
+          {after && (
+            <div className="hero-in" style={stagger(5)}>
+              {after}
+            </div>
+          )}
         </div>
         {img && (
           <div className="hero-media">
@@ -150,6 +173,7 @@ export function PageHero({
               <Image src={img} alt={imgAlt} fill priority sizes="(max-width: 960px) 100vw, 560px" />
             </div>
             <div className="pattern-tile" aria-hidden />
+            {caption && <p className="hero-caption">{caption}</p>}
           </div>
         )}
       </div>
@@ -166,14 +190,14 @@ export function SectionHead({
   center,
 }: {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   text?: React.ReactNode;
   center?: boolean;
 }) {
   return (
     <div className={`section-head${center ? " center" : " narrow"}`} data-reveal>
-      <p className="eyebrow">{eyebrow}</p>
+      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h2 id={id}>{title}</h2>
       {text && <p className="body">{text}</p>}
     </div>
@@ -305,11 +329,14 @@ export function CtaBlock({
   text = "Nossa equipe está disponível para conhecer a realidade da sua rede de ensino e apresentar possibilidades de atuação alinhadas às suas necessidades.",
   label = "Entre em contato com a Teia de Saberes",
   href = "/contato",
+  external,
 }: {
   title?: string;
   text?: string;
   label?: string;
   href?: string;
+  /** Opens href in a new tab (off-site checkout). */
+  external?: boolean;
 }) {
   return (
     <section className="section container" aria-labelledby="cta-final">
@@ -318,9 +345,15 @@ export function CtaBlock({
           <h2 id="cta-final">{title}</h2>
           <p className="body">{text}</p>
           <div>
-            <Link href={href} className="btn btn-orange btn-wrap">
-              {label}
-            </Link>
+            {external ? (
+              <a href={href} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
+                {label}
+              </a>
+            ) : (
+              <Link href={href} className="btn btn-orange btn-wrap">
+                {label}
+              </Link>
+            )}
           </div>
         </div>
         <div className="cta-pattern" aria-hidden />

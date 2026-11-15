@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { audience, diffs, fios, municipios, team, type FioKey } from "./content";
+import { audience, CAMINHOS_OFERTA, diffs, fios, municipios, team, type FioKey } from "./content";
 import { MovimentoBlocks, hasMovimento } from "./movimento-blocks";
 import { CheckList, CtaBlock, HeroThreads, IconGrid, SectionHead, icons, initials, stagger } from "./ui";
 
@@ -141,6 +141,39 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Formação em destaque: Caminhos da Inclusão (curso vendido a pessoas, por isso com preço) */}
+      <section className="section container destaque-wrap" aria-labelledby="destaque-title">
+        <div className="destaque" data-reveal>
+          <Image
+            src="/images/caminhos/ana-hero.webp"
+            alt="Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira"
+            width={880}
+            height={964}
+            sizes="(max-width: 960px) 100vw, 520px"
+            className="destaque-photo"
+          />
+          <div className="stack">
+            <p className="eyebrow">FORMAÇÃO EM DESTAQUE</p>
+            <h2 id="destaque-title">Caminhos da Inclusão</h2>
+            <p className="lead">Saiba como agir na prática diante dos desafios reais da Educação Especial.</p>
+            <ul className="tags">
+              {["160h", "5 módulos", "Encontros ao vivo", "Certificado"].map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+            <p className="destaque-price">12x de R$20,36 ou R$197 à vista · Apenas 60 vagas</p>
+            <div className="actions">
+              <a href={CAMINHOS_OFERTA} target="_blank" rel="noopener" className="btn btn-orange">
+                Quero garantir minha vaga
+              </a>
+              <Link href="/caminhos-da-inclusao" className="btn btn-outline">
+                Conheça a formação
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -7,9 +7,10 @@ import { SectionHead, stagger } from "./ui";
 
 const solucaoLabel = { pos: "PÓS-GRADUAÇÃO", olimpiada: "OLIMPÍADA POCKET ODS" } as const;
 
-// shortcut: datas comparadas no build, rebuild para esconder eventos passados
+// Pages using these blocks set `revalidate` so past events drop off daily without a deploy.
 const upcoming = () => {
-  const today = new Date().toISOString().slice(0, 10);
+  // en-CA formats as yyyy-mm-dd; the day boundary follows Brazil, not UTC
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
   return palestras.filter((p) => p.data >= today).sort((a, b) => a.data.localeCompare(b.data));
 };
 const latestArticles = () => [...publishedArticles].sort((a, b) => b.date!.localeCompare(a.date!)).slice(0, 3);
@@ -36,9 +37,12 @@ function Card({ cat, title, meta, text, href }: { cat: string; title: string; me
   );
 }
 
-export function MovimentoBlocks() {
-  const agenda = upcoming();
-  const artigos = latestArticles();
+/** `limit` caps each block (the home shows a preview; /em-movimento shows everything). */
+export function MovimentoBlocks({ limit }: { limit?: number }) {
+  const agenda = upcoming().slice(0, limit);
+  const artigos = latestArticles().slice(0, limit);
+  const turmasV = turmas.slice(0, limit);
+  const novidadesV = [...novidades].sort((a, b) => b.data.localeCompare(a.data)).slice(0, limit);
   return (
     <>
       {agenda.length > 0 && (
@@ -59,11 +63,11 @@ export function MovimentoBlocks() {
         </section>
       )}
 
-      {turmas.length > 0 && (
+      {turmasV.length > 0 && (
         <section className="section container" aria-labelledby="mov-turmas">
           <SectionHead id="mov-turmas" eyebrow="TURMAS" title="Turmas e edições abertas" />
           <ul className="articles">
-            {turmas.map((t, i) => (
+            {turmasV.map((t, i) => (
               <li key={t.titulo} data-reveal style={stagger(i)}>
                 <Card
                   cat={solucaoLabel[t.solucao]}
@@ -77,11 +81,11 @@ export function MovimentoBlocks() {
         </section>
       )}
 
-      {novidades.length > 0 && (
+      {novidadesV.length > 0 && (
         <section className="section container" aria-labelledby="mov-novidades">
           <SectionHead id="mov-novidades" eyebrow="REDES PARCEIRAS" title="Novidades das redes parceiras" />
           <ul className="articles">
-            {novidades.map((n, i) => (
+            {novidadesV.map((n, i) => (
               <li key={n.titulo + n.data} data-reveal style={stagger(i)}>
                 <Card cat={n.rede.toUpperCase()} title={n.titulo} text={n.texto} meta={formatDate(n.data)} />
               </li>

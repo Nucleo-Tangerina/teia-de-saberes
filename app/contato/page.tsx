@@ -63,7 +63,7 @@ export default async function Contato({ searchParams }: { searchParams: Promise<
           </ul>
         </div>
         <div className="hero-in" style={stagger(2)}>
-          <ContactForm defaultInterest={interesse ? preset[interesse] : undefined} />
+          <ContactForm defaultInterest={interesse && Object.hasOwn(preset, interesse) ? preset[interesse] : undefined} />
         </div>
       </div>
     </section>

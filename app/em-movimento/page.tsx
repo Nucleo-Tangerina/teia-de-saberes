@@ -4,6 +4,9 @@ import { INSTAGRAM } from "../content";
 import { MovimentoBlocks, hasMovimento } from "../movimento-blocks";
 import { CtaBlock, PageHero } from "../ui";
 
+// rebuild daily so past palestras drop off without a deploy
+export const revalidate = 86400;
+
 export const metadata: Metadata = {
   title: "Em movimento",
   description: "Próximas palestras e rodas, turmas abertas, novidades das redes parceiras e artigos da Teia de Saberes.",
