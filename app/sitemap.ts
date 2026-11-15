@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL, articles, solutions } from "./content";
+import { SITE_URL, publishedArticles, solutions } from "./content";
 
 const routes = [
   "",
@@ -12,7 +12,7 @@ const routes = [
   "/blog",
   "/contato",
   "/politica-de-privacidade",
-  ...articles.map((a) => `/blog/${a.slug}`),
+  ...publishedArticles.map((a) => `/blog/${a.slug}`),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

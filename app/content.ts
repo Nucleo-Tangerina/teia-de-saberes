@@ -5,6 +5,14 @@ export const SITE_URL = "https://www.teiadesaberes.com.br";
 export const WHATSAPP = "https://wa.me/5513992081120";
 export const INSTAGRAM = "https://www.instagram.com/teia.de.saberes/";
 
+// Official contact channels: the contact page and the footer both read this list.
+// Phone and site are pending client confirmation; no e-mail has been chosen yet.
+export const channels = [
+  { label: "WhatsApp", value: "(13) 99208-1120", href: WHATSAPP },
+  { label: "Instagram", value: "@teia.de.saberes", href: INSTAGRAM },
+  { label: "Site", value: "teiadesaberes.com.br", href: SITE_URL },
+];
+
 export const nav = [
   { label: "Início", href: "/" },
   { label: "Quem somos", href: "/quem-somos" },
@@ -211,69 +219,98 @@ export const steps = [
   { accent: "#90D518", title: "Acompanhamento", text: "Refletir sobre avanços, desafios e oportunidades." },
 ];
 
-export type Article = { slug: string; cat: string; title: string; excerpt: string; img: string };
+export type Article = {
+  slug: string;
+  cat: string;
+  title: string;
+  excerpt: string;
+  img: string;
+  author?: string;
+  date?: string; // ISO yyyy-mm-dd
+  body?: string[]; // paragraphs
+  refs?: string[]; // full references (e.g. the UNESCO report), shown at the end
+};
 
-// Suggested initial themes from the brief; bodies are still in production.
+// Titles from the reformulation doc. No text yet: an article is published only
+// once it has body, author and date (see publishedArticles).
 export const articles: Article[] = [
   {
-    slug: "planejamento-e-colaboracao-nas-redes-municipais",
+    slug: "planejar-juntos-novo-contrato-social-redes-municipais",
     cat: "GESTÃO EDUCACIONAL",
-    title: "Planejamento e colaboração nas redes municipais.",
-    excerpt: "Gestão educacional: planejamento e colaboração nas redes municipais.",
+    title: "Planejar juntos: o que o Novo Contrato Social ensina às redes municipais.",
+    excerpt: "Planejar juntos: o que o Novo Contrato Social ensina às redes municipais.",
     img: "/images/art0.jpg",
   },
   {
-    slug: "formacao-continuada-e-praticas-pedagogicas",
+    slug: "professores-como-produtores-de-conhecimento-formacao-continuada-unesco",
     cat: "FORMAÇÃO CONTINUADA",
-    title: "Formação continuada e fortalecimento das práticas pedagógicas.",
-    excerpt: "Formação continuada e fortalecimento das práticas pedagógicas.",
+    title: "Professores como produtores de conhecimento: formação continuada à luz da UNESCO.",
+    excerpt: "Professores como produtores de conhecimento: formação continuada à luz da UNESCO.",
     img: "/images/art1.jpg",
   },
   {
-    slug: "desafios-contemporaneos-da-educacao-publica-municipal",
+    slug: "educar-em-um-mundo-fragil-e-incerto-desafios-da-escola-publica",
     cat: "EDUCAÇÃO PÚBLICA",
-    title: "Desafios contemporâneos da educação pública municipal.",
-    excerpt: "Desafios contemporâneos da educação pública municipal.",
+    title: "Educar em um mundo frágil e incerto: desafios da escola pública.",
+    excerpt: "Educar em um mundo frágil e incerto: desafios da escola pública.",
     img: "/images/art2.jpg",
   },
 ];
 
-// From the organization's own 2025 proposals; confirm before publishing.
-export const founders = [
-  {
-    name: "Pacelli Henrique Silva Lopes",
-    role: "Idealizador",
-    degree: "Mestre em História · UNIVERSO",
-    bio: "Idealizador da Teia de Saberes e do programa de transformação da Escola Fazenda Paraíso, que tem por base uma educação republicana como objetivo da comunidade de aprendizagem.",
-    accent: "#ED8C32",
-  },
-  {
-    name: "Cézar",
-    role: "Cofundador",
-    degree: "Sociólogo",
-    bio: "Sociólogo, com longa trajetória na prospecção de processos que transformam o fazer escolar e educacional.",
-    accent: "#F02A89",
-  },
+export const publishedArticles = articles.filter((a) => a.body?.length && a.author && a.date);
+
+// New topics awaiting text (not rendered).
+export const pautas: string[] = [
+  "Cinco perguntas de diagnóstico para a sua escola.",
+  "Por que a escola continua insubstituível.",
+  "Inteligência artificial na escola: apoiar sem substituir.",
+  "Da CF/88 ao Novo Contrato Social: os arts. 205 e 206 em perspectiva.",
+  "Relato da Roda Pedagógica do Instituto Isabel Castro (com autorização).",
 ];
 
-export const consultants = [
+/** "2026-03-14" -> "14 de março de 2026" (UTC, so the ISO day never shifts). */
+export const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+
+export type TeamMember = {
+  name: string;
+  degree?: string;
+  role: string;
+  bio?: string;
+  accent: string;
+  lattes?: string;
+  photo?: string;
+};
+
+// Only people the client confirmed; Tiago, Vagner and "Saito" are pending (issue #16).
+export const team: TeamMember[] = [
   {
-    name: "Ricardo José de Azevedo Marinho",
-    degree: "Pós-doutor em Políticas Públicas e Formação Humana · UERJ",
+    name: "Pacelli H. S. Lopes",
+    role: "Idealizador",
+    bio: "Historiador, mestre em História (Universidade Salgado de Oliveira), especialista em História do Brasil (PUC Minas) e licenciado pela Faculdade Santa Marcelina. Idealizador da Teia de Saberes, atua na formação de gestores, no acompanhamento de políticas públicas e em projetos educacionais ligados ao território. Professor efetivo da rede pública de Minas Gerais, foi gestor da Escola Estadual Fazenda Paraíso de 2019 a 2023.",
+    accent: "#ED8C32",
+    lattes: "http://lattes.cnpq.br/5755985965293910",
+  },
+  {
+    name: "Cezar Trindade Ituassu",
+    role: "Coordenação de projetos",
+    bio: "Graduado em Ciências Sociais pela UFMG, com experiência como professor e gestor escolar e em gestão de processos. Cuida da coordenação de projetos e da relação institucional com as redes parceiras.",
+    accent: "#F02A89",
+  },
+  {
+    name: "Ricardo Marinho",
     role: "Coordenação da Pós-graduação",
+    bio: "Pós-doutor em Políticas Públicas e Formação Humana (UERJ), com atuação em formulação, monitoramento e avaliação de políticas educacionais. Especialista em financiamento da educação, planejamento estratégico e regulação institucional.",
     accent: "#2679AD",
   },
-  { name: "Tiago Martins Simões", degree: "Doutor em História · FGV", role: "Consultor", accent: "#8F2DE2" },
-  { name: "Vagner Gomes de Souza", degree: "Mestre em Ciências Sociais · UFRRJ", role: "Consultor", accent: "#90D518" },
+  { name: "Ana Paula Jorge", role: "Formadora · Caminhos da Inclusão", accent: "#90D518" },
   {
     name: "José Márcio Figueira Júnior",
     degree: "Mestre em Ciências Sociais e doutorando em Ciências Sociais · UFRRJ",
     role: "Consultor",
     accent: "#01A6F8",
   },
-  { name: "Ana Paula Jorge", degree: "Titulação a confirmar", role: "Formadora · Caminhos da Inclusão", accent: "#F02A89" },
 ];
-
 export const footerCols = [
   {
     title: "NAVEGAÇÃO",
@@ -292,10 +329,6 @@ export const footerCols = [
   },
   {
     title: "CONTATO",
-    items: [
-      { label: "(13) 99208-1120", href: WHATSAPP },
-      { label: "@teia.de.saberes", href: INSTAGRAM },
-      { label: "teiadesaberes.com.br", href: SITE_URL },
-    ],
+    items: channels.map((c) => ({ label: c.value, href: c.href })),
   },
 ];

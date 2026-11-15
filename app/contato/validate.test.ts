@@ -24,6 +24,10 @@ test("accepts a complete submission", () => {
   assert.deepEqual(validateContact(form()).errors, {});
 });
 
+test("accepts an empty estado", () => {
+  assert.deepEqual(validateContact(form({ estado: "" })).errors, {});
+});
+
 test("rejects bad fields and missing consent", () => {
   const { errors } = validateContact(form({ email: "x@", telefone: "123", estado: "XX", interesse: "Outro", consentimento: "" }));
   assert.deepEqual(Object.keys(errors).sort(), ["consentimento", "email", "estado", "interesse", "telefone"]);

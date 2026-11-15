@@ -347,16 +347,14 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
           <Err f="telefone" />
         </label>
         <label className="field">
-          <span>Município</span>
+          <span>Município ou instituição</span>
           <input name="municipio" autoComplete="address-level2" required defaultValue={v.municipio} {...describe("municipio")} />
           <Err f="municipio" />
         </label>
         <label className="field">
           <span>Estado</span>
-          <select name="estado" required defaultValue={v.estado ?? ""} {...describe("estado")}>
-            <option value="" disabled>
-              Selecione
-            </option>
+          <select name="estado" defaultValue={v.estado ?? ""} {...describe("estado")}>
+            <option value="">Selecione (opcional)</option>
             {UFS.map((uf) => (
               <option key={uf}>{uf}</option>
             ))}

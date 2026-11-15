@@ -23,7 +23,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { fios, footerCols, type Solution } from "./content";
+import { fios, footerCols, INSTAGRAM, solutions, type Solution } from "./content";
 
 export const icons: Record<string, LucideIcon> = {
   "user-check": UserCheck,
@@ -349,6 +349,47 @@ export function CtaBlock({
   );
 }
 
+/** "Ponte com o Novo Contrato Social" highlight; one per page, hence the fixed id. */
+export function Ponte({ children }: { children: React.ReactNode }) {
+  return (
+    <section className="section container" aria-labelledby="ponte-title">
+      <div className="ponte" data-reveal>
+        <p className="eyebrow" id="ponte-title">
+          PONTE COM O NOVO CONTRATO SOCIAL
+        </p>
+        <p className="ponte-text">{children}</p>
+      </div>
+    </section>
+  );
+}
+
+/** Solutions linked to `slug` (its `ligaA`), in the given order. */
+export function FiosLigados({ slug }: { slug: string }) {
+  const ligadas = (solutions.find((s) => s.slug === slug)?.ligaA ?? [])
+    .map((l) => solutions.find((s) => s.slug === l))
+    .filter((s): s is Solution => !!s);
+  if (!ligadas.length) return null;
+  return (
+    <section aria-labelledby="fios-ligados">
+      <div className="section container">
+        <SectionHead id="fios-ligados" eyebrow="FIOS QUE SE LIGAM A ESTA" title="Soluções que se conectam a esta." />
+        <ul className="fios-ligados">
+          {ligadas.map((s, i) => (
+            <li key={s.slug} data-reveal style={stagger(Math.min(i, 5))}>
+              <Link href={s.href} className="fio-link" style={{ "--accent": s.accent } as React.CSSProperties}>
+                <span className="tag">{fios.find((f) => f.key === s.fio)?.nome}</span>
+                <h3>{s.title}</h3>
+                <p>{s.phrase}</p>
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -378,7 +419,16 @@ export function Footer() {
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} Teia de Saberes. Todos os direitos reservados.</span>
-        <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+        <p>A Teia de Saberes é uma organização independente e não representa a UNESCO nem a ONU.</p>
+        <p>
+          <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+          <span aria-hidden> · </span>
+          <a href={INSTAGRAM} target="_blank" rel="noopener">
+            Instagram
+          </a>
+          <span aria-hidden> · </span>
+          <Link href="/contato">Contato</Link>
+        </p>
       </div>
     </footer>
   );

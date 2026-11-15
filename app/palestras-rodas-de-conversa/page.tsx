@@ -1,37 +1,47 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { ContactForm } from "../interactive";
-import { Badge, CheckList, CtaBlock, IconGrid, PageHero, SectionHead } from "../ui";
+import { CheckList, Facts, FiosLigados, IconGrid, PageHero, Ponte, SectionHead } from "../ui";
+import { Video } from "./video";
 
 export const metadata: Metadata = {
-  title: "Palestras e Rodas de Conversa",
-  description:
-    "Experiências formativas para profissionais da educação: gestão, currículo, inclusão e desafios contemporâneos das escolas.",
+  title: { absolute: "Palestras e Rodas de Conversa – Teia de Saberes" },
+  description: "Diálogos presenciais ou online sobre os desafios reais da escola, à luz do Novo Contrato Social da Educação.",
   alternates: { canonical: "/palestras-rodas-de-conversa" },
 };
 
-const topics = [
-  { icon: "landmark", title: "Gestão educacional", text: "Planejamento, organização e colaboração nas redes municipais." },
-  { icon: "book-open", title: "Currículo", text: "Construção e desenvolvimento curricular a partir da realidade da rede." },
-  { icon: "handshake", title: "Inclusão", text: "Práticas e mediação para uma escola que acolhe a todos." },
-  { icon: "lightbulb", title: "Desafios contemporâneos das escolas", text: "Temas atuais que atravessam o cotidiano da educação pública." },
-  { icon: "sprout", title: "Novo Contrato Social para a Educação", text: "Os princípios propostos pela UNESCO (2021) e seus caminhos para os municípios." },
-  { icon: "users", title: "Comunidades de Aprendizagem", text: "Educação participativa, com estudantes protagonistas e a comunidade junto." },
+const encontros = [
+  { label: "Formato", value: "Presencial ou 100% online." },
+  { label: "Duração", value: "Palestras de 1 a 2h30; rodas de conversa de 2 a 4 horas." },
+  { label: "Público", value: "Educadores, gestores, estudantes, famílias e agentes públicos." },
+  { label: "Metodologia", value: "Problematização, escuta ativa, construção coletiva e vínculo com o território." },
 ];
 
-const formats = [
-  { icon: "mic", title: "Palestras", text: "Encontros para mobilizar equipes em torno de um tema." },
-  { icon: "graduation-cap", title: "Formações continuadas", text: "Percursos para professores e equipes educacionais." },
-  { icon: "monitor-play", title: "Cursos online com encontros ao vivo", text: "Módulos online combinados a encontros síncronos, com certificado." },
+const problemas = [
+  { icon: "graduation-cap", title: "Desmotivação de professores", text: "" },
+  { icon: "users", title: "Baixa participação das famílias", text: "" },
+  { icon: "school", title: "Desinteresse dos estudantes", text: "" },
+  { icon: "monitor-play", title: "Desafios com a tecnologia", text: "" },
+  { icon: "lightbulb", title: "Resistência à inovação", text: "" },
+  { icon: "handshake", title: "Falta de articulação entre escola e comunidade", text: "" },
 ];
 
-const audience = [
-  "Secretários e equipes técnicas das Secretarias Municipais de Educação.",
-  "Diretores, coordenadores e especialistas escolares.",
-  "Professores da educação básica.",
-  "Mediadores e profissionais que atuam na inclusão escolar.",
+const temas = [
+  "Novo Contrato Social para a Educação (UNESCO).",
+  "Educação como bem comum e direito humano.",
+  "Comunidade de Aprendizagem e transformação curricular.",
+  "Mediação de conflitos e cultura de paz na escola.",
+  "Análise do território educativo e equidade.",
+  "Dispositivos inovadores de aprendizagem.",
+  "Educação, saúde e políticas públicas integradas.",
+  "Fortalecimento da escola como espaço democrático.",
+];
+
+const compromissos = [
+  "Educação como bem comum.",
+  "Valorização da escuta dos sujeitos e dos territórios.",
+  "Formação para o pensamento crítico e democrático.",
+  "Promoção da justiça social e da equidade educacional.",
+  "Mobilização para ações concretas e sustentáveis.",
 ];
 
 export default function Palestras() {
@@ -39,86 +49,109 @@ export default function Palestras() {
     <>
       <PageHero
         crumbs={[{ label: "Soluções", href: "/solucoes-educacionais" }, { label: "Palestras e Rodas de Conversa" }]}
-        eyebrow="FORMAÇÃO"
-        title="Palestras e Rodas de Conversa"
-        lead="Experiências formativas para profissionais da educação, com temas relacionados à gestão, ao currículo, à inclusão e aos desafios contemporâneos das escolas."
+        eyebrow="PALESTRAS E RODAS DE CONVERSA · PROEC"
+        title="Conversas que começam pelos problemas reais da sua escola."
+        lead="Diálogos para transformar a educação com justiça, escuta e compromisso social."
         img="/images/sol2.jpg"
-        imgAlt="Profissionais da educação em uma formação"
+        imgAlt="Profissionais da educação reunidos em uma roda de conversa"
       >
         <a href="#proposta" className="btn btn-orange">
-          Solicite uma proposta
+          Agende uma palestra
         </a>
         <a href="#temas" className="btn btn-outline">
           Ver temas
         </a>
       </PageHero>
 
-      <section id="temas" className="section container" aria-labelledby="temas-title">
-        <SectionHead id="temas-title" eyebrow="CATÁLOGO DE TEMAS" title="Temas para formar quem transforma a educação." />
-        <IconGrid items={topics} cols={3} />
-        <Badge>CATÁLOGO EM CONSTRUÇÃO · TEMAS A VALIDAR</Badge>
+      <section className="section container" aria-labelledby="encontros">
+        <SectionHead
+          id="encontros"
+          eyebrow="PROGRAMA ESCOLA E COMUNIDADE"
+          title="Sobre os encontros."
+          text="A Teia de Saberes convida escolas, redes municipais, universidades, fóruns e coletivos educacionais a um ciclo contínuo de diálogo por meio de palestras e rodas de conversa. Mais do que eventos, são espaços de reflexão crítica, formação cidadã e mobilização coletiva, que abordam os desafios da educação pública à luz do Novo Contrato Social para a Educação (UNESCO, 2021) e da Agenda 2030. Usamos metodologias participativas e experiências reais para construir sentido coletivo, renovar esperanças e fomentar ações educacionais sustentáveis e inclusivas."
+        />
+        <Facts items={encontros} />
+        <p className="body encontros-note" data-reveal>
+          Os encontros podem ser abertos ao público geral ou direcionados a grupos específicos, e sempre partem da
+          realidade local.
+        </p>
+      </section>
+
+      <section className="band-soft" aria-labelledby="problemas">
+        <div className="section container">
+          <SectionHead id="problemas" eyebrow="PONTO DE PARTIDA" title="Problemas que trabalhamos." />
+          <IconGrid items={problemas} cols={3} />
+        </div>
+      </section>
+
+      <section id="temas" className="section container split audience-block align-top" aria-labelledby="temas-title">
+        <div className="stack" data-reveal>
+          <p className="eyebrow">TEMAS</p>
+          <h2 id="temas-title">Temas sugeridos.</h2>
+          <p className="body">(ou adaptados ao interesse do município)</p>
+        </div>
+        <CheckList items={temas} />
       </section>
 
       <section className="band-soft" aria-labelledby="destaque">
         <div className="section container split feature">
-          <div className="feature-media" data-reveal>
-            <Image src="/images/caminhos-inclusao.png" alt="Caminhos da Inclusão: formação para mediadores, 180 horas" fill sizes="(max-width: 960px) 100vw, 536px" />
-          </div>
+          <Video />
           <div className="stack" data-reveal>
-            <p className="eyebrow">FORMAÇÃO EM DESTAQUE</p>
-            <h2 id="destaque">Caminhos da Inclusão.</h2>
-            <p className="body">
-              Formação de 180 horas para mediadores que atuam na inclusão escolar, com Ana Paula Jorge: 5 módulos, aulas
-              online, encontros ao vivo e certificado.
-            </p>
-            <div>
-              <a href="https://caminhoinclusao.teiadesaberes.com.br/" target="_blank" rel="noopener" className="btn btn-dark">
-                Conheça a formação
-                <ArrowRight size={18} aria-hidden />
-              </a>
-            </div>
+            <p className="eyebrow">PALESTRA EM DESTAQUE</p>
+            <h2 id="destaque">
+              “Liderando pelo Novo Contrato Social da Educação: como educar em um mundo frágil e incerto?”
+            </h2>
+            <p className="body">Vídeo de uma palestra do idealizador.</p>
           </div>
         </div>
       </section>
 
-      <section className="section container" aria-labelledby="formatos">
-        <SectionHead id="formatos" eyebrow="FORMATOS" title="Do encontro pontual ao percurso formativo." />
-        <IconGrid items={formats} cols={3} />
-      </section>
-
-      <section className="section-tail container split audience-block align-top" aria-labelledby="publico">
+      <section className="section container split audience-block align-top" aria-labelledby="participar">
         <div className="stack" data-reveal>
-          <p className="eyebrow">PÚBLICO</p>
-          <h2 id="publico">Para profissionais de toda a rede.</h2>
-          <p className="body">
-            As formações são conduzidas por especialistas da nossa equipe, com mestres e doutores em políticas públicas,
-            história e ciências sociais.
-          </p>
-          <div>
-            <Link href="/nossa-equipe" className="link-arrow">
-              Conheça os palestrantes
-              <ArrowRight size={18} aria-hidden />
-            </Link>
-          </div>
+          <p className="eyebrow">LOGÍSTICA</p>
+          <h2 id="participar">Como participar.</h2>
         </div>
-        <CheckList items={audience} />
+        <div className="stack" data-reveal>
+          <p className="body">
+            A Teia de Saberes apoia a logística, o material de divulgação, o formulário de inscrição e a coleta de
+            feedback, cujo resultado é compartilhado com a organização.
+          </p>
+          <p className="body">
+            Os encontros podem ocorrer em escolas, fóruns municipais ou regionais, congressos, seminários, semanas
+            pedagógicas, ambientes comunitários e conselhos escolares.
+          </p>
+          <p className="body">
+            A organização informa local, contato responsável e, se necessário, som, projetor e recursos de
+            acessibilidade.
+          </p>
+        </div>
       </section>
+
+      <section className="section-tail container split audience-block align-top" aria-labelledby="compromissos">
+        <div className="stack" data-reveal>
+          <p className="eyebrow">PRINCÍPIOS</p>
+          <h2 id="compromissos">Compromissos que orientam os encontros.</h2>
+        </div>
+        <CheckList items={compromissos} />
+      </section>
+
+      <Ponte>
+        O relatório se apresenta como um documento vivo, que se constrói no diálogo. As rodas são um jeito de fazer
+        isso acontecer na sua cidade.
+      </Ponte>
 
       <section id="proposta" className="band-soft" aria-labelledby="proposta-title">
         <div className="section container split form-split">
           <div className="stack" data-reveal>
-            <p className="eyebrow">SOLICITAÇÃO DE PROPOSTA</p>
-            <h2 id="proposta-title">Leve uma formação para a sua rede.</h2>
-            <p className="body">
-              Indique o tema, o público e o formato que interessam à sua rede. Nossa equipe retorna com possibilidades
-              alinhadas às suas necessidades.
-            </p>
+            <p className="eyebrow">AGENDAMENTO</p>
+            <h2 id="proposta-title">Vamos dialogar?</h2>
+            <p className="body">Agende uma palestra ou roda de conversa.</p>
           </div>
           <ContactForm defaultInterest="Palestras e Rodas de Conversa" />
         </div>
       </section>
 
-      <CtaBlock />
+      <FiosLigados slug="palestras" />
     </>
   );
 }
