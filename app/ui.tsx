@@ -103,6 +103,7 @@ export function PageHero({
   crumbs,
   img,
   imgAlt = "",
+  imgFit,
   children,
 }: {
   eyebrow: string;
@@ -111,6 +112,7 @@ export function PageHero({
   crumbs: Crumb[];
   img?: string;
   imgAlt?: string;
+  imgFit?: "contain";
   children?: React.ReactNode;
 }) {
   return (
@@ -144,7 +146,7 @@ export function PageHero({
         </div>
         {img && (
           <div className="hero-media">
-            <div className="hero-photo">
+            <div className={`hero-photo${imgFit === "contain" ? " is-contain" : ""}`}>
               <Image src={img} alt={imgAlt} fill priority sizes="(max-width: 960px) 100vw, 560px" />
             </div>
             <div className="pattern-tile" aria-hidden />

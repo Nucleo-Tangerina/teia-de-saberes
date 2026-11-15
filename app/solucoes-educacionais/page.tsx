@@ -33,7 +33,7 @@ export default function Solucoes() {
         crumbs={[{ label: "Soluções" }]}
         eyebrow="SOLUÇÕES · OS NÓS DA TEIA"
         title="Um hub de soluções para tecer a educação do seu município."
-        lead="Cada solução da Teia de Saberes é um nó de uma mesma teia: serve à missão de ajudar as redes municipais a construir o Novo Contrato Social da Educação e se conecta às outras."
+        lead="Um hub é um ponto de encontro: aqui, cada solução da Teia de Saberes é um nó de uma mesma teia: serve à missão de ajudar as redes municipais a construir o Novo Contrato Social da Educação e se conecta às outras."
         img="/images/sol0.jpg"
         imgAlt="Equipe reunida em torno de uma mesa de trabalho"
       >

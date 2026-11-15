@@ -8,7 +8,7 @@ const lead =
 
 export const metadata: Metadata = {
   title: "Equipe",
-  description: lead,
+  description: "Integrantes da equipe da Teia de Saberes, com formação e experiência em redes públicas de ensino.",
   alternates: { canonical: "/nossa-equipe" },
 };
 

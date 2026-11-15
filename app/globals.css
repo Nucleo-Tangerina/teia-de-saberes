@@ -661,6 +661,16 @@ img {
   object-fit: contain;
 }
 
+/* hero art with text must not be cropped */
+.hero-photo.is-contain {
+  background: #fff;
+}
+
+.hero-photo.is-contain img {
+  object-fit: contain;
+  padding: 24px;
+}
+
 .sol-body {
   flex: 1;
   display: flex;
@@ -2166,7 +2176,7 @@ html.motion [data-reveal="wipe"]:not(.in) img {
     height: 104px;
   }
   .diffs {
-    margin-top: -24px;
+    margin-top: 0;
     grid-template-columns: minmax(0, 1fr);
     padding: 4px 20px;
   }

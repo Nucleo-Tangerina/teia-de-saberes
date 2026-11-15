@@ -233,8 +233,8 @@ Confident, round, tactile.
 ### Section Labels (user-mandated)
 - Uppercase Manrope 700 13px (12px mobile) label in orange-ink, tracked 0.14em, above section headings. Part of the client's approved reference and must stay: the client asked that nothing from the reference be removed. The hero label is the brief's "Etiqueta"; on mobile it breaks before "TRANSFORMAÇÃO EDUCACIONAL" with its bullet hidden.
 
-### Municipal Ticker
-- Soft 24px panel with edge-fade mask, crests in a 70s linear marquee that pauses on hover and focus.
+### Municipal Crest Grid
+- Static grid of municipal crests on a soft 24px panel, with no motion.
 
 ## Do's and Don'ts
 

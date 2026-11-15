@@ -5,7 +5,7 @@ import { FiosLigados, PageHero, Ponte } from "../ui";
 export const metadata: Metadata = {
   title: "Tear: Plano Municipal de Educação",
   description:
-    "O plano da cidade, tecido com quem a vive. Conduz o município na construção e no monitoramento do Plano Municipal de Educação frente à Lei nº 15.388/2026.",
+    "Conduz o município na construção e no monitoramento do Plano Municipal de Educação frente à Lei nº 15.388/2026.",
   alternates: { canonical: "/tear" },
 };
 
@@ -18,6 +18,7 @@ export default function Tear() {
         title="Tear: Plano Municipal de Educação"
         lead="O plano da cidade, tecido com quem a vive."
         img="/images/tear.png"
+        imgFit="contain"
         imgAlt="Logotipo do Tear, plano municipal de educação"
       />
 

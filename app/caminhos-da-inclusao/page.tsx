@@ -18,6 +18,7 @@ export default function CaminhosDaInclusao() {
         title="Caminhos da Inclusão"
         lead="Ninguém fora da trama."
         img="/images/caminhos-inclusao.png"
+        imgFit="contain"
         imgAlt="Caminhos da Inclusão: formação para mediadores, 180 horas"
       />
 

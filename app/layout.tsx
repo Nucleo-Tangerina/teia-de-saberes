@@ -12,11 +12,11 @@ import { SITE_URL } from "./content";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Teia de Saberes | Assessoria e Formação em Educação Pública",
+    default: "Teia de Saberes – Mentoria e formação para redes de ensino",
     template: "%s | Teia de Saberes",
   },
   description:
-    "Assessoria, mentorias e formação para Secretarias Municipais de Educação. Conheça as soluções educacionais da Teia de Saberes.",
+    "Hub de soluções educacionais: assessoria, mentoria e formação para Secretarias de Educação, a partir do Novo Contrato Social da Educação (UNESCO).",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

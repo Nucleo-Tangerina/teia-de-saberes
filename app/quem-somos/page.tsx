@@ -5,7 +5,7 @@ import { BookOpen } from "lucide-react";
 import { CheckList, CtaBlock, IconGrid, PageHero, SectionHead, StepsThread } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Quem somos",
+  title: { absolute: "Quem somos – Teia de Saberes" },
   description:
     "Conheça a Teia de Saberes, organização que fortalece redes públicas de ensino com cooperação, escuta ativa e conhecimento.",
   alternates: { canonical: "/quem-somos" },
