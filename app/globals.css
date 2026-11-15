@@ -795,11 +795,6 @@ img {
   border-radius: 999px;
 }
 
-.tag-main {
-  color: #1f5f8a;
-  background: #e4eff7;
-}
-
 .sol-card h3 {
   font-size: 19px;
   font-weight: 700;
@@ -812,6 +807,13 @@ img {
   font-size: 14px;
   line-height: 1.6;
   color: var(--body);
+}
+
+.sol-card .sol-phrase {
+  flex: none;
+  font: 600 16px/1.4 var(--font-display);
+  color: var(--navy);
+  text-wrap: pretty;
 }
 
 .sol-card .link-arrow {

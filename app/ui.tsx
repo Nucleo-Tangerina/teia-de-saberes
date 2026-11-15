@@ -23,7 +23,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { footerCols, type Solution } from "./content";
+import { fios, footerCols, type Solution } from "./content";
 
 export const icons: Record<string, LucideIcon> = {
   "user-check": UserCheck,
@@ -275,9 +275,10 @@ export function SolutionCard({ s, i, draggable }: { s: Solution; i: number; drag
             <i style={{ background: s.accent }} />
             {String(i + 1).padStart(2, "0")}
           </span>
-          <span className={`tag${s.extra ? "" : " tag-main"}`}>{s.extra ? "COMPLEMENTAR" : "PRINCIPAL"}</span>
+          <span className="tag">{fios.find((f) => f.key === s.fio)?.nome}</span>
         </div>
         <h3>{s.title}</h3>
+        <p className="sol-phrase">{s.phrase}</p>
         <p>{s.text}</p>
         <a href={s.href} className="link-arrow" draggable={draggable} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
           Saiba mais<span className="sr-only"> sobre {s.title}</span>

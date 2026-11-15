@@ -12,10 +12,10 @@ import { interests, UFS, type Field } from "./contato/validate";
 
 // Sub-pages that light up their parent menu item.
 const sectionOf = (path: string) =>
-  /^\/(mentoria-|palestras-|pos-graduacao)/.test(path)
+  /^\/(mentoria-|palestras-|pos-graduacao|tear|olimpiada-|caminhos-)/.test(path)
     ? "/solucoes-educacionais"
     : path.startsWith("/blog")
-      ? "/blog"
+      ? "/em-movimento"
       : path;
 
 export function Header() {

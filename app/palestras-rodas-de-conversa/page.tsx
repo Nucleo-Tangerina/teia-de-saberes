@@ -6,10 +6,10 @@ import { ContactForm } from "../interactive";
 import { Badge, CheckList, CtaBlock, IconGrid, PageHero, SectionHead } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Palestras e Formações",
+  title: "Palestras e Rodas de Conversa",
   description:
     "Experiências formativas para profissionais da educação: gestão, currículo, inclusão e desafios contemporâneos das escolas.",
-  alternates: { canonical: "/palestras-formacoes" },
+  alternates: { canonical: "/palestras-rodas-de-conversa" },
 };
 
 const topics = [
@@ -38,9 +38,9 @@ export default function Palestras() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Soluções", href: "/solucoes-educacionais" }, { label: "Palestras e Formações" }]}
+        crumbs={[{ label: "Soluções", href: "/solucoes-educacionais" }, { label: "Palestras e Rodas de Conversa" }]}
         eyebrow="FORMAÇÃO"
-        title="Palestras e Formações"
+        title="Palestras e Rodas de Conversa"
         lead="Experiências formativas para profissionais da educação, com temas relacionados à gestão, ao currículo, à inclusão e aos desafios contemporâneos das escolas."
         img="/images/sol2.jpg"
         imgAlt="Profissionais da educação em uma formação"
@@ -114,7 +114,7 @@ export default function Palestras() {
               alinhadas às suas necessidades.
             </p>
           </div>
-          <ContactForm defaultInterest="Palestras e Formações" />
+          <ContactForm defaultInterest="Palestras e Rodas de Conversa" />
         </div>
       </section>
 

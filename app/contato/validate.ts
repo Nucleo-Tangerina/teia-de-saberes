@@ -2,10 +2,14 @@
 // action and its test). Messages are shown to the visitor as-is.
 
 export const interests = [
-  "Mentoria para Gestão Pública",
   "Mentoria para Transformação Escolar",
-  "Palestras e Formações",
+  "Mentoria para Gestão Pública",
+  "Tear: Plano Municipal de Educação",
+  "Olimpíada Pocket ODS",
   "Pós-graduação",
+  "Caminhos da Inclusão",
+  "Palestras e Rodas de Conversa",
+  "Assessoria técnica e Caixa Escolar",
   "Outras soluções",
 ] as const;
 

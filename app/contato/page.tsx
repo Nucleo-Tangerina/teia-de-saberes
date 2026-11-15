@@ -14,10 +14,14 @@ export const metadata: Metadata = {
 
 // Short ?interesse= values used by links across the site.
 const preset: Record<string, (typeof interests)[number]> = {
-  gestao: "Mentoria para Gestão Pública",
   escolar: "Mentoria para Transformação Escolar",
-  palestras: "Palestras e Formações",
+  gestao: "Mentoria para Gestão Pública",
+  tear: "Tear: Plano Municipal de Educação",
+  olimpiada: "Olimpíada Pocket ODS",
   pos: "Pós-graduação",
+  inclusao: "Caminhos da Inclusão",
+  palestras: "Palestras e Rodas de Conversa",
+  assessoria: "Assessoria técnica e Caixa Escolar",
 };
 
 const channels = [
