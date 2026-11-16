@@ -20,7 +20,19 @@ export const revalidate = 86400;
 const fioColor: Record<FioKey, string> = { rede: "#ED8C32", escola: "#2679AD", pessoas: "#F02A89", trama: "#90D518" };
 
 const slides: Slide[] = [
+  // Opens on the featured course; the h1 stays on the Teia's own opening slide.
   {
+    eyebrow: "FORMAÇÃO EM DESTAQUE · CAMINHOS DA INCLUSÃO",
+    title: "Saiba como agir na prática diante dos desafios reais da Educação Especial.",
+    text: "180 horas, 5 módulos, encontros ao vivo e certificado.",
+    cta: { label: "Quero garantir minha vaga", href: CAMINHOS_OFERTA },
+    primary: true,
+    secondary: { label: "Conheça a formação", href: "/caminhos-da-inclusao" },
+    img: "/caminhos/ana-hero.webp",
+    imgAlt: "Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira",
+  },
+  {
+    heading: "h1",
     eyebrow: "TEIA DE SABERES · HUB DE SOLUÇÕES EDUCACIONAIS",
     title: "Tecendo uma nova educação, em movimento.",
     text: "Somos um ponto de encontro de saberes, pessoas e projetos que ajuda redes públicas de ensino a construir, na prática, o Novo Contrato Social para a Educação, proposto pela UNESCO em 2021.",
@@ -28,15 +40,6 @@ const slides: Slide[] = [
     primary: true,
     img: "/images/hero.jpg",
     imgAlt: "Gestores e educadores reunidos em volta de uma mesa de trabalho",
-  },
-  {
-    eyebrow: "FORMAÇÃO EM DESTAQUE",
-    title: "Caminhos da Inclusão",
-    text: "Saiba como agir na prática diante dos desafios reais da Educação Especial.",
-    cta: { label: "Quero garantir minha vaga", href: CAMINHOS_OFERTA, external: true },
-    primary: true,
-    img: "/images/caminhos/ana-hero.webp",
-    imgAlt: "Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira",
   },
   ...solutions
     .filter((s) => s.slug !== "inclusao")
@@ -152,7 +155,7 @@ export default function Home() {
       <section className="section container destaque-wrap" aria-labelledby="destaque-title">
         <div className="destaque" data-reveal>
           <Image
-            src="/images/caminhos/ana-hero.webp"
+            src="/caminhos/ana-hero.webp"
             alt="Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira"
             width={880}
             height={964}
@@ -164,13 +167,13 @@ export default function Home() {
             <h2 id="destaque-title">Caminhos da Inclusão</h2>
             <p className="lead">Saiba como agir na prática diante dos desafios reais da Educação Especial.</p>
             <ul className="tags">
-              {["160h", "5 módulos", "Encontros ao vivo", "Certificado"].map((t) => (
+              {["180h", "5 módulos", "Encontros ao vivo", "Certificado"].map((t) => (
                 <li key={t}>{t}</li>
               ))}
             </ul>
-            <p className="destaque-price">12x de R$20,36 ou R$197 à vista · Apenas 60 vagas</p>
+            <p className="destaque-price">12x de R$20,37 ou R$197 à vista · Apenas 60 vagas</p>
             <div className="actions">
-              <a href={CAMINHOS_OFERTA} target="_blank" rel="noopener" className="btn btn-orange">
+              <a href={CAMINHOS_OFERTA} className="btn btn-orange">
                 Quero garantir minha vaga
               </a>
               <Link href="/caminhos-da-inclusao" className="btn btn-outline">

@@ -5,17 +5,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 
+type Cta = { label: string; href: string; external?: boolean };
+
 export type Slide = {
+  /** The page's h1 lives in one slide, wherever it sits in the rotation; the rest are h2. */
+  heading?: "h1" | "h2";
   eyebrow: string;
   title: string;
   text: string;
-  cta: { label: string; href: string; external?: boolean };
+  cta: Cta;
   /** Orange button; otherwise a white outline button. */
   primary?: boolean;
+  /** Optional second button, always a white outline. */
+  secondary?: Cta;
   img: string;
   imgAlt?: string;
   fit?: "contain";
 };
+
+function CtaLink({ cta, className }: { cta: Cta; className: string }) {
+  return cta.external ? (
+    <a href={cta.href} target="_blank" rel="noopener" className={className}>
+      {cta.label}
+    </a>
+  ) : (
+    <Link href={cta.href} className={className}>
+      {cta.label}
+    </Link>
+  );
+}
 
 const DELAY = 6000;
 const SWIPE = 50;
@@ -70,7 +88,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         onPointerCancel={() => (startX.current = null)}
       >
         {slides.map((s, i) => {
-          const H = i === 0 ? "h1" : "h2";
+          const H = s.heading ?? "h2";
           const active = i === index;
           const btn = `btn ${s.primary ? "btn-orange" : "btn-outline-light"}`;
           return (
@@ -95,16 +113,9 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 <p className="eyebrow slide-eyebrow">{s.eyebrow}</p>
                 <H className="slide-title">{s.title}</H>
                 <p className="slide-text">{s.text}</p>
-                <div>
-                  {s.cta.external ? (
-                    <a href={s.cta.href} target="_blank" rel="noopener" className={btn}>
-                      {s.cta.label}
-                    </a>
-                  ) : (
-                    <Link href={s.cta.href} className={btn}>
-                      {s.cta.label}
-                    </Link>
-                  )}
+                <div className="slide-actions">
+                  <CtaLink cta={s.cta} className={btn} />
+                  {s.secondary && <CtaLink cta={s.secondary} className="btn btn-outline-light" />}
                 </div>
               </div>
             </div>

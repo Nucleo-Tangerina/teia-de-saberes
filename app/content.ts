@@ -4,8 +4,8 @@
 export const SITE_URL = "https://www.teiadesaberes.com.br";
 export const WHATSAPP = "https://wa.me/5513992081120";
 export const INSTAGRAM = "https://www.instagram.com/teia.de.saberes/";
-// Caminhos da Inclusão checkout lives on the course's own landing page.
-export const CAMINHOS_OFERTA = "https://caminhos-da-inclusao.netlify.app/#oferta";
+// Caminhos da Inclusão checkout (Ticto), the same link as the course landing page.
+export const CAMINHOS_OFERTA = "https://payment.ticto.app/O15C67760";
 
 // Official contact channels: the contact page and the footer both read this list.
 // Phone and site are pending client confirmation; no e-mail has been chosen yet.
@@ -179,7 +179,7 @@ export const solutions: Solution[] = [
     slug: "inclusao",
     title: "Caminhos da Inclusão",
     phrase: "Ninguém fora da trama.",
-    text: "Formação de 160 horas para mediadores que atuam na inclusão escolar, com Ana Paula Jorge: 5 módulos, aulas online, encontros ao vivo e certificado.",
+    text: "Formação de 180 horas para mediadores que atuam na inclusão escolar, com Ana Paula Jorge: 5 módulos, aulas online, encontros ao vivo e certificado.",
     ponte: "Direito à educação ao longo da vida, para todas as pessoas",
     fio: "pessoas",
     ligaA: ["escolar"],

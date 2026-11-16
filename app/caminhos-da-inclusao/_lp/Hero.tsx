@@ -1,0 +1,76 @@
+import { Lock, ShieldCheck, CreditCard, Clock, Layers, MonitorPlay, Video, Award } from 'lucide-react'
+import { hero, facts, trust } from './content'
+import { Button, Chip } from './ui'
+import { toneAt } from './tones'
+const retrato = '/caminhos/ana-hero.webp'
+import { Thread } from './Thread'
+
+const TRUST_ICONS = [Lock, ShieldCheck, CreditCard]
+const FACT_ICONS = [Clock, Layers, MonitorPlay, Video, Award]
+
+export function Hero() {
+  const [before, emphasis, after] = hero.headline
+  return (
+    <section id="top" className="hero" aria-labelledby="hero-title">
+      <div className="hero__thread">
+        <Thread variant="hero" className="hero__thread-desk" />
+        <Thread variant="hero-m" className="hero__thread-mob" />
+      </div>
+
+      <div className="rail hero__grid">
+        <div className="hero__copy">
+          <h1 id="hero-title" className="hero__title">
+            {before}
+            <span className="hero__em">{emphasis}</span>
+            {after}
+          </h1>
+          <p className="hero__deck">{hero.deck}</p>
+          <div className="hero__actions">
+            <Button>{hero.cta}</Button>
+            <Button variant="secondary" href="#conteudo-da-formacao">
+              {hero.secondary}
+            </Button>
+          </div>
+          <ul role="list" className="hero__trust">
+            {trust.map((t, i) => {
+              const Icon = TRUST_ICONS[i]
+              return (
+                <li key={t}>
+                  <Icon size={16} strokeWidth={1.5} aria-hidden />
+                  {t}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
+        <figure className="hero__portrait">
+          <img
+            src={retrato}
+            alt="Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira"
+            width={880}
+            height={964}
+            fetchPriority="high"
+            decoding="async"
+          />
+          <figcaption className="hero__caption">
+            <strong>{hero.portraitCaption.name}</strong>
+            <span>{hero.portraitCaption.role}</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div className="rail">
+        <ul role="list" className="facts" aria-label="A formação em números">
+          {facts.map((f, i) => (
+            <li key={f.value} className={`facts__item tone-${toneAt(i)}`}>
+              <Chip icon={FACT_ICONS[i]} size="sm" />
+              <span className="facts__value">{f.value}</span>
+              <span className="facts__detail">{f.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
