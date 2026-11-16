@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
-import { fios, solutions } from "../content";
+import { CAMINHOS_OFERTA, fios, solutions, TEAR_URL } from "../content";
 import { CtaBlock, PageHero, SectionHead, StepsThread } from "../ui";
 import { SolutionsFilter, SolutionsFilterFallback } from "./filter";
 
@@ -44,6 +46,68 @@ export default function Solucoes() {
           Fale com nossa equipe
         </Link>
       </PageHero>
+
+      <section className="section container destaques" aria-labelledby="destaques-title">
+        <p className="eyebrow" id="destaques-title">
+          EM DESTAQUE
+        </p>
+        <article className="destaque" aria-labelledby="destaque-caminhos" data-reveal>
+          <div className="destaque-media is-photo">
+            <Image
+              src="/caminhos/ana-paula-blazer.jpg"
+              alt="Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira"
+              fill
+              sizes="(max-width: 960px) 100vw, 520px"
+            />
+          </div>
+          <div className="destaque-copy">
+            <p className="destaque-label">FORMAÇÃO</p>
+            <h2 id="destaque-caminhos">Caminhos da Inclusão</h2>
+            <p className="destaque-phrase">Saiba como agir na prática diante dos desafios reais da Educação Especial.</p>
+            <ul className="tags" aria-label="Sobre a formação">
+              <li>180 horas</li>
+              <li>5 módulos</li>
+              <li>Encontros ao vivo</li>
+              <li>Certificado</li>
+            </ul>
+            <div className="actions">
+              <a href={CAMINHOS_OFERTA} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
+                Quero garantir minha vaga
+                <span className="sr-only"> na formação Caminhos da Inclusão (abre em uma nova aba)</span>
+              </a>
+              <Link href="/caminhos-da-inclusao" className="btn btn-outline btn-wrap">
+                Conheça a formação
+              </Link>
+            </div>
+          </div>
+        </article>
+        <article className="destaque is-reverse" aria-labelledby="destaque-tear" data-reveal>
+          <div className="destaque-media is-logo">
+            <Image src="/tear/tear-marca.png" alt="Logotipo do Tear" fill sizes="(max-width: 960px) 100vw, 520px" />
+          </div>
+          <div className="destaque-copy">
+            <p className="destaque-label">PLANO MUNICIPAL DE EDUCAÇÃO</p>
+            <h2 id="destaque-tear">Tear</h2>
+            <p className="destaque-phrase">O plano da cidade, tecido com quem a vive.</p>
+            <ul className="tags" aria-label="Sobre o Tear">
+              <li>Lei nº 15.388/2026</li>
+              <li>19 objetivos</li>
+              <li>73 metas</li>
+              <li>372 estratégias</li>
+            </ul>
+            <div className="actions">
+              <a href={TEAR_URL} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
+                Acesse o Tear
+                <span className="sr-only"> (abre em uma nova aba)</span>
+                <ArrowRight size={18} aria-hidden />
+              </a>
+              <Link href="/tear" className="btn btn-outline btn-wrap">
+                Conheça o Tear
+              </Link>
+            </div>
+          </div>
+        </article>
+      </section>
 
       <section id="catalogo" className="section container" aria-labelledby="catalogo-title">
         <SectionHead

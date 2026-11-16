@@ -6,6 +6,8 @@ export const WHATSAPP = "https://wa.me/5513992081120";
 export const INSTAGRAM = "https://www.instagram.com/teia.de.saberes/";
 // Caminhos da Inclusão checkout (Ticto), the same link as the course landing page.
 export const CAMINHOS_OFERTA = "https://payment.ticto.app/O15C67760";
+// Tear, the municipal education plan system (opens off-site).
+export const TEAR_URL = "https://tear.teiadesaberes.com.br/";
 
 // Official contact channels: the contact page and the footer both read this list.
 // Phone and site are pending client confirmation; no e-mail has been chosen yet.
@@ -147,9 +149,10 @@ export const solutions: Solution[] = [
     ponte: "Educação como esforço público e bem comum",
     fio: "rede",
     ligaA: ["gestao", "assessoria"],
-    img: "/images/tear.png",
+    img: "/tear/tear-marca.png",
     accent: "#4A2582",
     href: "/tear",
+    fit: "contain",
   },
   {
     slug: "olimpiada",
