@@ -13,7 +13,7 @@ const labels: Record<Field, string> = {
   nome: "Nome",
   email: "E-mail",
   telefone: "Telefone/WhatsApp",
-  municipio: "Município",
+  municipio: "Município ou instituição",
   estado: "Estado",
   cargo: "Cargo ou função",
   interesse: "Área de interesse",
@@ -53,7 +53,7 @@ export async function sendContact(_prev: ContactState, form: FormData): Promise<
       from: CONTACT_FROM,
       to: CONTACT_TO.split(",").map((s) => s.trim()),
       reply_to: data.email,
-      subject: `Contato pelo site: ${data.interesse} · ${data.municipio}/${data.estado}`,
+      subject: `Contato pelo site: ${data.interesse} · ${data.municipio}${data.estado ? `/${data.estado}` : ""}`,
       text,
     }),
   }).catch(() => null);

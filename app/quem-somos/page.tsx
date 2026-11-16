@@ -1,89 +1,76 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { founders } from "../content";
-import { Badge, CtaBlock, IconGrid, PageHero, SectionHead, StepsThread } from "../ui";
+import { BookOpen } from "lucide-react";
+import { CheckList, CtaBlock, IconGrid, PageHero, SectionHead, StepsThread } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Quem Somos",
+  title: { absolute: "Quem somos – Teia de Saberes" },
   description:
-    "Conheça a história, o propósito e os princípios da Teia de Saberes, organização dedicada a uma educação pública inclusiva, democrática e participativa.",
+    "Conheça a Teia de Saberes, organização que fortalece redes públicas de ensino com cooperação, escuta ativa e conhecimento.",
   alternates: { canonical: "/quem-somos" },
 };
 
 const principles = [
-  { icon: "handshake", title: "Respeito", text: "Escuta e diálogo com cada rede, com suas pessoas e com a realidade de cada território." },
-  { icon: "users", title: "Cooperação", text: "Transformações consistentes são construídas coletivamente, junto às equipes municipais." },
-  { icon: "sprout", title: "Transformação", text: "A educação como caminho para o desenvolvimento das pessoas e das comunidades." },
+  "Educação como direito humano e bem comum.",
+  "Justiça social, equidade e inclusão.",
+  "Escuta dos territórios e diálogo com os saberes locais.",
+  "Formação ao longo da vida e em todos os espaços.",
+  "Gestão democrática e cooperação entre sujeitos.",
+  "Transparência, ética pública e compromisso institucional.",
+  "Transformação curricular com foco na emancipação humana.",
 ];
 
 const ways = [
   { icon: "target", title: "Excelência", text: "Equipe qualificada, focada em soluções eficientes." },
-  { icon: "calendar-clock", title: "Acompanhamento contínuo", text: "Suporte especializado conforme as necessidades do município." },
-  { icon: "layers", title: "Eficiência", text: "Integração de tecnologia e conhecimento para uma gestão educacional otimizada." },
+  { icon: "calendar-clock", title: "Acompanhamento contínuo", text: "Suporte conforme a necessidade do município." },
+  { icon: "layers", title: "Eficiência", text: "Tecnologia e conhecimento integrados." },
 ];
 
-const methods = [
-  {
-    icon: "lightbulb",
-    title: "Metodologia de Trabalho de Projetos",
-    text: "Aprendizagem organizada em projetos que partem de questões reais e estimulam a autonomia dos estudantes.",
-  },
-  {
-    icon: "messages-square",
-    title: "Metodologia da Problematização",
-    text: "Reflexão sobre a realidade para construir respostas coletivas aos desafios da escola e da comunidade.",
-  },
-  {
-    icon: "school",
-    title: "Comunidades de Aprendizagem",
-    text: "Uma educação participativa, que vai além dos muros da escola, com estudantes protagonistas em parceria com a comunidade local.",
-  },
+const timeline = [
+  { accent: "#ED8C32", title: "2009", text: "Início do idealizador na educação pública." },
+  { accent: "#2679AD", title: "2019 a 2023", text: "Gestão da Escola Estadual Fazenda Paraíso." },
+  { accent: "#F02A89", title: "2021", text: "Publicação do relatório da UNESCO Reimaginar nossos futuros juntos." },
 ];
-
-// Timeline slots render as drafts until dated facts are confirmed.
-const timeline = ["#ED8C32", "#2679AD", "#F02A89", "#90D518"].map((accent) => ({
-  accent,
-  title: "Ano · marco",
-  text: "Fato a confirmar com a organização.",
-}));
 
 export default function QuemSomos() {
-  const [idealizador] = founders;
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Quem Somos" }]}
+        crumbs={[{ label: "Quem somos" }]}
         eyebrow="QUEM SOMOS"
-        title="Conectamos pessoas, conhecimentos e experiências para fortalecer a educação."
-        lead="A Teia de Saberes é uma organização dedicada à construção de caminhos para uma educação pública inclusiva, democrática e comprometida com o desenvolvimento das pessoas e das comunidades."
+        title="Nossa trama"
+        lead="Compromisso com uma educação justa, sustentável e transformadora"
         img="/images/quem.jpg"
         imgAlt="Equipe da Teia de Saberes em atividade"
       >
-        <Link href="/solucoes-educacionais" className="btn btn-orange">
-          Conheça nossas soluções
-        </Link>
-        <Link href="/contato" className="btn btn-outline">
+        <Link href="/contato" className="btn btn-orange">
           Fale com nossa equipe
         </Link>
       </PageHero>
 
-      <section className="section container split about" aria-labelledby="historia">
+      <section className="section container split about" aria-label="Quem somos">
         <div className="stack" data-reveal>
-          <p className="eyebrow">NOSSA HISTÓRIA</p>
-          <h2 id="historia">Tecendo redes e construindo pontes.</h2>
           <p className="body">
-            Nos últimos anos, motivados por um sonho, começamos a semear a construção de uma organização inovadora,
-            democrática e solidária, que tivesse como objetivo a transformação social por meio da educação.
+            A Teia de Saberes é uma organização que fortalece redes públicas de ensino por meio da cooperação, da escuta
+            ativa e da produção de conhecimento comprometido com a justiça social.
           </p>
           <p className="body">
-            Em meio a encontros, desencontros e reencontros, estamos construindo uma rede de Comunidade de Aprendizagem.
-            Motivados pelo ato de esperançar, inauguramos a organização Teia de Saberes.
+            Nascemos de um sonho de educadores: o de que a educação pode transformar as cidades. Acreditamos que o
+            conhecimento já existe em cada pessoa e que a educação é o solo fértil onde ele germina. Mas semente sozinha
+            não faz floresta: por isso, teia.
           </p>
           <p className="body">
-            Nossa história como professores nos fez perceber que nas cidades já existem as sementes capazes de construir
-            um futuro próspero. Para germinar, elas precisam de solo fértil, e acreditamos que a terra que temos que
-            nutrir é a Educação.
+            Hoje somos um hub de soluções educacionais, isto é, um ponto de encontro com mentorias, formações, assessorias
+            e projetos que se conectam entre si e se ajustam a cada território. Trabalhamos com a Metodologia de Trabalho
+            de Projetos, a Problematização e as Comunidades de Aprendizagem, à luz do Novo Contrato Social para a Educação
+            (UNESCO, 2021) e da Agenda 2030, em especial do ODS 4: educação inclusiva, equitativa e de qualidade, ao longo
+            da vida e em todos os espaços.
+          </p>
+          <p className="body">
+            Mais do que prestar serviços, tecemos com os municípios políticas educacionais que respeitam a diversidade,
+            valorizam a participação democrática e transformam as escolas em espaços de dignidade, pertencimento e
+            inovação.
           </p>
         </div>
         <div className="about-photo" data-reveal="wipe">
@@ -91,76 +78,82 @@ export default function QuemSomos() {
         </div>
       </section>
 
-      <section className="band-navy" aria-labelledby="proposito">
+      <div className="container">
+        <aside className="explainer" aria-labelledby="ncs-title" data-reveal>
+          <h2 id="ncs-title">
+            <BookOpen size={24} aria-hidden />O que é o Novo Contrato Social para a Educação
+          </h2>
+          <p className="body">
+            Um contrato social é um acordo implícito entre as pessoas sobre como viver juntas. A UNESCO propõe renová-lo
+            para a educação, com dois princípios: garantir o direito à educação de qualidade ao longo da vida e fortalecer
+            a educação como esforço público e bem comum. O relatório, publicado em 2021 após consultas a mais de um milhão
+            de pessoas, se apresenta como um documento vivo: ele se completa com a ação de quem educa.
+          </p>
+        </aside>
+      </div>
+
+      <section className="section container" aria-labelledby="principios">
+        <SectionHead id="principios" eyebrow="PRINCÍPIOS" title="Princípios que orientam o nosso trabalho." />
+        <CheckList items={principles} />
+      </section>
+
+      <section className="band-soft" aria-labelledby="como-trabalhamos">
+        <div className="section container">
+          <SectionHead id="como-trabalhamos" eyebrow="COMO TRABALHAMOS" title="Como trabalhamos." />
+          <IconGrid items={ways} cols={3} />
+        </div>
+      </section>
+
+      <section className="band-navy" aria-labelledby="ritmo">
         <div className="section container split challenges">
-          <h2 id="proposito" data-reveal>
-            Conectando saberes. Fortalecendo a gestão. Transformando a educação.
+          <h2 id="ritmo" data-reveal>
+            O ritmo da teia
           </h2>
           <div className="stack" data-reveal>
             <p className="body">
-              Inspirados nos princípios do Novo Contrato Social para a Educação, proposto pela UNESCO em 2021, mediamos a
-              construção de núcleos de projetos em Comunidades de Aprendizagem, com foco no desenvolvimento integral do
-              ser humano.
-            </p>
-            <p className="body">
-              Buscamos aproximar o conhecimento acadêmico das necessidades concretas das redes de ensino, apoiando
-              Secretarias Municipais de Educação no planejamento, desenvolvimento e fortalecimento de suas redes.
+              O relatório propõe três movimentos para qualquer rede, e são também os nossos: levar adiante o que já
+              funciona, abandonar o que já não serve e reimaginar o que vem a seguir.
             </p>
           </div>
         </div>
         <div className="pattern-band" aria-hidden />
       </section>
 
-      <section className="section container" aria-labelledby="principios">
-        <SectionHead id="principios" eyebrow="PRINCÍPIOS" title="Valores que embasam o nosso trabalho." />
-        <IconGrid items={principles} cols={3} />
-        <h3 className="sub-head" data-reveal>
-          Como trabalhamos com os municípios
-        </h3>
-        <IconGrid items={ways} cols={3} />
+      <section className="section container" aria-labelledby="trajetoria">
+        <SectionHead id="trajetoria" eyebrow="TRAJETÓRIA" title="Nossa linha do tempo." center />
+        <StepsThread steps={timeline} />
       </section>
 
-      <section className="band-soft" aria-labelledby="metodologias">
-        <div className="section container split audience-block">
-          <div className="stack" data-reveal>
-            <p className="eyebrow">METODOLOGIAS</p>
-            <h2 id="metodologias">Uma educação que vai além dos muros da escola.</h2>
-            <p className="body">
-              Propomos um ensino baseado na construção da autonomia dos estudantes, com estratégias que estimulam a
-              representatividade e a participação de professores, famílias, poder público e comunidades.
-            </p>
-          </div>
-          <IconGrid items={methods} cols={2} />
-        </div>
-      </section>
-
-      <section className="section container split person" aria-labelledby="idealizador">
-        <div className="monogram big" style={{ "--accent": idealizador.accent } as React.CSSProperties} aria-hidden data-reveal>
-          PL
-        </div>
-        <div className="stack" data-reveal>
-          <p className="eyebrow">IDEALIZADOR</p>
-          <h2 id="idealizador">{idealizador.name}</h2>
-          <p className="team-role">{idealizador.degree}</p>
-          <p className="body">{idealizador.bio}</p>
-          <div>
-            <Link href="/nossa-equipe" className="btn btn-outline">
-              Conheça nossa equipe
-            </Link>
-          </div>
-          <Badge>FOTO E MINIBIOGRAFIA A VALIDAR</Badge>
-        </div>
-      </section>
-
-      <section className="band-soft" aria-labelledby="trajetoria">
+      <section className="band-soft" aria-label="Citação">
         <div className="section container">
-          <SectionHead id="trajetoria" eyebrow="TRAJETÓRIA" title="Nossa linha do tempo." center />
-          <StepsThread steps={timeline} />
-          <Badge>LINHA DO TEMPO · FATOS E DATAS A CONFIRMAR ANTES DA PUBLICAÇÃO</Badge>
+          <figure className="quote" data-reveal>
+            <blockquote>
+              <p>“Um sonho real se constrói de mãos dadas, ouvidos atentos e com comunicação amorosa.”</p>
+            </blockquote>
+            <figcaption>— Pacelli H. S. Lopes</figcaption>
+          </figure>
         </div>
       </section>
 
-      <CtaBlock />
+      <section className="section container" aria-labelledby="compromisso">
+        <div className="section-head center" data-reveal>
+          <h2 id="compromisso" className="sr-only">
+            Compromisso final
+          </h2>
+          <p className="body">
+            A escola, pública ou privada, é um espaço estratégico de construção de outro mundo possível. Trabalhamos para
+            que toda criança, jovem e adulto aprenda com dignidade, para que cada educador se reconheça como agente de
+            transformação e para que os gestores sejam protagonistas de uma educação que honra o passado e constrói os
+            futuros.
+          </p>
+        </div>
+      </section>
+
+      <CtaBlock
+        title="Vamos tecer juntos os futuros da educação?"
+        text="Fale com nossa equipe e conte sobre a realidade da sua rede."
+        label="Fale com nossa equipe"
+      />
     </>
   );
 }

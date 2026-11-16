@@ -4,21 +4,33 @@
 export const SITE_URL = "https://www.teiadesaberes.com.br";
 export const WHATSAPP = "https://wa.me/5513992081120";
 export const INSTAGRAM = "https://www.instagram.com/teia.de.saberes/";
+// Caminhos da Inclusão checkout (Ticto), the same link as the course landing page.
+export const CAMINHOS_OFERTA = "https://payment.ticto.app/O15C67760";
+// Tear, the municipal education plan system (opens off-site).
+export const TEAR_URL = "https://tear.teiadesaberes.com.br/";
+
+// Official contact channels: the contact page and the footer both read this list.
+// Phone and site are pending client confirmation; no e-mail has been chosen yet.
+export const channels = [
+  { label: "WhatsApp", value: "(13) 99208-1120", href: WHATSAPP },
+  { label: "Instagram", value: "@teia.de.saberes", href: INSTAGRAM },
+  { label: "Site", value: "teiadesaberes.com.br", href: SITE_URL },
+];
 
 export const nav = [
   { label: "Início", href: "/" },
-  { label: "Quem Somos", href: "/quem-somos" },
-  { label: "Soluções Educacionais", href: "/solucoes-educacionais" },
-  { label: "Nossa Equipe", href: "/nossa-equipe" },
-  { label: "Projetos e Resultados", href: "/projetos" },
-  { label: "Conteúdos", href: "/blog" },
+  { label: "Quem somos", href: "/quem-somos" },
+  { label: "Soluções", href: "/solucoes-educacionais" },
+  { label: "Em movimento", href: "/em-movimento" },
+  { label: "Equipe", href: "/nossa-equipe" },
+  { label: "Projetos e resultados", href: "/projetos" },
   { label: "Contato", href: "/contato" },
 ];
 
 export const diffs = [
   { icon: "user-check", title: "Atendimento Personalizado", text: "Cada desafio recebe atenção exclusiva." },
   { icon: "calendar-clock", title: "Mentorias Estratégicas", text: "Reuniões quinzenais para soluções direcionadas." },
-  { icon: "messages-square", title: "Atendimento Multicanal", text: "WhatsApp, e-mail, telefone, videoconferências e visitas presenciais." },
+  { icon: "messages-square", title: "Atendimento Multicanal", text: "WhatsApp, e-mail, telefone, videoconferência e visitas presenciais." },
 ] as const;
 
 const B = "/brasoes/";
@@ -45,131 +57,282 @@ export const municipios = [
 ];
 
 export const audience = [
-  { icon: "landmark", title: "Secretarias Municipais de Educação", text: "Apoio à gestão, ao planejamento e às ações educacionais." },
-  { icon: "briefcase", title: "Secretários de Educação", text: "Acompanhamento e suporte para decisões de gestão." },
-  { icon: "school", title: "Gestores Escolares", text: "Formação e desenvolvimento das lideranças escolares." },
-  { icon: "users", title: "Equipes Técnicas", text: "Qualificação e fortalecimento das práticas de trabalho." },
+  { icon: "landmark", title: "Secretarias Municipais de Educação e seus secretários", text: "" },
+  { icon: "school", title: "Gestores escolares e equipes técnicas", text: "" },
+  { icon: "users", title: "Escolas e redes de ensino", text: "" },
+  { icon: "handshake", title: "Empresas e institutos parceiros (ESG)", text: "" },
 ] as const;
 
+export type FioKey = "rede" | "escola" | "pessoas" | "trama";
+
+// The four threads of the web: one shared source for the home and the solutions hub.
+export const fios: { key: FioKey; nome: string; pergunta: string; filtro: string; resumo: string; ponte: string }[] = [
+  {
+    key: "rede",
+    nome: "Tecer a rede",
+    pergunta: "Como planejar a educação do meu município?",
+    filtro: "Quero planejar a rede",
+    resumo: "Planejamento público feito com a comunidade.",
+    ponte: "Educação é esforço público e bem comum.",
+  },
+  {
+    key: "escola",
+    nome: "Tecer a escola",
+    pergunta: "Como transformar minha escola?",
+    filtro: "Quero transformar uma escola",
+    resumo: "Projetos, cooperação e participação dos estudantes.",
+    ponte: "A escola é um lugar de encontro que vale proteger e reinventar.",
+  },
+  {
+    key: "pessoas",
+    nome: "Tecer pessoas",
+    pergunta: "Como formar minha equipe?",
+    filtro: "Quero formar pessoas",
+    resumo: "Formação para quem educa e para quem lidera.",
+    ponte: "Professores produzem conhecimento.",
+  },
+  {
+    key: "trama",
+    nome: "Sustentar a trama",
+    pergunta: "Como manter a rede em dia, com recursos e regularidade?",
+    filtro: "Quero apoio técnico",
+    resumo: "Recursos, prestação de contas e regularidade.",
+    ponte: "Sem financiamento público bem cuidado, o bem comum não se sustenta.",
+  },
+];
+
 export type Solution = {
-  accent: string;
+  slug: string;
   title: string;
+  phrase: string;
   text: string;
+  ponte: string;
+  fio: FioKey;
+  ligaA: string[];
   img: string;
+  accent: string;
   href: string;
   fit?: "contain";
-  extra?: boolean;
 };
 
+// Card number comes from array position: 01 must be Transformação Escolar, 02 Gestão Pública.
 export const solutions: Solution[] = [
-  { accent: "#4A2582", title: "Tear: Plano Municipal de Educação", text: "Conduz o município na construção e no monitoramento do Plano Municipal de Educação frente à Lei nº 15.388/2026.", img: "/images/tear.png", href: "https://tear.teiadesaberes.com.br/" },
-  { accent: "#F02A89", title: "Caminhos da Inclusão", text: "Formação de 180 horas para mediadores que atuam na inclusão escolar, com Ana Paula Jorge: 5 módulos, aulas online, encontros ao vivo e certificado.", img: "/images/caminhos-inclusao.png", href: "https://caminhoinclusao.teiadesaberes.com.br/" },
-  { accent: "#ED8C32", title: "Mentoria para Gestão Pública Educacional", text: "Acompanhamento especializado para gestores e equipes técnicas, com foco em planejamento, organização, desenvolvimento institucional e fortalecimento das políticas educacionais.", img: "/images/sol0.jpg", href: "/mentoria-gestao-publica" },
-  { accent: "#2679AD", title: "Mentoria para Transformação Escolar", text: "Apoio às equipes escolares na reflexão sobre suas práticas, no desenvolvimento pedagógico e na construção de estratégias para uma aprendizagem significativa.", img: "/images/sol1.jpg", href: "/mentoria-transformacao-escolar", extra: true },
-  { accent: "#01A6F8", title: "Palestras e Formações", text: "Experiências formativas para profissionais da educação, com temas relacionados à gestão, ao currículo, à inclusão e aos desafios contemporâneos das escolas.", img: "/images/sol2.jpg", href: "/palestras-formacoes", extra: true },
-  { accent: "#90D518", title: "Pós-graduação", text: "Oportunidades de aprofundamento acadêmico e profissional para educadores interessados em ampliar conhecimentos e qualificar suas práticas.", img: "/images/sol3.jpg", href: "/pos-graduacao", extra: true },
-  { accent: "#8F2DE2", title: "Assessoria Técnica para SMEs", text: "Suporte em PAR, SIGARP, PDDE, PNAE, Educacenso e demais programas do FNDE, com monitoramento de CACS e CAE.", img: "/images/sol4.jpg", href: "/solucoes-educacionais", extra: true },
-  { accent: "#2679AD", title: "Prestação de Contas e Gestão Financeira", text: "Planejamento orçamentário e prestação de contas (SIOPE), com monitoramento e capacitação para conformidade com as normas do FNDE.", img: "/images/sol5.jpg", href: "/solucoes-educacionais", extra: true },
-  { accent: "#FFB000", title: "Gestão de Caixa Escolar (UEX)", text: "Regularização e acompanhamento das caixas escolares, com consultoria sobre questões legais.", img: "/images/sol6.jpg", href: "/solucoes-educacionais", extra: true },
+  {
+    slug: "escolar",
+    title: "Mentoria para Transformação Escolar",
+    phrase: "Uma escola que ensina e pratica a cooperação.",
+    text: "Apoio às equipes escolares na reflexão sobre suas práticas, no desenvolvimento pedagógico e na construção de estratégias para uma aprendizagem significativa.",
+    ponte: "Pedagogias de cooperação e solidariedade; escola redesenhada",
+    fio: "escola",
+    ligaA: ["olimpiada", "palestras"],
+    img: "/images/sol1.jpg",
+    accent: "#2679AD",
+    href: "/mentoria-transformacao-escolar",
+  },
+  {
+    slug: "gestao",
+    title: "Mentoria para Gestão Pública Educacional",
+    phrase: "Gestão democrática para redes que aprendem juntas.",
+    text: "Acompanhamento especializado para gestores e equipes técnicas, com foco em planejamento, organização, desenvolvimento institucional e fortalecimento das políticas educacionais.",
+    ponte: "Capacidade pública de planejar e financiar",
+    fio: "rede",
+    ligaA: ["tear", "pos"],
+    img: "/images/sol0.jpg",
+    accent: "#ED8C32",
+    href: "/mentoria-gestao-publica",
+  },
+  {
+    slug: "tear",
+    title: "Tear: Plano Municipal de Educação",
+    phrase: "O plano da cidade, tecido com quem a vive.",
+    text: "Conduz o município na construção e no monitoramento do Plano Municipal de Educação frente à Lei nº 15.388/2026.",
+    ponte: "Educação como esforço público e bem comum",
+    fio: "rede",
+    ligaA: ["gestao", "assessoria"],
+    img: "/tear/tear-marca.png",
+    accent: "#4A2582",
+    href: "/tear",
+    fit: "contain",
+  },
+  {
+    slug: "olimpiada",
+    title: "Olimpíada Pocket ODS",
+    phrase: "Estudantes que tecem a própria comunidade.",
+    text: "Competição educacional em três fases que leva os 17 Objetivos de Desenvolvimento Sustentável às escolas e transforma problemas locais em projetos dos estudantes.",
+    ponte: "Participação estudantil; relação com o planeta",
+    fio: "escola",
+    ligaA: ["escolar"],
+    img: "/images/sol5.jpg",
+    accent: "#FFB000",
+    href: "/olimpiada-pocket-ods",
+  },
+  {
+    slug: "pos",
+    title: "Pós-graduação",
+    phrase: "Quem educa também pesquisa e produz conhecimento.",
+    text: "Oportunidades de aprofundamento acadêmico e profissional para educadores interessados em ampliar conhecimentos e qualificar suas práticas.",
+    ponte: "Professores como produtores de conhecimento",
+    fio: "pessoas",
+    ligaA: ["gestao"],
+    img: "/images/sol3.jpg",
+    accent: "#90D518",
+    href: "/pos-graduacao",
+  },
+  {
+    slug: "inclusao",
+    title: "Caminhos da Inclusão",
+    phrase: "Ninguém fora da trama.",
+    text: "Formação de 180 horas para mediadores que atuam na inclusão escolar, com Ana Paula Jorge: 5 módulos, aulas online, encontros ao vivo e certificado.",
+    ponte: "Direito à educação ao longo da vida, para todas as pessoas",
+    fio: "pessoas",
+    ligaA: ["escolar"],
+    img: "/images/caminhos-inclusao.png",
+    accent: "#F02A89",
+    href: "/caminhos-da-inclusao",
+  },
+  {
+    slug: "palestras",
+    title: "Palestras e Rodas de Conversa",
+    phrase: "Conversas que começam pelos problemas reais da escola.",
+    text: "Palestras e rodas de conversa para escolas, redes e comunidades, presenciais ou online, sobre os desafios reais da educação pública.",
+    ponte: "O relatório como documento vivo, construído no diálogo",
+    fio: "pessoas",
+    // Entry door: links to every other solution.
+    ligaA: ["escolar", "gestao", "tear", "olimpiada", "pos", "inclusao", "assessoria"],
+    img: "/images/sol2.jpg",
+    accent: "#01A6F8",
+    href: "/palestras-rodas-de-conversa",
+  },
+  {
+    slug: "assessoria",
+    title: "Assessoria técnica e Caixa Escolar",
+    phrase: "Recursos bem cuidados sustentam o bem comum.",
+    text: "Apoio à Secretaria nos programas do FNDE (PAR, PDDE, PNAE e Educacenso), na prestação de contas (SIOPE) e na regularização das caixas escolares (UEX).",
+    ponte: "Financiamento público como condição da educação como bem comum",
+    fio: "trama",
+    ligaA: ["tear", "gestao"],
+    img: "/images/sol4.jpg",
+    accent: "#8F2DE2",
+    href: "/mentoria-gestao-publica#assessoria-tecnica",
+  },
 ];
 
-export const steps = [
-  { accent: "#ED8C32", title: "Escuta e compreensão", text: "Conhecer contexto, necessidades e objetivos." },
-  { accent: "#2679AD", title: "Planejamento colaborativo", text: "Estruturar ações adequadas à realidade local." },
-  { accent: "#F02A89", title: "Desenvolvimento das ações", text: "Realizar mentorias, formações e atividades técnicas." },
-  { accent: "#90D518", title: "Acompanhamento", text: "Refletir sobre avanços, desafios e oportunidades." },
-];
+export type Article = {
+  slug: string;
+  cat: string;
+  title: string;
+  excerpt: string;
+  img: string;
+  author?: string;
+  date?: string; // ISO yyyy-mm-dd
+  body?: string[]; // paragraphs
+  refs?: string[]; // full references (e.g. the UNESCO report), shown at the end
+};
 
-export type Article = { slug: string; cat: string; title: string; excerpt: string; img: string };
-
-// Suggested initial themes from the brief; bodies are still in production.
+// Titles from the reformulation doc. No text yet: an article is published only
+// once it has body, author and date (see publishedArticles).
 export const articles: Article[] = [
   {
-    slug: "planejamento-e-colaboracao-nas-redes-municipais",
+    slug: "planejar-juntos-novo-contrato-social-redes-municipais",
     cat: "GESTÃO EDUCACIONAL",
-    title: "Planejamento e colaboração nas redes municipais.",
-    excerpt: "Gestão educacional: planejamento e colaboração nas redes municipais.",
+    title: "Planejar juntos: o que o Novo Contrato Social ensina às redes municipais.",
+    excerpt: "Planejar juntos: o que o Novo Contrato Social ensina às redes municipais.",
     img: "/images/art0.jpg",
   },
   {
-    slug: "formacao-continuada-e-praticas-pedagogicas",
+    slug: "professores-como-produtores-de-conhecimento-formacao-continuada-unesco",
     cat: "FORMAÇÃO CONTINUADA",
-    title: "Formação continuada e fortalecimento das práticas pedagógicas.",
-    excerpt: "Formação continuada e fortalecimento das práticas pedagógicas.",
+    title: "Professores como produtores de conhecimento: formação continuada à luz da UNESCO.",
+    excerpt: "Professores como produtores de conhecimento: formação continuada à luz da UNESCO.",
     img: "/images/art1.jpg",
   },
   {
-    slug: "desafios-contemporaneos-da-educacao-publica-municipal",
+    slug: "educar-em-um-mundo-fragil-e-incerto-desafios-da-escola-publica",
     cat: "EDUCAÇÃO PÚBLICA",
-    title: "Desafios contemporâneos da educação pública municipal.",
-    excerpt: "Desafios contemporâneos da educação pública municipal.",
+    title: "Educar em um mundo frágil e incerto: desafios da escola pública.",
+    excerpt: "Educar em um mundo frágil e incerto: desafios da escola pública.",
     img: "/images/art2.jpg",
   },
 ];
 
-// From the organization's own 2025 proposals; confirm before publishing.
-export const founders = [
-  {
-    name: "Pacelli Henrique Silva Lopes",
-    role: "Idealizador",
-    degree: "Mestre em História · UNIVERSO",
-    bio: "Idealizador da Teia de Saberes e do programa de transformação da Escola Fazenda Paraíso, que tem por base uma educação republicana como objetivo da comunidade de aprendizagem.",
-    accent: "#ED8C32",
-  },
-  {
-    name: "Cézar",
-    role: "Cofundador",
-    degree: "Sociólogo",
-    bio: "Sociólogo, com longa trajetória na prospecção de processos que transformam o fazer escolar e educacional.",
-    accent: "#F02A89",
-  },
+export const publishedArticles = articles.filter((a) => a.body?.length && a.author && a.date);
+
+// New topics awaiting text (not rendered).
+export const pautas: string[] = [
+  "Cinco perguntas de diagnóstico para a sua escola.",
+  "Por que a escola continua insubstituível.",
+  "Inteligência artificial na escola: apoiar sem substituir.",
+  "Da CF/88 ao Novo Contrato Social: os arts. 205 e 206 em perspectiva.",
+  "Relato da Roda Pedagógica do Instituto Isabel Castro (com autorização).",
 ];
 
-export const consultants = [
+/** "2026-03-14" -> "14 de março de 2026" (UTC, so the ISO day never shifts). */
+export const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+
+export type TeamMember = {
+  name: string;
+  degree?: string;
+  role: string;
+  bio?: string;
+  accent: string;
+  lattes?: string;
+  photo?: string;
+};
+
+// Only people the client confirmed; Tiago, Vagner and "Saito" are pending (issue #16).
+export const team: TeamMember[] = [
   {
-    name: "Ricardo José de Azevedo Marinho",
-    degree: "Pós-doutor em Políticas Públicas e Formação Humana · UERJ",
+    name: "Pacelli H. S. Lopes",
+    role: "Idealizador",
+    bio: "Historiador, mestre em História (Universidade Salgado de Oliveira), especialista em História do Brasil (PUC Minas) e licenciado pela Faculdade Santa Marcelina. Idealizador da Teia de Saberes, atua na formação de gestores, no acompanhamento de políticas públicas e em projetos educacionais ligados ao território. Professor efetivo da rede pública de Minas Gerais, foi gestor da Escola Estadual Fazenda Paraíso de 2019 a 2023.",
+    accent: "#ED8C32",
+    lattes: "http://lattes.cnpq.br/5755985965293910",
+  },
+  {
+    name: "Cezar Trindade Ituassu",
+    role: "Coordenação de projetos",
+    bio: "Graduado em Ciências Sociais pela UFMG, com experiência como professor e gestor escolar e em gestão de processos. Cuida da coordenação de projetos e da relação institucional com as redes parceiras.",
+    accent: "#F02A89",
+  },
+  {
+    name: "Ricardo Marinho",
     role: "Coordenação da Pós-graduação",
+    bio: "Pós-doutor em Políticas Públicas e Formação Humana (UERJ), com atuação em formulação, monitoramento e avaliação de políticas educacionais. Especialista em financiamento da educação, planejamento estratégico e regulação institucional.",
     accent: "#2679AD",
   },
-  { name: "Tiago Martins Simões", degree: "Doutor em História · FGV", role: "Consultor", accent: "#8F2DE2" },
-  { name: "Vagner Gomes de Souza", degree: "Mestre em Ciências Sociais · UFRRJ", role: "Consultor", accent: "#90D518" },
+  {
+    name: "Ana Paula Jorge",
+    degree: "Mestre e doutoranda · Professora da Rede Municipal",
+    role: "Formadora · Caminhos da Inclusão",
+    bio: "Mestre e Doutoranda, professora da Rede Municipal e atuante na Coordenação Municipal de Educação Especial. Pesquisadora, palestrante e autora de obras na área, une a pesquisa acadêmica à vivência diária da inclusão nas escolas.",
+    accent: "#90D518",
+  },
   {
     name: "José Márcio Figueira Júnior",
     degree: "Mestre em Ciências Sociais e doutorando em Ciências Sociais · UFRRJ",
     role: "Consultor",
     accent: "#01A6F8",
   },
-  { name: "Ana Paula Jorge", degree: "Titulação a confirmar", role: "Formadora · Caminhos da Inclusão", accent: "#F02A89" },
 ];
-
 export const footerCols = [
   {
     title: "NAVEGAÇÃO",
     items: [
-      { label: "Quem Somos", href: "/quem-somos" },
-      { label: "Nossa Equipe", href: "/nossa-equipe" },
-      { label: "Projetos e Resultados", href: "/projetos" },
+      { label: "Quem somos", href: "/quem-somos" },
+      { label: "Equipe", href: "/nossa-equipe" },
+      { label: "Projetos e resultados", href: "/projetos" },
+      { label: "Em movimento", href: "/em-movimento" },
       { label: "Conteúdos", href: "/blog" },
       { label: "Contato", href: "/contato" },
     ],
   },
   {
     title: "SOLUÇÕES",
-    items: [
-      { label: "Mentoria para Gestão Pública", href: "/mentoria-gestao-publica" },
-      { label: "Mentoria para Transformação Escolar", href: "/mentoria-transformacao-escolar" },
-      { label: "Palestras e Formações", href: "/palestras-formacoes" },
-      { label: "Pós-graduação", href: "/pos-graduacao" },
-    ],
+    items: solutions.map((s) => ({ label: s.title, href: s.href })),
   },
   {
     title: "CONTATO",
-    items: [
-      { label: "(13) 99208-1120", href: WHATSAPP },
-      { label: "@teia.de.saberes", href: INSTAGRAM },
-      { label: "teiadesaberes.com.br", href: SITE_URL },
-      { label: "E-mail oficial (a confirmar)" },
-    ],
+    items: channels.map((c) => ({ label: c.value, href: c.href })),
   },
 ];

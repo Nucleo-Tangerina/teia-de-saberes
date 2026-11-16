@@ -1,0 +1,2209 @@
+/* Caminhos da Inclusão: porte da landing oficial (Vite) para dentro do site da Teia.
+   Tudo fica sob .lp, o wrapper da página: nada vaza para o cabeçalho, o rodapé ou outras páginas.
+   Gerado a partir de src/styles, src/components e src/sections da landing, na ordem de import do Vite. */
+
+/* ===== styles/tokens.css ===== */
+
+.lp {
+  /* Ground: bone-white light the whole page stands in */
+  --ground: #f7f8fb;
+  --paper: #ffffff;
+  --hairline: #e4e7ef;
+
+  /* Ink: navy, never pure black */
+  --ink: #0b1f4d;
+  --text: #4b5168;
+  --text-muted: #646a82;
+
+  /* The one action. #EC008C fails AA under white 15px text (4.25:1), so the
+     button runs one step deeper (5.05:1); brand magenta stays in the thread. */
+  --action: #d6007f;
+  --action-hover: #b8006d;
+  --action-tint: #fdeaf4;
+
+  /* Lacquer: the dark object standing alone in the light */
+  --lacquer: #0b1f4d;
+  --lacquer-deep: #071538;
+  --on-lacquer: #ffffff;
+  --on-lacquer-muted: #b9c3de;
+  --lacquer-hairline: rgb(255 255 255 / 0.14);
+
+  /* The Teia thread: the only place color is spent freely */
+  --thread-cyan: #27aae1;
+  --thread-purple: #92278f;
+  --thread-magenta: #ec008c;
+  --thread: linear-gradient(115deg, var(--thread-cyan), var(--thread-purple) 55%, var(--thread-magenta));
+
+  /* Teia tones: the logo's colours, for icon chips and tinted cards. Each pairs a
+     deep ink (icons, 3:1+ on its tint) with a soft tint (card ground). */
+  --tone-cyan: #0a7fb3;
+  --tint-cyan: #e6f5fc;
+  --tone-purple: #8a2387;
+  --tint-purple: #f5e9f5;
+  --tone-magenta: #c4006f;
+  --tint-magenta: #fde9f3;
+  --tone-green: #3b7d1c;
+  --tint-green: #edf6e6;
+  --tone-orange: #b65500;
+  --tint-orange: #fef0e2;
+
+  /* Type: one face, two weights; a serif voice only for quotations */
+  --font: var(--font-lexend), system-ui, sans-serif;
+  --font-quote: var(--font-young-serif), Georgia, serif;
+  --w-regular: 400;
+  --w-medium: 500;
+
+  --fs-display: clamp(2.75rem, 1.2rem + 4vw, 4.75rem);
+  --fs-h2: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --fs-deck: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-label: 0.8125rem;
+
+  --lh-display: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.6;
+  --track-display: -0.035em;
+  --track-heading: -0.02em;
+
+  /* Space: 4px base */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --section-y: clamp(4.5rem, 3rem + 7vw, 8.5rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+
+  /* Layout */
+  --rail: 1180px;
+  --measure: 65ch;
+
+  /* Shape */
+  /* Premium pass: soft, generous rounding; buttons are pills. */
+  --r-panel: 20px;
+  --r-stage: clamp(24px, 2vw + 12px, 40px);
+  --r-button: 999px;
+  --r-pill: 999px;
+
+  /* Depth: offset + soft blur, ink-tinted */
+  --shadow-1: 0 2px 6px rgb(11 31 77 / 0.04), 0 12px 32px rgb(11 31 77 / 0.07);
+  --shadow-2: 0 4px 10px rgb(11 31 77 / 0.06), 0 24px 56px rgb(11 31 77 / 0.12);
+
+  /* Stage panels: the saturated rounded fields that carry key sections. */
+  --stage-purple: linear-gradient(135deg, #6b2fa6, #92278f 55%, #b02a8e);
+  --stage-blue: linear-gradient(135deg, #0b3f9c, #1f5fc4 60%, #27aae1);
+  --stage-magenta: linear-gradient(135deg, #b3005f, #c4006f 45%, #8a2387);
+  --accent: var(--action);
+
+  /* Motion */
+  --ease-snap: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-rise: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --t-fast: 0.3s;
+  --t-rise: 0.8s;
+}
+
+
+/* ===== styles/base.css ===== */
+
+.lp *,
+.lp *::before,
+.lp *::after {
+  box-sizing: border-box;
+}
+
+.lp * {
+  margin: 0;
+}
+
+.lp {
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--font);
+  font-weight: var(--w-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--action);
+}
+
+.lp h1,
+.lp h2,
+.lp h3,
+.lp h4 {
+  font-family: inherit; /* the Teia sets Manrope on h1–h3 */
+  color: var(--ink);
+  font-weight: var(--w-medium);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--track-heading);
+  text-wrap: balance;
+}
+
+.lp p {
+  text-wrap: pretty;
+}
+
+.lp img,
+.lp svg,
+.lp video {
+  display: block;
+  max-width: 100%;
+}
+
+.lp img {
+  height: auto;
+}
+
+.lp button,
+.lp input,
+.lp select,
+.lp textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.lp a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+.lp ul[role='list'],
+.lp ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+.lp ::selection {
+  background: var(--action-tint);
+  color: var(--ink);
+}
+
+.lp :focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.lp .tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.lp .rail {
+  width: min(100% - 2 * var(--gutter), var(--rail));
+  margin-inline: auto;
+}
+
+.lp .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+.lp *,
+.lp *::before,
+.lp *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.lp .page {
+  position: relative;
+}
+
+
+/* ===== components/PageThread.css ===== */
+
+.lp .page-thread {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.lp .page-thread__line {
+  fill: none;
+  stroke: url(#pt-ink);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.8;
+}
+
+/* The knot where the thread ties into the closing CTA appears once it arrives. */
+.lp .page-thread__knot {
+  fill: #ec008c;
+  opacity: 0;
+  transition: opacity var(--t-fast) var(--ease-snap);
+}
+
+.lp .page-thread.is-whole .page-thread__knot {
+  opacity: 1;
+}
+
+/* Phones: the margin is narrow, so the thread carries more weight, not less. */
+@media (max-width: 760px) {
+.lp .page-thread__line {
+    stroke-width: 2.25;
+    opacity: 0.95;
+  }
+}
+
+
+/* ===== components/ui.css ===== */
+
+/* ---------- Button ---------- */
+.lp .btn {
+  /* reset the Teia .btn (Manrope 700, nowrap, full width on phones) */
+  font-family: inherit;
+  white-space: normal;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 52px;
+  padding: 0.875rem 1.5rem 0.875rem 1.75rem;
+  border-radius: var(--r-button);
+  border: 1px solid transparent;
+  font-size: var(--fs-small);
+  font-weight: var(--w-medium);
+  line-height: 1.25;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color var(--t-fast) var(--ease-snap),
+    border-color var(--t-fast) var(--ease-snap),
+    color var(--t-fast) var(--ease-snap),
+    box-shadow var(--t-fast) var(--ease-snap);
+}
+
+.lp .btn__chevron {
+  flex: none;
+  transition: transform var(--t-fast) var(--ease-snap);
+}
+
+.lp .btn:hover .btn__chevron {
+  transform: translateX(3px);
+}
+
+.lp .btn--primary {
+  background: linear-gradient(180deg, #dc0a85, var(--action));
+  color: #fff;
+  box-shadow: 0 2px 4px rgb(184 0 109 / 0.2), 0 12px 28px rgb(214 0 127 / 0.32);
+}
+
+.lp .btn--primary:hover {
+  background: var(--action-hover);
+  box-shadow: 0 2px 4px rgb(184 0 109 / 0.2), 0 16px 36px rgb(214 0 127 / 0.4);
+}
+
+.lp .btn--secondary {
+  background: var(--paper);
+  color: var(--action);
+  border-color: var(--action);
+}
+
+.lp .btn--secondary:hover {
+  background: var(--action-tint);
+}
+
+.lp .btn--inverse {
+  background: transparent;
+  color: var(--on-lacquer);
+  border-color: rgb(255 255 255 / 0.4);
+}
+
+.lp .btn--inverse:hover {
+  border-color: #fff;
+  background: rgb(255 255 255 / 0.06);
+}
+
+.lp .btn:active {
+  transform: translateY(1px);
+}
+
+/* ---------- Bands: the page is one rail split by hairlines ---------- */
+.lp .band {
+  padding-block: var(--section-y);
+}
+
+.lp .band--ground {
+  background: var(--ground);
+}
+
+.lp .band--paper {
+  background: var(--paper);
+}
+
+.lp .band--ground + .band--ground,
+.lp .band--paper + .band--paper {
+  border-top: 1px solid var(--hairline);
+}
+
+/* Lacquer: a soft gloss along the top edge, like light across a dark finish. */
+.lp .band--lacquer {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0) 22%),
+    radial-gradient(70% 50% at 80% 0%, rgb(39 170 225 / 0.12), transparent 70%),
+    var(--lacquer);
+  color: var(--on-lacquer-muted);
+}
+
+.lp .band--lacquer :is(h1,
+.lp h2,
+.lp h3,
+.lp h4) {
+  color: var(--on-lacquer);
+}
+
+.lp .band--lacquer ::selection {
+  background: var(--thread-magenta);
+  color: #fff;
+}
+
+/* Shared section heading rhythm: more space above a heading than below. */
+.lp .heading {
+  font-size: var(--fs-h2);
+  max-width: 22ch;
+}
+
+.lp .lede {
+  margin-top: var(--s-4);
+  font-size: var(--fs-deck);
+  max-width: var(--measure);
+}
+
+/* ---------- Tones & icon chips ---------- */
+.lp .tone-cyan { --tone: var(--tone-cyan); --tint: var(--tint-cyan); }
+
+.lp .tone-purple { --tone: var(--tone-purple); --tint: var(--tint-purple); }
+
+.lp .tone-magenta { --tone: var(--tone-magenta); --tint: var(--tint-magenta); }
+
+.lp .tone-green { --tone: var(--tone-green); --tint: var(--tint-green); }
+
+.lp .tone-orange { --tone: var(--tone-orange); --tint: var(--tint-orange); }
+
+.lp .chip {
+  /* reset the Teia filter .chip */
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  cursor: inherit;
+  transition: none;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 14px;
+  background: var(--tint, var(--ground));
+  color: var(--tone, var(--ink));
+}
+
+.lp .chip--sm {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+}
+
+/* A tinted card: the tone's soft ground, its ink for the icon. */
+.lp .tcard {
+  border-radius: var(--r-panel);
+  background: var(--tint);
+}
+
+/* ---------- Two-tone headings: the second beat in the accent ---------- */
+.lp .accent {
+  color: var(--accent);
+}
+
+.lp .band--lacquer .accent,
+.lp .stage .accent {
+  color: #ffd6ee;
+}
+
+/* ---------- Stage: a saturated rounded field inside the rail ---------- */
+.lp .band--stage {
+  background: var(--ground);
+}
+
+.lp .stage {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 1rem + 4vw, 4.5rem);
+  border-radius: var(--r-stage);
+  color: rgb(255 255 255 / 0.86);
+  box-shadow: 0 30px 70px -30px rgb(11 31 77 / 0.45);
+}
+
+.lp .stage :is(h2,
+.lp h3) {
+  color: #fff;
+}
+
+.lp .stage--purple { background: var(--stage-purple); }
+
+.lp .stage--blue { background: var(--stage-blue); }
+
+.lp .stage--magenta { background: var(--stage-magenta); }
+
+/* Large soft rings in the panel's corner: depth without decoration noise. */
+.lp .stage::before,
+.lp .stage::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgb(255 255 255 / 0.12);
+  pointer-events: none;
+}
+
+.lp .stage::before {
+  width: 34rem;
+  height: 34rem;
+  right: -12rem;
+  top: -14rem;
+}
+
+.lp .stage::after {
+  width: 22rem;
+  height: 22rem;
+  left: -9rem;
+  bottom: -11rem;
+  background: rgb(255 255 255 / 0.05);
+}
+
+.lp .stage > * {
+  position: relative;
+}
+
+/* White pill rows on a stage. */
+.lp .pills {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.lp .pills li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-5) var(--s-2) var(--s-2);
+  border-radius: var(--r-pill);
+  background: #fff;
+  color: var(--ink);
+  font-size: var(--fs-small);
+  box-shadow: 0 6px 18px rgb(11 31 77 / 0.12);
+}
+
+.lp .pills .chip {
+  border-radius: 50%;
+}
+
+/* Phones: the stage keeps its colour but gives the content the width back. */
+@media (max-width: 600px) {
+.lp .stage {
+    padding: var(--s-6) var(--s-4);
+    margin-inline: calc(-1 * var(--s-2));
+  }
+}
+
+
+/* ===== components/Thread.css ===== */
+
+.lp .thread {
+  /* reset the Teia methodology .thread line */
+  position: static;
+  inset: auto;
+  border: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+
+/* ===== sections/Hero.css ===== */
+
+.lp .hero {
+  position: relative;
+  overflow: clip;
+  padding-top: clamp(2rem, 1rem + 4vw, 4.5rem);
+  padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  background: linear-gradient(180deg, var(--paper), var(--ground));
+}
+
+/* The thread owns the right bleed, from the header to the facts row. */
+.lp .hero__thread {
+  position: absolute;
+  /* bottom stops just above the facts row, so the taper into the margin is in view */
+  inset: 0 0 9.5rem 52%;
+}
+
+.lp .hero__thread-mob {
+  display: none;
+}
+
+.lp .hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+  align-items: end;
+  gap: var(--s-6);
+}
+
+.lp .hero__copy {
+  padding-bottom: var(--s-7);
+}
+
+.lp .hero__title {
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  font-weight: var(--w-regular);
+  max-width: 16ch;
+}
+
+.lp .hero__em {
+  color: var(--action);
+  font-weight: var(--w-medium);
+}
+
+.lp .hero__deck {
+  margin-top: var(--s-5);
+  font-size: var(--fs-deck);
+  line-height: 1.55;
+  max-width: 34rem;
+}
+
+.lp .hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
+.lp .hero__actions .btn {
+  padding-inline: 1.25rem 1rem;
+}
+
+.lp .hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin-top: var(--s-5);
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+}
+
+.lp .hero__trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.lp .hero__trust svg {
+  color: var(--ink);
+}
+
+.lp .hero__portrait {
+  position: relative;
+  /* She is the hero: larger than her column, reaching past it toward the edge. */
+  justify-self: end;
+  width: min(128%, 44rem);
+  margin: 0 calc(-1 * var(--s-6)) 0 0;
+}
+
+/* A cut-out portrait standing in the light, no frame: the thread passes behind her
+   and the table edge rests on the facts row. */
+.lp .hero__portrait img {
+  width: 100%;
+  height: auto;
+  /* the table is cropped square at both sides: fade its ends, leave the figure whole */
+  -webkit-mask:
+    linear-gradient(#000, #000) top / 100% 69% no-repeat,
+    linear-gradient(90deg, transparent, #000 16%, #000 93%, transparent) bottom / 100% 31% no-repeat;
+  mask:
+    linear-gradient(#000, #000) top / 100% 69% no-repeat,
+    linear-gradient(90deg, transparent, #000 16%, #000 93%, transparent) bottom / 100% 31% no-repeat;
+}
+
+.lp .hero__caption {
+  position: absolute;
+  right: var(--s-7);
+  bottom: var(--s-5);
+  display: grid;
+  gap: 2px;
+  max-width: 15rem;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-panel);
+  background: var(--paper);
+  box-shadow: var(--shadow-2);
+  font-size: var(--fs-label);
+  line-height: 1.4;
+}
+
+.lp .hero__caption strong {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+  font-size: var(--fs-small);
+}
+
+/* ---------- Block 03: the facts, one ruled row ---------- */
+.lp .facts {
+  /* reset the Teia .facts card */
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  background: var(--paper);
+}
+
+.lp .facts__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--s-3);
+  row-gap: 2px;
+  align-items: center;
+  padding: var(--s-4) var(--s-5);
+}
+
+.lp .facts__item + .facts__item {
+  border-left: 1px solid var(--hairline);
+}
+
+.lp .facts__value {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+  font-size: var(--fs-small);
+}
+
+.lp .facts__item .chip {
+  grid-row: span 2;
+}
+
+.lp .facts__detail {
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+}
+
+@media (max-width: 899px) {
+/* On a phone the thread stays behind the portrait, never under the copy. */
+.lp .hero__thread {
+    /* bottom sits just above the facts list so the tail can reach the margin in view */
+    inset: auto -10% calc(var(--facts-h, 17.5rem) + 0.5rem) -30%;
+    height: 24rem;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%);
+    mask-image: linear-gradient(180deg, transparent, #000 22%);
+  }
+
+.lp .hero__thread-desk {
+    display: none;
+  }
+
+.lp .hero__thread-mob {
+    display: block;
+  }
+
+.lp .hero__grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+
+.lp .hero__title {
+    max-width: 14ch;
+  }
+
+.lp .hero__copy {
+    padding-bottom: 0;
+  }
+
+.lp .hero__portrait {
+    justify-self: center;
+    width: min(100%, 26rem);
+    margin: 0;
+  }
+
+/* Left of the portrait on phones: the right side belongs to the thread's taper. */
+.lp .hero__caption {
+    left: 0;
+    right: auto;
+    bottom: var(--s-4);
+  }
+
+/* Phones: the five facts become coloured tiles, two per row. */
+.lp .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-2);
+    border: 0;
+    background: transparent;
+  }
+
+.lp .facts__item,
+.lp .facts__item + .facts__item {
+    grid-template-columns: 1fr;
+    align-content: start;
+    padding: var(--s-3);
+    border: 0;
+    border-radius: var(--r-panel);
+    background: var(--tint);
+  }
+
+.lp .facts__item .chip {
+    grid-row: auto;
+    margin-bottom: var(--s-2);
+    background: var(--paper);
+  }
+
+.lp .facts__item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+.lp .hero__actions .btn {
+    width: 100%;
+  }
+}
+
+
+/* ===== sections/Pain.css ===== */
+
+.lp .pain__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--s-6) clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+}
+
+.lp .pain__lede {
+  color: rgb(255 255 255 / 0.8);
+  font-size: var(--fs-deck);
+}
+
+.lp .pain__heading {
+  margin-top: var(--s-3);
+  max-width: 18ch;
+}
+
+.lp .pain__list {
+  display: grid;
+  gap: var(--s-3);
+}
+
+/* Each doubt is a white card with a round tone chip, like a speech bubble. */
+.lp .pain__item {
+  display: flex;
+  gap: var(--s-4);
+  align-items: flex-start;
+  padding: var(--s-4) var(--s-5) var(--s-4) var(--s-4);
+  border-radius: var(--r-panel);
+  background: #fff;
+  box-shadow: 0 10px 28px rgb(31 8 60 / 0.22);
+  transition: transform var(--t-fast) var(--ease-snap);
+}
+
+.lp .pain__item:hover {
+  transform: translateX(6px);
+}
+
+.lp .pain__item .chip {
+  border-radius: 50%;
+}
+
+.lp .pain__question {
+  color: var(--ink) !important;
+  font-size: var(--fs-deck);
+  line-height: 1.25;
+}
+
+.lp .pain__voice {
+  margin-top: var(--s-1);
+  color: var(--text);
+  font-size: var(--fs-small);
+}
+
+.lp .pain__closing {
+  margin-top: var(--s-7);
+  padding-top: var(--s-6);
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  color: rgb(255 255 255 / 0.85);
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: var(--track-heading);
+  max-width: 40ch;
+  text-wrap: balance;
+}
+
+.lp .pain__closing strong {
+  color: #fff;
+  font-weight: var(--w-medium);
+}
+
+@media (max-width: 899px) {
+.lp .pain__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+.lp .pain__item {
+    padding: var(--s-3);
+    gap: var(--s-3);
+  }
+}
+
+
+/* ===== sections/BigIdea.css ===== */
+
+.lp .idea {
+  position: relative;
+  overflow: clip;
+}
+
+.lp .idea__lede {
+  font-size: var(--fs-deck);
+  font-weight: var(--w-regular);
+  letter-spacing: 0;
+  color: var(--on-lacquer-muted) !important;
+}
+
+.lp .idea__span {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(4rem, 0.4fr) minmax(0, 1fr);
+  align-items: center;
+  margin-top: var(--s-6);
+  padding-block: clamp(5rem, 3rem + 6vw, 9rem);
+  border-top: 1px solid var(--lacquer-hairline);
+  border-bottom: 1px solid var(--lacquer-hairline);
+}
+
+/* The bridge bleeds to the panel's edges; its route stays in the band's padding. */
+.lp .idea__thread {
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+}
+
+.lp .idea__cross {
+  display: none;
+}
+
+.lp .idea__side {
+  position: relative;
+}
+
+.lp .idea__side--act {
+  grid-column: 3;
+  text-align: right;
+  justify-self: end;
+}
+
+.lp .idea__title {
+  color: var(--on-lacquer);
+  font-size: clamp(1.75rem, 1.1rem + 2.6vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+
+.lp .idea__side:not(.idea__side--act) .idea__title {
+  font-weight: var(--w-regular);
+  color: rgb(255 255 255 / 0.78);
+}
+
+.lp .idea__side--act .idea__title {
+  font-weight: var(--w-medium);
+}
+
+.lp .idea__text {
+  margin-top: var(--s-4);
+  max-width: 30ch;
+  font-size: var(--fs-body);
+}
+
+.lp .idea__side--act .idea__text {
+  margin-left: auto;
+}
+
+.lp .idea__closing {
+  margin-top: var(--s-7);
+  max-width: 34ch;
+  margin-inline: auto;
+  text-align: center;
+  color: var(--on-lacquer);
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: var(--track-heading);
+  text-wrap: balance;
+}
+
+.lp .idea__closing strong {
+  font-weight: var(--w-medium);
+  background: linear-gradient(90deg, var(--thread-cyan), var(--thread-purple), var(--thread-magenta)) no-repeat 0 100% / 100% 2px;
+  padding-bottom: 2px;
+}
+
+/* Phone: the statements stack, and the thread crosses the gap between them. */
+@media (max-width: 759px) {
+.lp .idea__span {
+    grid-template-columns: 1fr;
+    padding-block: var(--s-7);
+  }
+
+.lp .idea__thread {
+    display: none;
+  }
+
+.lp .idea__cross {
+    display: block;
+    height: 9rem;
+    margin-inline: calc(-1 * var(--gutter));
+  }
+
+.lp .idea__side--act {
+    grid-column: auto;
+    text-align: left;
+    justify-self: start;
+  }
+
+.lp .idea__side--act .idea__text {
+    margin-left: 0;
+  }
+
+.lp .idea__closing {
+    text-align: left;
+    margin-inline: 0;
+  }
+}
+
+
+/* ===== sections/Journey.css ===== */
+
+/* ---------- 06 Antes → Depois ---------- */
+.lp .shift__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-7);
+  align-items: end;
+}
+
+.lp .shift__intro .lede {
+  margin-top: 0;
+}
+
+.lp .shift__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: var(--s-7);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: var(--paper);
+  box-shadow: var(--shadow-1);
+}
+
+.lp .shift__col {
+  padding: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+.lp .shift__col--before {
+  background: var(--ground);
+}
+
+.lp .shift__col--after {
+  border-left: 1px solid var(--hairline);
+}
+
+.lp .shift__label {
+  font-size: var(--fs-label);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.lp .shift__col--after .shift__label {
+  color: var(--ink);
+}
+
+.lp .shift__col ul {
+  margin-top: var(--s-4);
+}
+
+.lp .shift__col li {
+  display: flex;
+  gap: var(--s-3);
+  align-items: baseline;
+  padding-block: var(--s-3);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-deck);
+  line-height: 1.4;
+}
+
+.lp .shift__col li svg {
+  flex: none;
+  transform: translateY(3px);
+}
+
+.lp .shift__col--before li {
+  color: var(--text-muted);
+}
+
+.lp .shift__col--after li {
+  color: var(--ink);
+}
+
+.lp .shift__col--after li svg {
+  color: var(--ink);
+}
+
+/* ---------- 07 Solução ---------- */
+.lp .solution__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: var(--s-4) clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: end;
+}
+
+.lp .solution__lede {
+  margin-top: 0;
+}
+
+.lp .solution__title {
+  font-size: var(--fs-h2);
+  letter-spacing: var(--track-display);
+}
+
+.lp .solution__title span {
+  display: block;
+  margin-top: var(--s-2);
+  color: var(--text);
+  font-weight: var(--w-regular);
+  font-size: var(--fs-h3);
+  letter-spacing: var(--track-heading);
+}
+
+.lp .method {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: var(--s-8);
+  padding: 0;
+  list-style: none;
+}
+
+/* The thread again, as the line the method travels along. */
+.lp .method::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--thread);
+  opacity: 0.55;
+}
+
+.lp .method li {
+  position: relative;
+  padding-top: var(--s-6);
+  color: var(--ink);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--track-heading);
+}
+
+.lp .method li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--thread-purple);
+}
+
+.lp .method li.is-goal::before {
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 0 0 6px rgb(11 31 77 / 0.1);
+}
+
+/* ---------- 08 Pilares: five tinted cards, one per module ---------- */
+.lp .pillars__row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-7);
+  padding: 0;
+  list-style: none;
+}
+
+.lp .pillars__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  border-radius: var(--r-panel);
+  background: var(--tint);
+  transition: transform var(--t-fast) var(--ease-snap), box-shadow var(--t-fast) var(--ease-snap);
+}
+
+.lp .pillars__item .chip {
+  background: var(--paper);
+  margin-bottom: var(--s-2);
+}
+
+.lp .pillars__item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
+}
+
+.lp .pillars__title {
+  font-size: var(--fs-h3);
+}
+
+.lp .pillars__item p {
+  font-size: var(--fs-small);
+}
+
+.lp .pillars__cta {
+  margin-top: var(--s-7);
+}
+
+/* ---------- 09 Benefícios: icons that keep breathing ---------- */
+.lp .benefits__heading {
+  max-width: 24ch;
+}
+
+.lp .benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-7);
+}
+
+.lp .benefits__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--s-4);
+  align-items: start;
+  padding: var(--s-5);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--paper);
+  transition: border-color var(--t-fast) var(--ease-snap), transform var(--t-fast) var(--ease-snap);
+}
+
+.lp .benefits__item .chip {
+  grid-row: span 2;
+  animation: lp-chip-float 4.8s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.8s);
+}
+
+.lp .benefits__item:hover {
+  border-color: var(--tone);
+  transform: translateY(-3px);
+}
+
+.lp .benefits__item:hover .chip {
+  animation: lp-chip-nudge 0.6s var(--ease-snap);
+}
+
+.lp .benefits__item dt {
+  color: var(--ink);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--track-heading);
+}
+
+.lp .benefits__item dd {
+  margin: var(--s-1) 0 0;
+  font-size: var(--fs-small);
+}
+
+/* A slow bob, each chip on its own phase, so the grid is never still in unison. */
+@keyframes lp-chip-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-4deg);
+  }
+}
+
+@keyframes lp-chip-nudge {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.12) rotate(6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ---------- 10 Para quem é ---------- */
+.lp .audience__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.lp .audience__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding-block: var(--s-3);
+  border-top: 1px solid var(--hairline);
+  color: var(--ink);
+  font-size: var(--fs-deck);
+}
+
+.lp .audience__list li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.lp .audience__highlight {
+  margin-top: var(--s-8);
+  max-width: 30ch;
+  color: var(--ink);
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: var(--track-heading);
+  text-wrap: balance;
+}
+
+.lp .audience__highlight strong {
+  font-weight: var(--w-medium);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 999px) {
+.lp .pillars__row {
+    grid-template-columns: 1fr;
+    gap: var(--s-3);
+  }
+
+.lp .pillars__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--s-4);
+    row-gap: var(--s-1);
+    align-items: start;
+  }
+
+.lp .pillars__item .chip {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 899px) {
+.lp .shift__intro,
+.lp .solution__grid,
+.lp .audience__grid {
+    grid-template-columns: 1fr;
+  }
+
+.lp .shift__intro {
+    gap: var(--s-4);
+  }
+
+.lp .benefits__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+.lp .shift__pair {
+    grid-template-columns: 1fr;
+  }
+
+.lp .shift__col--after {
+    border-left: 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+.lp .benefits__grid {
+    grid-template-columns: 1fr;
+  }
+
+.lp .method {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--s-5);
+  }
+
+.lp .method::before {
+    display: none;
+  }
+}
+
+
+/* ===== sections/Proof.css ===== */
+
+/* ---------- 11–12 Ana Paula ---------- */
+.lp .author__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: center;
+}
+
+/* Cut-out portrait standing on an organic Teia-blue shape; her head breaks its
+   top edge, and the waist crop sits on the shape's flat bottom. */
+.lp .author__photo {
+  position: relative;
+  padding-top: 12%;
+}
+
+.lp .author__photo::before {
+  content: '';
+  position: absolute;
+  inset: 22% 0 0 0;
+  border-radius: 46% 54% var(--r-stage) var(--r-stage) / 38% 42% var(--r-stage) var(--r-stage);
+  background: var(--stage-blue);
+  box-shadow: 0 30px 60px -30px rgb(11 31 77 / 0.5);
+}
+
+.lp .author__photo::after {
+  content: '';
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  right: -0.75rem;
+  top: 18%;
+  border-radius: 50%;
+  background: var(--stage-magenta);
+  opacity: 0.9;
+}
+
+.lp .author__portrait {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0 0 var(--r-stage) var(--r-stage);
+}
+
+.lp .author__name {
+  font-size: var(--fs-h2);
+  letter-spacing: var(--track-display);
+}
+
+.lp .author__sub {
+  margin-top: var(--s-3);
+  color: var(--ink);
+  font-size: var(--fs-h3);
+  line-height: 1.35;
+  max-width: 30ch;
+}
+
+.lp .author__bio {
+  margin-top: var(--s-5);
+  max-width: var(--measure);
+}
+
+.lp .credentials {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-6);
+}
+
+.lp .credentials li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-3) var(--s-2) var(--s-2);
+  border-radius: var(--r-panel);
+  background: var(--tint);
+  color: var(--ink);
+  font-size: var(--fs-small);
+  line-height: 1.3;
+}
+
+.lp .credentials .chip {
+  background: var(--paper);
+}
+
+/* The one place the page changes voice: a serif for words said, not argued. */
+.lp .author__quote {
+  position: relative;
+  margin: var(--s-8) 0 0;
+  padding: clamp(1.75rem, 1rem + 3vw, 3.5rem);
+  border-radius: var(--r-panel);
+  background: var(--lacquer);
+  overflow: hidden;
+}
+
+.lp .author__quote-mark {
+  color: var(--thread-cyan);
+}
+
+.lp .author__quote blockquote p {
+  margin-top: var(--s-4);
+  color: var(--on-lacquer);
+  font-family: var(--font-quote);
+  font-size: clamp(1.625rem, 1.15rem + 1.9vw, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  max-width: 30ch;
+  text-wrap: balance;
+}
+
+.lp .author__quote figcaption {
+  color: var(--on-lacquer-muted) !important;
+}
+
+.lp .author__quote figcaption {
+  margin-top: var(--s-5);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.lp .author__quote figcaption::before {
+  content: '— ';
+}
+
+/* ---------- 14 Experiência de estudo ---------- */
+.lp .study__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 1rem + 5vw, 6rem);
+  align-items: start;
+}
+
+.lp .study__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding-block: var(--s-4);
+  border-top: 1px solid var(--hairline);
+}
+
+.lp .study__list li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.lp .study__list strong {
+  display: block;
+  color: var(--ink);
+  font-weight: var(--w-medium);
+}
+
+.lp .study__list span {
+  font-size: var(--fs-small);
+}
+
+/* ---------- 15 Conteúdo programático ---------- */
+.lp .curriculum__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.lp .curriculum__intro {
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-6));
+}
+
+.lp .modules {
+  border-top: 1px solid var(--ink);
+}
+
+.lp .modules__item {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.lp .modules__item summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'n icon'
+    'title icon';
+  align-items: center;
+  gap: var(--s-1) var(--s-5);
+  padding-block: var(--s-5);
+  cursor: pointer;
+  list-style: none;
+}
+
+.lp .modules__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.lp .modules__n {
+  grid-area: n;
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+}
+
+.lp .modules__title {
+  grid-area: title;
+  color: var(--ink);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-medium);
+  line-height: 1.25;
+  letter-spacing: var(--track-heading);
+}
+
+.lp .modules__icon {
+  grid-area: icon;
+  color: var(--ink);
+  transition: transform var(--t-fast) var(--ease-snap);
+}
+
+.lp .modules__item[open] .modules__icon {
+  transform: rotate(45deg);
+}
+
+.lp .modules__item summary:hover .modules__title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.lp .modules__item p {
+  padding-bottom: var(--s-5);
+  max-width: 56ch;
+}
+
+/* ---------- 16 Portfólio ---------- */
+.lp .portfolio__panel .lede {
+  margin-top: 0;
+}
+
+.lp .portfolio__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: var(--s-4) var(--s-7);
+  align-items: end;
+  padding: clamp(1.5rem, 1rem + 3vw, 4rem);
+  border-radius: var(--r-panel);
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-1);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 899px) {
+.lp .author__grid,
+.lp .study__grid,
+.lp .curriculum__grid,
+.lp .portfolio__panel {
+    grid-template-columns: 1fr;
+  }
+
+.lp .author__portrait {
+    max-width: 26rem;
+  }
+
+.lp .curriculum__intro {
+    position: static;
+  }
+}
+
+@media (max-width: 560px) {
+.lp .credentials {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===== sections/Social.css ===== */
+
+/* ---------- Vídeo ---------- */
+.lp .video {
+  padding-block: var(--s-8);
+}
+
+.lp .video__heading {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.lp .video__frame {
+  position: relative;
+  margin: var(--s-6) auto 0;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-stage);
+  overflow: hidden;
+  background: var(--stage-blue);
+  box-shadow: 0 30px 70px -30px rgb(11 31 77 / 0.5);
+}
+
+.lp .video__frame iframe,
+.lp .video__cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.lp .video__cover {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* The frame clips overflow, so the focus ring sits inside. */
+.lp .video__cover:focus-visible {
+  outline-color: #fff;
+  outline-offset: -6px;
+}
+
+.lp .video__cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lp .video__play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  padding-left: 6px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--action);
+  box-shadow: 0 0 0 14px rgb(255 255 255 / 0.16), 0 20px 40px rgb(4 12 34 / 0.35);
+  transition: transform var(--t-fast) var(--ease-snap);
+}
+
+.lp .video__cover:hover .video__play {
+  transform: scale(1.06);
+}
+
+@media (max-width: 40em) {
+.lp .video__play {
+    width: 4rem;
+    height: 4rem;
+    box-shadow: 0 0 0 10px rgb(255 255 255 / 0.16), 0 14px 28px rgb(4 12 34 / 0.35);
+  }
+}
+
+/* ---------- Depoimentos ---------- */
+.lp .voices__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: var(--s-4) var(--s-7);
+  align-items: end;
+}
+
+.lp .voices__lede {
+  color: #fff;
+  font-size: var(--fs-deck);
+}
+
+.lp .voices__prints {
+  columns: 2 22rem;
+  column-gap: var(--s-4);
+  margin-top: var(--s-7);
+}
+
+.lp .voices__print {
+  break-inside: avoid;
+  margin-bottom: var(--s-4);
+  border-radius: var(--r-panel);
+  overflow: hidden;
+  background: #0b141a;
+  box-shadow: 0 14px 36px rgb(60 0 30 / 0.25);
+}
+
+.lp .voices__print img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lp .voices__sub {
+  margin-top: var(--s-7);
+  color: #fff;
+  font-size: var(--fs-deck);
+  font-weight: var(--w-medium);
+}
+
+.lp .voices__videos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-4);
+}
+
+.lp .voices__video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: var(--r-panel);
+  background: #000;
+  box-shadow: 0 14px 36px rgb(60 0 30 / 0.25);
+}
+
+@media (max-width: 899px) {
+.lp .voices__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phones: videos scroll sideways instead of shrinking to thumbnails. */
+@media (max-width: 600px) {
+.lp .voices__videos {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--s-2);
+  }
+
+.lp .voices__video {
+    scroll-snap-align: start;
+  }
+}
+
+
+/* ===== components/PayMethods.css ===== */
+
+.lp .pay {
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline);
+}
+
+.lp .pay__label {
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.lp .pay__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+
+.lp .pay__list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-button);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--fs-label);
+  font-weight: var(--w-medium);
+}
+
+
+/* ===== sections/Close.css ===== */
+
+/* ---------- 18 Oferta ---------- */
+.lp .offer {
+  position: relative;
+  overflow: clip;
+}
+
+.lp .offer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2rem, 1rem + 5vw, 6rem);
+  align-items: center;
+}
+
+.lp .offer__title {
+  font-size: var(--fs-h2);
+  letter-spacing: var(--track-display);
+  max-width: 16ch;
+}
+
+.lp .offer__includes {
+  margin-top: var(--s-6);
+}
+
+.lp .offer__includes li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-block: var(--s-3);
+  border-top: 1px solid var(--lacquer-hairline);
+  color: var(--on-lacquer);
+  font-size: var(--fs-deck);
+}
+
+.lp .offer__includes svg {
+  flex: none;
+  color: var(--thread-cyan);
+}
+
+.lp .price {
+  position: relative;
+  padding: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  border-radius: var(--r-panel);
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: 0 30px 80px -20px rgb(4 12 34 / 0.6);
+}
+
+.lp .price__seats {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-small);
+}
+
+.lp .price__seats strong {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+}
+
+.lp .price__seal {
+  position: absolute;
+  top: calc(-1 * var(--s-7));
+  right: calc(-1 * var(--s-5));
+  width: 7.5rem;
+  height: auto;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 10px 30px rgb(4 12 34 / 0.35);
+  transform: rotate(8deg);
+}
+
+.lp .price__name {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+  font-size: var(--fs-deck);
+  line-height: 1.3;
+}
+
+.lp .price__name span {
+  display: block;
+  color: var(--text-muted);
+  font-weight: var(--w-regular);
+  font-size: var(--fs-small);
+}
+
+.lp .price__now {
+  display: grid;
+  gap: var(--s-1);
+  margin-top: var(--s-3);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline);
+}
+
+.lp .price__lead {
+  font-size: var(--fs-label);
+  font-weight: var(--w-medium);
+  color: var(--ink);
+}
+
+.lp .price__now strong {
+  color: var(--ink);
+  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem);
+  font-weight: var(--w-medium);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.lp .price__installments {
+  margin-top: var(--s-2);
+  font-size: var(--fs-deck);
+}
+
+.lp .price__installments strong {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+}
+
+.lp .price__cta {
+  width: 100%;
+  margin-top: var(--s-6);
+}
+
+.lp .price__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2) var(--s-4);
+  margin-top: var(--s-4);
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+}
+
+.lp .price__trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- 19 Garantia ---------- */
+.lp .guarantee__panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: start;
+  max-width: 900px;
+}
+
+.lp .guarantee__seal {
+  width: clamp(8.5rem, 7rem + 5vw, 12rem);
+  height: auto;
+  color: var(--ink);
+}
+
+.lp .guarantee__title {
+  font-size: var(--fs-h2);
+  letter-spacing: var(--track-display);
+  max-width: 18ch;
+}
+
+.lp .guarantee__sub {
+  margin-top: var(--s-3);
+  color: var(--ink);
+  font-size: var(--fs-h3);
+}
+
+.lp .guarantee__text {
+  margin-top: var(--s-4);
+  max-width: var(--measure);
+}
+
+/* ---------- 20–21 Objeções e FAQ ---------- */
+.lp .doubts__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.lp .doubts__heading {
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-6));
+}
+
+.lp .qa {
+  border-top: 1px solid var(--ink);
+}
+
+.lp .qa__item {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.lp .qa__item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-5);
+  padding-block: var(--s-5);
+  color: var(--ink);
+  font-size: var(--fs-deck);
+  font-weight: var(--w-medium);
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+}
+
+.lp .qa__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.lp .qa__item summary:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.lp .qa__icon {
+  flex: none;
+  color: var(--ink);
+  transition: transform var(--t-fast) var(--ease-snap);
+}
+
+.lp .qa__item[open] .qa__icon {
+  transform: rotate(45deg);
+}
+
+.lp .qa__item p {
+  padding-bottom: var(--s-5);
+  max-width: 60ch;
+}
+
+/* ---------- 22 Fechamento: full rail, the question owns the band ---------- */
+.lp .closing__title {
+  font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: var(--track-display);
+  max-width: 22ch;
+}
+
+.lp .closing__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(2rem, 1rem + 5vw, 6rem);
+  margin-top: var(--s-7);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--hairline);
+}
+
+.lp .closing__text {
+  max-width: var(--measure);
+  font-size: var(--fs-deck);
+}
+
+.lp .closing__text + .closing__text {
+  margin-top: var(--s-3);
+}
+
+.lp .closing__emphasis {
+  margin-top: var(--s-6);
+  color: var(--ink);
+  font-size: var(--fs-h3);
+  font-weight: var(--w-medium);
+  line-height: 1.35;
+  max-width: 30ch;
+}
+
+.lp .closing__invite {
+  color: var(--ink);
+  font-size: var(--fs-deck);
+}
+
+.lp .closing__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-5);
+  margin-top: var(--s-4);
+  padding-block: var(--s-3);
+  border-block: 1px solid var(--hairline);
+  font-size: var(--fs-small);
+  color: var(--ink);
+}
+
+.lp .closing__price {
+  display: grid;
+  margin-top: var(--s-5);
+  line-height: 1.2;
+}
+
+.lp .closing__price strong {
+  color: var(--ink);
+  font-size: var(--fs-h2);
+  font-weight: var(--w-medium);
+  letter-spacing: -0.03em;
+}
+
+.lp .closing__price > span {
+  font-size: var(--fs-small);
+}
+
+.lp .closing__cta {
+  width: 100%;
+  margin-top: var(--s-5);
+}
+
+.lp .closing__guarantee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* Closing on a blue stage: copy in white, the purchase in a white card. */
+.lp .closing .closing__grid {
+  border-top-color: rgb(255 255 255 / 0.2);
+  align-items: start;
+}
+
+.lp .closing .closing__text {
+  color: rgb(255 255 255 / 0.85);
+}
+
+.lp .closing .closing__emphasis {
+  color: #fff;
+}
+
+.lp .closing__buy {
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: var(--r-panel);
+  background: #fff;
+  color: var(--text);
+  box-shadow: 0 24px 50px -20px rgb(4 12 34 / 0.5);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 899px) {
+.lp .offer__grid,
+.lp .doubts__grid,
+.lp .closing__grid {
+    grid-template-columns: 1fr;
+  }
+
+.lp .doubts__heading {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+.lp .guarantee__panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+.lp .price__seal {
+    top: calc(-1 * var(--s-6));
+    right: var(--s-3);
+    width: 5.25rem;
+  }
+}
+
+

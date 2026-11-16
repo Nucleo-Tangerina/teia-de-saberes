@@ -1,21 +1,20 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowLeft, ArrowRight, CircleAlert, CircleCheck, Menu, Search, Send, X } from "lucide-react";
-import { nav, type Article, type Solution } from "./content";
-import { SolutionCard, stagger } from "./ui";
+import { CircleAlert, CircleCheck, Menu, Send, X } from "lucide-react";
+import { nav } from "./content";
 import { sendContact, type ContactState } from "./contato/actions";
 import { interests, UFS, type Field } from "./contato/validate";
 
 // Sub-pages that light up their parent menu item.
 const sectionOf = (path: string) =>
-  /^\/(mentoria-|palestras-|pos-graduacao)/.test(path)
+  /^\/(mentoria-|palestras-|pos-graduacao|tear|olimpiada-|caminhos-)/.test(path)
     ? "/solucoes-educacionais"
     : path.startsWith("/blog")
-      ? "/blog"
+      ? "/em-movimento"
       : path;
 
 export function Header() {
@@ -39,9 +38,17 @@ export function Header() {
 
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}${open ? " is-open" : ""}`}>
+      {/* desktop only: collapses on scroll, then the small brand in the bar takes over */}
+      <div className="header-top">
+        <div>
+          <Link href="/" className="brand brand-top" aria-label="Teia de Saberes, página inicial">
+            <Image src="/logo-white.png" alt="Teia de Saberes" width={681} height={289} priority />
+          </Link>
+        </div>
+      </div>
       <div className="header-inner">
-        <Link href="/" className="brand" aria-label="Teia de Saberes, página inicial">
-          <Image src="/logo.png" alt="Teia de Saberes" width={681} height={289} priority />
+        <Link href="/" className="brand brand-bar" aria-label="Teia de Saberes, página inicial">
+          <Image src="/logo-white.png" alt="Teia de Saberes" width={681} height={289} priority />
         </Link>
         <nav aria-label="Principal" id="menu-principal" className="main-nav">
           {nav.map((n) => (
@@ -49,11 +56,11 @@ export function Header() {
               {n.label}
             </Link>
           ))}
-          <Link href="/contato" className="btn btn-dark nav-cta-mobile" onClick={() => setOpen(false)}>
+          <Link href="/contato" className="btn btn-orange nav-cta-mobile" onClick={() => setOpen(false)}>
             Fale com nossa equipe
           </Link>
         </nav>
-        <Link href="/contato" className="btn btn-dark btn-sm header-cta">
+        <Link href="/contato" className="btn btn-orange btn-sm header-cta">
           Fale com nossa equipe
         </Link>
         <button
@@ -68,104 +75,6 @@ export function Header() {
         </button>
       </div>
     </header>
-  );
-}
-
-export function SolutionsRail({ items }: { items: Solution[] }) {
-  const rail = useRef<HTMLDivElement>(null);
-  const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
-  const [pos, setPos] = useState({ start: 0, size: 1, atStart: true, atEnd: false });
-
-  const measure = () => {
-    const el = rail.current;
-    if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    setPos({
-      start: max > 0 ? (el.scrollLeft / el.scrollWidth) * 100 : 0,
-      size: (el.clientWidth / el.scrollWidth) * 100,
-      atStart: el.scrollLeft <= 2,
-      atEnd: el.scrollLeft >= max - 2,
-    });
-  };
-
-  useEffect(() => {
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  const step = (dir: 1 | -1) => {
-    const el = rail.current;
-    const card = el?.querySelector<HTMLElement>(".sol-card");
-    if (!el || !card) return;
-    el.scrollBy({ left: dir * (card.offsetWidth + 24), behavior: "smooth" });
-  };
-
-  // Mouse drag; touch and trackpads use native scrolling.
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType !== "mouse" || !rail.current) return;
-    drag.current = { x: e.clientX, left: rail.current.scrollLeft, moved: false };
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    const d = drag.current;
-    const el = rail.current;
-    if (!d || !el) return;
-    const dx = e.clientX - d.x;
-    if (!d.moved && Math.abs(dx) > 4) {
-      d.moved = true;
-      el.setPointerCapture(e.pointerId);
-      el.classList.add("is-dragging");
-    }
-    if (d.moved) el.scrollLeft = d.left - dx;
-  };
-  const onPointerUp = () => {
-    const el = rail.current;
-    if (!drag.current || !el) return;
-    const moved = drag.current.moved;
-    drag.current = null;
-    el.classList.remove("is-dragging");
-    if (moved) {
-      // swallow the click that follows a drag so cards don't navigate
-      el.addEventListener("click", (ev) => ev.preventDefault(), { capture: true, once: true });
-    }
-  };
-
-  return (
-    <>
-      <div
-        ref={rail}
-        className="sol-rail"
-        onScroll={measure}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-        tabIndex={0}
-        role="region"
-        aria-label="Soluções educacionais"
-      >
-        {items.map((s, i) => (
-          <SolutionCard key={s.title} s={s} i={i} draggable={false} />
-        ))}
-      </div>
-      <div className="sol-controls">
-        <div className="sol-progress" aria-hidden>
-          <span style={{ left: `${pos.start}%`, width: `${pos.size}%` }} />
-        </div>
-        <div className="sol-buttons">
-          <span className="sol-hint">
-            <span className="hint-desktop">Arraste para ver mais soluções</span>
-            <span className="hint-mobile">Deslize para ver mais soluções</span>
-          </span>
-          <button type="button" className="round-btn" onClick={() => step(-1)} disabled={pos.atStart} aria-label="Anterior">
-            <ArrowLeft size={20} />
-          </button>
-          <button type="button" className="round-btn is-dark" onClick={() => step(1)} disabled={pos.atEnd} aria-label="Próximo">
-            <ArrowRight size={20} />
-          </button>
-        </div>
-      </div>
-    </>
   );
 }
 
@@ -229,70 +138,6 @@ export function Motion() {
   return null;
 }
 
-export function BlogIndex({ items }: { items: Article[] }) {
-  const [query, setQuery] = useState("");
-  const [cat, setCat] = useState("TODOS");
-  const cats = ["TODOS", ...new Set(items.map((a) => a.cat))];
-  const norm = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
-  const shown = items.filter(
-    (a) => (cat === "TODOS" || a.cat === cat) && norm(`${a.title} ${a.excerpt} ${a.cat}`).includes(norm(query.trim())),
-  );
-
-  return (
-    <>
-      <div className="blog-tools" data-reveal>
-        <label className="search">
-          <Search size={18} aria-hidden />
-          <span className="sr-only">Buscar conteúdos</span>
-          <input type="search" placeholder="Buscar conteúdos" value={query} onChange={(e) => setQuery(e.target.value)} />
-        </label>
-        <div className="chips" role="group" aria-label="Categorias">
-          {cats.map((c) => (
-            <button key={c} type="button" className="chip" aria-pressed={cat === c} onClick={() => setCat(c)}>
-              {c === "TODOS" ? "Todos" : c.charAt(0) + c.slice(1).toLowerCase()}
-            </button>
-          ))}
-        </div>
-      </div>
-      <p className="sr-only" aria-live="polite">
-        {shown.length} conteúdo(s) encontrado(s)
-      </p>
-      {shown.length ? (
-        <ul className="articles">
-          {shown.map((a, i) => (
-            <li key={a.slug} className="in" style={stagger(i)}>
-              <Link href={`/blog/${a.slug}`} className="article">
-                <div className="article-photo">
-                  <Image src={a.img} alt="" fill sizes="(max-width: 720px) 96px, 370px" />
-                </div>
-                <div className="article-body">
-                  <span className="article-cat">{a.cat}</span>
-                  <h3>{a.title}</h3>
-                  <span className="article-meta">Autoria · Data</span>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="empty">
-          <p>Nenhum conteúdo encontrado para essa busca.</p>
-          <button
-            type="button"
-            className="btn btn-outline btn-sm"
-            onClick={() => {
-              setQuery("");
-              setCat("TODOS");
-            }}
-          >
-            Limpar busca
-          </button>
-        </div>
-      )}
-    </>
-  );
-}
-
 const initial: ContactState = { status: "idle" };
 
 export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
@@ -347,16 +192,14 @@ export function ContactForm({ defaultInterest }: { defaultInterest?: string }) {
           <Err f="telefone" />
         </label>
         <label className="field">
-          <span>Município</span>
+          <span>Município ou instituição</span>
           <input name="municipio" autoComplete="address-level2" required defaultValue={v.municipio} {...describe("municipio")} />
           <Err f="municipio" />
         </label>
         <label className="field">
           <span>Estado</span>
-          <select name="estado" required defaultValue={v.estado ?? ""} {...describe("estado")}>
-            <option value="" disabled>
-              Selecione
-            </option>
+          <select name="estado" defaultValue={v.estado ?? ""} {...describe("estado")}>
+            <option value="">Selecione (opcional)</option>
             {UFS.map((uf) => (
               <option key={uf}>{uf}</option>
             ))}

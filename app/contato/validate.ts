@@ -2,10 +2,14 @@
 // action and its test). Messages are shown to the visitor as-is.
 
 export const interests = [
-  "Mentoria para Gestão Pública",
   "Mentoria para Transformação Escolar",
-  "Palestras e Formações",
+  "Mentoria para Gestão Pública",
+  "Tear: Plano Municipal de Educação",
+  "Olimpíada Pocket ODS",
   "Pós-graduação",
+  "Caminhos da Inclusão",
+  "Palestras e Rodas de Conversa",
+  "Assessoria técnica e Caixa Escolar",
   "Outras soluções",
 ] as const;
 
@@ -30,8 +34,9 @@ export function validateContact(form: FormData): { data: ContactData; errors: Pa
   if (data.nome.length < 3) errors.nome = "Informe seu nome completo.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email)) errors.email = "Informe um e-mail válido.";
   if (data.telefone.replace(/\D/g, "").length < 10) errors.telefone = "Informe telefone com DDD.";
-  if (data.municipio.length < 2) errors.municipio = "Informe o município.";
-  if (!(UFS as readonly string[]).includes(data.estado)) errors.estado = "Selecione o estado.";
+  if (data.municipio.length < 2) errors.municipio = "Informe o município ou a instituição.";
+  // estado is optional (the field above may hold an institution); if given, it must be a UF.
+  if (data.estado && !(UFS as readonly string[]).includes(data.estado)) errors.estado = "Selecione um estado válido.";
   if (data.cargo.length < 2) errors.cargo = "Informe seu cargo ou função.";
   if (!(interests as readonly string[]).includes(data.interesse)) errors.interesse = "Selecione uma área de interesse.";
   if (data.mensagem.length < 10) errors.mensagem = "Conte um pouco sobre a sua rede (mínimo de 10 caracteres).";

@@ -4,10 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  Award,
   BookOpen,
   Briefcase,
   CalendarClock,
   Check,
+  CircleHelp,
+  Clock,
+  Compass,
   GraduationCap,
   Handshake,
   Landmark,
@@ -17,13 +21,15 @@ import {
   Mic,
   MonitorPlay,
   School,
+  ShieldCheck,
+  Smartphone,
   Sprout,
   Target,
   UserCheck,
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { footerCols, type Solution } from "./content";
+import { fios, footerCols, INSTAGRAM, solutions, type Solution } from "./content";
 
 export const icons: Record<string, LucideIcon> = {
   "user-check": UserCheck,
@@ -42,9 +48,24 @@ export const icons: Record<string, LucideIcon> = {
   "graduation-cap": GraduationCap,
   mic: Mic,
   "monitor-play": MonitorPlay,
+  "shield-check": ShieldCheck,
+  "circle-help": CircleHelp,
+  compass: Compass,
+  smartphone: Smartphone,
+  clock: Clock,
+  award: Award,
 };
 
 export const stagger = (i: number) => ({ "--i": i }) as React.CSSProperties;
+
+// No authorized portraits yet: initials stand in rather than stock faces.
+export const initials = (name: string) =>
+  name
+    .split(" ")
+    .filter((w) => w.length > 2 && !["Júnior", "Filho", "Neto"].includes(w))
+    .map((w) => w[0])
+    .filter((_, i, a) => i === 0 || i === a.length - 1)
+    .join("");
 
 export function HeroThreads() {
   const paths = [
@@ -94,6 +115,9 @@ export function PageHero({
   crumbs,
   img,
   imgAlt = "",
+  imgFit,
+  caption,
+  after,
   children,
 }: {
   eyebrow: string;
@@ -102,6 +126,11 @@ export function PageHero({
   crumbs: Crumb[];
   img?: string;
   imgAlt?: string;
+  imgFit?: "contain";
+  /** Short text pinned to the photo (who is pictured). */
+  caption?: React.ReactNode;
+  /** Extra copy under the buttons (a trust line). */
+  after?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
@@ -132,13 +161,19 @@ export function PageHero({
               {children}
             </div>
           )}
+          {after && (
+            <div className="hero-in" style={stagger(5)}>
+              {after}
+            </div>
+          )}
         </div>
         {img && (
           <div className="hero-media">
-            <div className="hero-photo">
+            <div className={`hero-photo${imgFit === "contain" ? " is-contain" : ""}`}>
               <Image src={img} alt={imgAlt} fill priority sizes="(max-width: 960px) 100vw, 560px" />
             </div>
             <div className="pattern-tile" aria-hidden />
+            {caption && <p className="hero-caption">{caption}</p>}
           </div>
         )}
       </div>
@@ -155,14 +190,14 @@ export function SectionHead({
   center,
 }: {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   text?: React.ReactNode;
   center?: boolean;
 }) {
   return (
     <div className={`section-head${center ? " center" : " narrow"}`} data-reveal>
-      <p className="eyebrow">{eyebrow}</p>
+      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h2 id={id}>{title}</h2>
       {text && <p className="body">{text}</p>}
     </div>
@@ -262,12 +297,12 @@ export function StepsThread({ steps }: { steps: readonly { accent: string; title
   );
 }
 
-export function SolutionCard({ s, i, draggable }: { s: Solution; i: number; draggable?: boolean }) {
+export function SolutionCard({ s, i }: { s: Solution; i: number }) {
   const external = s.href.startsWith("http");
   return (
     <article className="sol-card" data-reveal style={stagger(Math.min(i % 4, 4))}>
       <div className={`sol-media${s.fit === "contain" ? " is-contain" : ""}`}>
-        <Image src={s.img} alt="" fill sizes="(max-width: 720px) 264px, 272px" draggable={draggable} />
+        <Image src={s.img} alt="" fill sizes="(max-width: 720px) 264px, 272px" />
       </div>
       <div className="sol-body">
         <div className="sol-meta">
@@ -275,11 +310,12 @@ export function SolutionCard({ s, i, draggable }: { s: Solution; i: number; drag
             <i style={{ background: s.accent }} />
             {String(i + 1).padStart(2, "0")}
           </span>
-          <span className={`tag${s.extra ? "" : " tag-main"}`}>{s.extra ? "COMPLEMENTAR" : "PRINCIPAL"}</span>
+          <span className="tag">{fios.find((f) => f.key === s.fio)?.nome}</span>
         </div>
         <h3>{s.title}</h3>
+        <p className="sol-phrase">{s.phrase}</p>
         <p>{s.text}</p>
-        <a href={s.href} className="link-arrow" draggable={draggable} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
+        <a href={s.href} className="link-arrow" {...(external ? { target: "_blank", rel: "noopener" } : {})}>
           Saiba mais<span className="sr-only"> sobre {s.title}</span>
           <ArrowRight size={18} aria-hidden />
         </a>
@@ -288,47 +324,19 @@ export function SolutionCard({ s, i, draggable }: { s: Solution; i: number; drag
   );
 }
 
-export function ProjectPlaceholders({ count = 2 }: { count?: number }) {
-  return (
-    <ul className="projects">
-      {Array.from({ length: count }, (_, i) => (
-        <li key={i} data-reveal style={stagger(i)}>
-          <div className="proj-photo">
-            <Image src={`/images/proj${i % 2}.jpg`} alt="" fill sizes="(max-width: 720px) 100vw, 568px" />
-          </div>
-          <div className="proj-body">
-            <div className="proj-top">
-              <span className="proj-place">Município / Instituição</span>
-              <span className="proj-period">Período</span>
-            </div>
-            <dl className="proj-fields">
-              {["DESAFIO", "AÇÕES", "RESULTADOS"].map((f) => (
-                <div key={f}>
-                  <dt>{f}</dt>
-                  <dd aria-label="a validar">
-                    <span />
-                    <span />
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export function CtaBlock({
   title = "O próximo passo para fortalecer a educação do seu município pode começar com uma conversa.",
   text = "Nossa equipe está disponível para conhecer a realidade da sua rede de ensino e apresentar possibilidades de atuação alinhadas às suas necessidades.",
   label = "Entre em contato com a Teia de Saberes",
   href = "/contato",
+  external,
 }: {
   title?: string;
   text?: string;
   label?: string;
   href?: string;
+  /** Opens href in a new tab (off-site checkout). */
+  external?: boolean;
 }) {
   return (
     <section className="section container" aria-labelledby="cta-final">
@@ -337,12 +345,59 @@ export function CtaBlock({
           <h2 id="cta-final">{title}</h2>
           <p className="body">{text}</p>
           <div>
-            <Link href={href} className="btn btn-orange btn-wrap">
-              {label}
-            </Link>
+            {external ? (
+              <a href={href} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
+                {label}
+              </a>
+            ) : (
+              <Link href={href} className="btn btn-orange btn-wrap">
+                {label}
+              </Link>
+            )}
           </div>
         </div>
         <div className="cta-pattern" aria-hidden />
+      </div>
+    </section>
+  );
+}
+
+/** "Ponte com o Novo Contrato Social" highlight; one per page, hence the fixed id. */
+export function Ponte({ children }: { children: React.ReactNode }) {
+  return (
+    <section className="section container" aria-labelledby="ponte-title">
+      <div className="ponte" data-reveal>
+        <p className="eyebrow" id="ponte-title">
+          PONTE COM O NOVO CONTRATO SOCIAL
+        </p>
+        <p className="ponte-text">{children}</p>
+      </div>
+    </section>
+  );
+}
+
+/** Solutions linked to `slug` (its `ligaA`), in the given order. */
+export function FiosLigados({ slug }: { slug: string }) {
+  const ligadas = (solutions.find((s) => s.slug === slug)?.ligaA ?? [])
+    .map((l) => solutions.find((s) => s.slug === l))
+    .filter((s): s is Solution => !!s);
+  if (!ligadas.length) return null;
+  return (
+    <section aria-labelledby="fios-ligados">
+      <div className="section container">
+        <SectionHead id="fios-ligados" eyebrow="FIOS QUE SE LIGAM A ESTA" title="Soluções que se conectam a esta." />
+        <ul className="fios-ligados">
+          {ligadas.map((s, i) => (
+            <li key={s.slug} data-reveal style={stagger(Math.min(i, 5))}>
+              <Link href={s.href} className="fio-link" style={{ "--accent": s.accent } as React.CSSProperties}>
+                <span className="tag">{fios.find((f) => f.key === s.fio)?.nome}</span>
+                <h3>{s.title}</h3>
+                <p>{s.phrase}</p>
+                <ArrowRight size={18} aria-hidden />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -377,7 +432,16 @@ export function Footer() {
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} Teia de Saberes. Todos os direitos reservados.</span>
-        <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+        <p>A Teia de Saberes é uma organização independente e não representa a UNESCO nem a ONU.</p>
+        <p>
+          <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+          <span aria-hidden> · </span>
+          <a href={INSTAGRAM} target="_blank" rel="noopener">
+            Instagram
+          </a>
+          <span aria-hidden> · </span>
+          <Link href="/contato">Contato</Link>
+        </p>
       </div>
     </footer>
   );
