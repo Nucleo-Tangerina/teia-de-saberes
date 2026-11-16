@@ -28,7 +28,7 @@ const slides: Slide[] = [
     cta: { label: "Quero garantir minha vaga", href: CAMINHOS_OFERTA },
     primary: true,
     secondary: { label: "Conheça a formação", href: "/caminhos-da-inclusao" },
-    img: "/caminhos/ana-hero.webp",
+    img: "/caminhos/ana-paula-blazer.jpg",
     imgAlt: "Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira",
   },
   {
@@ -155,7 +155,7 @@ export default function Home() {
       <section className="section container destaque-wrap" aria-labelledby="destaque-title">
         <div className="destaque" data-reveal>
           <Image
-            src="/caminhos/ana-hero.webp"
+            src="/caminhos/ana-paula-blazer.jpg"
             alt="Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira"
             width={880}
             height={964}

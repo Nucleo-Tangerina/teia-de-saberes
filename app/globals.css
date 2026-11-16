@@ -3033,12 +3033,18 @@ html.motion [data-reveal="wipe"]:not(.in) img {
   opacity: 1;
 }
 
+/* framed photo, like the site's hero: a rounded print on the navy, never a faded backdrop */
 .slide-media {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 40%;
-  right: 0;
+  z-index: 1;
+  top: 48px;
+  bottom: 88px;
+  left: 55%;
+  right: max(var(--gutter), 88px);
+  border-radius: 28px;
+  overflow: hidden;
+  background: var(--navy-deep);
+  box-shadow: 0 24px 60px rgba(7, 21, 46, 0.45);
 }
 
 .slide-media img {
@@ -3046,26 +3052,28 @@ html.motion [data-reveal="wipe"]:not(.in) img {
   object-position: 50% 25%; /* portraits keep the head in frame */
 }
 
-/* solid navy until the photo starts, so its left edge never shows */
+/* brand pattern tile tucked under the frame's lower-left corner */
+.slide-tile {
+  position: absolute;
+  bottom: 56px;
+  left: calc(55% - 44px);
+  width: 132px;
+  height: 132px;
+  border-radius: 20px;
+  background: url(/pattern-strip.png) 0 50% / auto 100%;
+}
+
+/* soft light behind the photo so the field is not a flat blue */
 .slide::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #153a62 0%, #153a62 42%, rgba(21, 58, 98, 0) 75%);
+  background: radial-gradient(55% 75% at 76% 48%, rgba(38, 121, 173, 0.42), rgba(38, 121, 173, 0) 70%);
   pointer-events: none;
 }
 
-/* artwork with text sits whole on a light panel, without the shade */
-.slide.is-contain::after {
-  display: none;
-}
-
+/* artwork with text sits whole on a light panel */
 .slide.is-contain .slide-media {
-  top: 48px;
-  bottom: 88px;
-  left: 56%;
-  right: max(var(--gutter), 88px);
-  border-radius: 28px;
   background: var(--white);
 }
 
@@ -3236,19 +3244,19 @@ html.motion [data-reveal="wipe"]:not(.in) img {
   .slide.is-contain .slide-media {
     position: relative;
     inset: auto;
-    height: 240px;
+    margin: 20px var(--gutter) 0;
+    height: 260px;
     flex: none;
-  }
-  .slide.is-contain .slide-media {
-    margin: 16px var(--gutter) 0;
-    height: 224px;
     border-radius: 20px;
   }
   .slide.is-contain .slide-media img {
     padding: 16px;
   }
+  .slide-tile {
+    display: none;
+  }
   .slide::after {
-    background: linear-gradient(180deg, rgba(21, 58, 98, 0) 120px, #153a62 240px);
+    background: radial-gradient(90% 40% at 50% 18%, rgba(38, 121, 173, 0.42), rgba(38, 121, 173, 0) 75%);
   }
   .slide-copy {
     gap: 16px;

@@ -100,13 +100,14 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
               className={`slide${active ? " is-active" : ""}${s.fit === "contain" ? " is-contain" : ""}`}
               inert={!active}
             >
+              <span className="slide-tile" aria-hidden />
               <div className="slide-media">
                 <Image
                   src={s.img}
                   alt={s.imgAlt ?? ""}
                   fill
                   priority={i === 0}
-                  sizes="(max-width: 720px) 100vw, 60vw"
+                  sizes="(max-width: 720px) 100vw, 45vw"
                 />
               </div>
               <div className="container slide-copy">
