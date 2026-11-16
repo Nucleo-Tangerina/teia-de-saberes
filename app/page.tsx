@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { audience, CAMINHOS_OFERTA, diffs, fios, municipios, solutions, team, type FioKey } from "./content";
+import { audience, CAMINHOS_OFERTA, TEAR_URL, diffs, fios, municipios, solutions, team, type FioKey } from "./content";
 import { HeroCarousel, type Slide } from "./hero-carousel";
 import { MovimentoBlocks, hasMovimento } from "./movimento-blocks";
 import { CheckList, CtaBlock, IconGrid, SectionHead, icons, initials, stagger } from "./ui";
@@ -31,6 +31,17 @@ const slides: Slide[] = [
     img: "/caminhos/ana-paula-blazer.jpg",
     imgAlt: "Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira",
   },
+  // Tear right after the course, with the landing photo instead of the logo on a white box.
+  {
+    eyebrow: "PLANO MUNICIPAL DE EDUCAÇÃO · TEAR",
+    title: "Tear: Plano Municipal de Educação",
+    text: "Encontre em um só lugar os dados que sua equipe levaria dias ou semanas para localizar, organizar e analisar.",
+    cta: { label: "Acesse o Tear", href: TEAR_URL, external: true },
+    primary: true,
+    secondary: { label: "Conheça o Tear", href: "/tear" },
+    img: "/tear/gestora.png",
+    imgAlt: "Gestora de educação segurando um tablet, ao lado de um mapa do Brasil e dos passos planejamento, dados, documentos e entrega",
+  },
   {
     heading: "h1",
     eyebrow: "TEIA DE SABERES · HUB DE SOLUÇÕES EDUCACIONAIS",
@@ -42,15 +53,14 @@ const slides: Slide[] = [
     imgAlt: "Gestores e educadores reunidos em volta de uma mesa de trabalho",
   },
   ...solutions
-    .filter((s) => s.slug !== "inclusao")
+    .filter((s) => s.slug !== "inclusao" && s.slug !== "tear")
     .map((s) => ({
       eyebrow: fios.find((f) => f.key === s.fio)!.nome,
       title: s.title,
       text: s.phrase,
       cta: { label: "Saiba mais", href: s.href },
       img: s.img,
-      // Tear is an artwork with text: never crop it.
-      fit: s.slug === "tear" ? ("contain" as const) : s.fit,
+      fit: s.fit,
     })),
 ];
 
