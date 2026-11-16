@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { audience, CAMINHOS_OFERTA, diffs, fios, municipios, team, type FioKey } from "./content";
+import { audience, CAMINHOS_OFERTA, diffs, fios, municipios, solutions, team, type FioKey } from "./content";
+import { HeroCarousel, type Slide } from "./hero-carousel";
 import { MovimentoBlocks, hasMovimento } from "./movimento-blocks";
-import { CheckList, CtaBlock, HeroThreads, IconGrid, SectionHead, icons, initials, stagger } from "./ui";
+import { CheckList, CtaBlock, IconGrid, SectionHead, icons, initials, stagger } from "./ui";
 
 export const metadata: Metadata = {
   title: { absolute: "Teia de Saberes – Mentoria e formação para redes de ensino" },
@@ -12,8 +13,43 @@ export const metadata: Metadata = {
     "Hub de soluções educacionais: assessoria, mentoria e formação para Secretarias de Educação, a partir do Novo Contrato Social da Educação (UNESCO).",
 };
 
+// Rebuild daily so past talks drop out of "Em movimento".
+export const revalidate = 86400;
+
 // Same hues as the hero thread nodes.
 const fioColor: Record<FioKey, string> = { rede: "#ED8C32", escola: "#2679AD", pessoas: "#F02A89", trama: "#90D518" };
+
+const slides: Slide[] = [
+  {
+    eyebrow: "TEIA DE SABERES · HUB DE SOLUÇÕES EDUCACIONAIS",
+    title: "Tecendo uma nova educação, em movimento.",
+    text: "Somos um ponto de encontro de saberes, pessoas e projetos que ajuda redes públicas de ensino a construir, na prática, o Novo Contrato Social para a Educação, proposto pela UNESCO em 2021.",
+    cta: { label: "Fale com nossa equipe", href: "/contato" },
+    primary: true,
+    img: "/images/hero.jpg",
+    imgAlt: "Gestores e educadores reunidos em volta de uma mesa de trabalho",
+  },
+  {
+    eyebrow: "FORMAÇÃO EM DESTAQUE",
+    title: "Caminhos da Inclusão",
+    text: "Saiba como agir na prática diante dos desafios reais da Educação Especial.",
+    cta: { label: "Quero garantir minha vaga", href: CAMINHOS_OFERTA, external: true },
+    primary: true,
+    img: "/images/caminhos/ana-hero.webp",
+    imgAlt: "Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira",
+  },
+  ...solutions
+    .filter((s) => s.slug !== "inclusao")
+    .map((s) => ({
+      eyebrow: fios.find((f) => f.key === s.fio)!.nome,
+      title: s.title,
+      text: s.phrase,
+      cta: { label: "Saiba mais", href: s.href },
+      img: s.img,
+      // Tear is an artwork with text: never crop it.
+      fit: s.slug === "tear" ? ("contain" as const) : s.fit,
+    })),
+];
 
 const compromissos = [
   "Educação como bem comum e conhecimento como patrimônio da humanidade.",
@@ -26,42 +62,10 @@ const compromissos = [
 export default function Home() {
   return (
     <>
-      {/* 1 Abertura */}
-      <section className="hero" aria-labelledby="hero-title">
-        <HeroThreads />
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow hero-in" style={stagger(0)}>
-              TEIA DE SABERES<span className="eyebrow-sep"> ·</span> <br className="eyebrow-br" />
-              HUB DE SOLUÇÕES EDUCACIONAIS
-            </p>
-            <h1 id="hero-title" className="hero-in" style={stagger(1)}>
-              Tecendo uma nova educação, em movimento.
-            </h1>
-            <p className="lead hero-in" style={stagger(2)}>
-              Somos um ponto de encontro de saberes, pessoas e projetos que ajuda redes públicas de ensino a construir, na
-              prática, o Novo Contrato Social para a Educação, proposto pela UNESCO em 2021.
-            </p>
-            <div className="actions hero-in" style={stagger(3)}>
-              <Link href="/contato" className="btn btn-orange">
-                Fale com nossa equipe
-              </Link>
-            </div>
-          </div>
-          <div className="hero-media">
-            <div className="hero-photo">
-              <Image
-                src="/images/hero.jpg"
-                alt="Gestores e educadores reunidos em volta de uma mesa de trabalho"
-                fill
-                priority
-                sizes="(max-width: 960px) 100vw, 560px"
-              />
-            </div>
-            <div className="pattern-tile" aria-hidden />
-          </div>
-        </div>
-      </section>
+      {/* 1 Abertura: carrossel com a abertura, o Caminhos e as demais soluções */}
+      <HeroCarousel slides={slides} />
+      {/* separates the navy carousel from the navy manifesto */}
+      <div className="pattern-band" aria-hidden />
 
       {/* 2 Manifesto */}
       <section className="band-navy" aria-labelledby="manifesto">
@@ -264,7 +268,7 @@ export default function Home() {
           <div className="section container">
             <SectionHead id="movimento" eyebrow="EM MOVIMENTO" title="Em movimento" text="Agenda, turmas e conversas" />
           </div>
-          <MovimentoBlocks />
+          <MovimentoBlocks limit={3} />
           <div className="container">
             <Link href="/em-movimento" className="link-arrow">
               Ver tudo

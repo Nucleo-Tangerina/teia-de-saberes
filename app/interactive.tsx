@@ -38,9 +38,17 @@ export function Header() {
 
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}${open ? " is-open" : ""}`}>
+      {/* desktop only: collapses on scroll, then the small brand in the bar takes over */}
+      <div className="header-top">
+        <div>
+          <Link href="/" className="brand brand-top" aria-label="Teia de Saberes, página inicial">
+            <Image src="/logo-white.png" alt="Teia de Saberes" width={681} height={289} priority />
+          </Link>
+        </div>
+      </div>
       <div className="header-inner">
-        <Link href="/" className="brand" aria-label="Teia de Saberes, página inicial">
-          <Image src="/logo.png" alt="Teia de Saberes" width={681} height={289} priority />
+        <Link href="/" className="brand brand-bar" aria-label="Teia de Saberes, página inicial">
+          <Image src="/logo-white.png" alt="Teia de Saberes" width={681} height={289} priority />
         </Link>
         <nav aria-label="Principal" id="menu-principal" className="main-nav">
           {nav.map((n) => (
@@ -48,11 +56,11 @@ export function Header() {
               {n.label}
             </Link>
           ))}
-          <Link href="/contato" className="btn btn-dark nav-cta-mobile" onClick={() => setOpen(false)}>
+          <Link href="/contato" className="btn btn-orange nav-cta-mobile" onClick={() => setOpen(false)}>
             Fale com nossa equipe
           </Link>
         </nav>
-        <Link href="/contato" className="btn btn-dark btn-sm header-cta">
+        <Link href="/contato" className="btn btn-orange btn-sm header-cta">
           Fale com nossa equipe
         </Link>
         <button
