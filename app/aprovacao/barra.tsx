@@ -139,6 +139,11 @@ export function BarraAprovacao() {
   const [aberta, setAberta] = useState(true);
   const [estado, setEstado] = useState<Estado | null>(null);
 
+  // on a phone the open panel would hide the page being judged
+  useEffect(() => {
+    if (matchMedia("(max-width: 720px)").matches) setAberta(false);
+  }, []);
+
   const temPagina = Boolean(paginaDe(pagina));
   const recarregar = useCallback(() => {
     carregar(pagina).then(setEstado, () => setEstado({ ok: false, erro: "Não foi possível carregar as aprovações." }));

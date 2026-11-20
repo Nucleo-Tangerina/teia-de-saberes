@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { audience, CAMINHOS_OFERTA, TEAR_URL, diffs, fios, municipios, solutions, team, type FioKey } from "./content";
+import { Variante } from "./aprovacao/variante";
 import { HeroCarousel, type Slide } from "./hero-carousel";
 import { MovimentoBlocks, hasMovimento } from "./movimento-blocks";
-import { CheckList, CtaBlock, IconGrid, SectionHead, icons, initials, stagger } from "./ui";
+import { CheckList, CtaBlock, HeroThreads, IconGrid, SectionHead, icons, initials, stagger } from "./ui";
 
 export const metadata: Metadata = {
   title: { absolute: "Teia de Saberes – Mentoria e formação para redes de ensino" },
@@ -18,6 +19,18 @@ export const revalidate = 86400;
 
 // Same hues as the hero thread nodes.
 const fioColor: Record<FioKey, string> = { rede: "#ED8C32", escola: "#2679AD", pessoas: "#F02A89", trama: "#90D518" };
+
+// Approval variations (issue #30): a = client wording, b = the same idea without implying UNESCO endorsement.
+const abertura = (
+  <Variante
+    id="home-2050"
+    inline
+    opcoes={{
+      a: "Somos um hub de soluções educacionais, um ponto de encontro de saberes, pessoas e projetos, voltado a ajudar a UNESCO a construir um Novo Contrato Social da Educação até 2050, ao lado das redes públicas de ensino.",
+      b: "Somos um hub de soluções educacionais, um ponto de encontro de saberes, pessoas e projetos, que ajuda redes públicas de ensino a construir, até 2050, o Novo Contrato Social da Educação proposto pela UNESCO.",
+    }}
+  />
+);
 
 const slides: Slide[] = [
   // Opens on the featured course; the h1 stays on the Teia's own opening slide.
@@ -46,7 +59,7 @@ const slides: Slide[] = [
     heading: "h1",
     eyebrow: "TEIA DE SABERES · HUB DE SOLUÇÕES EDUCACIONAIS",
     title: "Tecendo uma nova educação, em movimento.",
-    text: "Somos um ponto de encontro de saberes, pessoas e projetos que ajuda redes públicas de ensino a construir, na prática, o Novo Contrato Social para a Educação, proposto pela UNESCO em 2021.",
+    text: abertura,
     cta: { label: "Fale com nossa equipe", href: "/contato" },
     primary: true,
     img: "/images/hero.jpg",
@@ -72,13 +85,50 @@ const compromissos = [
   "Compromisso coletivo com futuros sustentáveis.",
 ];
 
+function HeroFoto() {
+  return (
+    <section className="hero" aria-labelledby="hero-title">
+      <HeroThreads />
+      <div className="container hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow hero-in" style={stagger(0)}>
+            TEIA DE SABERES<span className="eyebrow-sep"> ·</span> <br className="eyebrow-br" />
+            HUB DE SOLUÇÕES EDUCACIONAIS
+          </p>
+          <h1 id="hero-title" className="hero-in" style={stagger(1)}>
+            Tecendo uma nova educação, em movimento.
+          </h1>
+          <p className="lead hero-in" style={stagger(2)}>
+            {abertura}
+          </p>
+          <div className="actions hero-in" style={stagger(3)}>
+            <Link href="/contato" className="btn btn-orange">
+              Fale com nossa equipe
+            </Link>
+          </div>
+        </div>
+        <div className="hero-media">
+          <div className="hero-photo">
+            <Image
+              src="/images/hero.jpg"
+              alt="Gestores e educadores reunidos em volta de uma mesa de trabalho"
+              fill
+              priority
+              sizes="(max-width: 960px) 100vw, 560px"
+            />
+          </div>
+          <div className="pattern-tile" aria-hidden />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
-      {/* 1 Abertura: carrossel com a abertura, o Caminhos e as demais soluções */}
-      <HeroCarousel slides={slides} />
-      {/* separates the navy carousel from the navy manifesto */}
-      <div className="pattern-band" aria-hidden />
+      {/* 1 Abertura: a = hero com foto única (padrão), b = carrossel de soluções em tema claro */}
+      <Variante id="home-topo" opcoes={{ a: <HeroFoto />, b: <HeroCarousel slides={slides} tema="claro" /> }} />
 
       {/* 2 Manifesto */}
       <section className="band-navy" aria-labelledby="manifesto">
@@ -232,15 +282,37 @@ export default function Home() {
           eyebrow="MUNICÍPIOS PARCEIROS"
           title="Municípios que estão transformando a educação da sua cidade"
         />
-        <ul className="muni-grid">
-          {municipios.map((m, i) => (
-            <li key={m.name} data-reveal style={stagger(i % 6)}>
-              <Image src={m.src} alt={`Brasão de ${m.name}`} width={140} height={84} />
-              <span className="muni-name">{m.name}</span>
-              <span className="muni-uf">{m.uf}</span>
-            </li>
-          ))}
-        </ul>
+        {/* a = faixa rolante, como antes da reformulação (padrão); b = grade sem repetição */}
+        <Variante
+          id="home-munis"
+          opcoes={{
+            a: (
+              <div className="ticker" data-reveal>
+                {/* the list repeats so the strip loops without a seam; the copy is hidden from screen readers */}
+                <ul className="ticker-track">
+                  {[...municipios, ...municipios].map((m, i) => (
+                    <li key={`${m.name}-${i}`} aria-hidden={i >= municipios.length || undefined}>
+                      <Image src={m.src} alt={`Brasão de ${m.name}`} width={140} height={84} />
+                      <span className="muni-name">{m.name}</span>
+                      <span className="muni-uf">{m.uf}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ),
+            b: (
+              <ul className="muni-grid">
+                {municipios.map((m, i) => (
+                  <li key={m.name} data-reveal style={stagger(i % 6)}>
+                    <Image src={m.src} alt={`Brasão de ${m.name}`} width={140} height={84} />
+                    <span className="muni-name">{m.name}</span>
+                    <span className="muni-uf">{m.uf}</span>
+                  </li>
+                ))}
+              </ul>
+            ),
+          }}
+        />
       </section>
 
       {/* 8 Para quem trabalhamos */}

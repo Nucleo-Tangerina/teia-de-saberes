@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
@@ -12,7 +12,7 @@ export type Slide = {
   heading?: "h1" | "h2";
   eyebrow: string;
   title: string;
-  text: string;
+  text: ReactNode;
   cta: Cta;
   /** Orange button; otherwise a white outline button. */
   primary?: boolean;
@@ -38,7 +38,8 @@ function CtaLink({ cta, className }: { cta: Cta; className: string }) {
 const DELAY = 6000;
 const SWIPE = 50;
 
-export function HeroCarousel({ slides }: { slides: Slide[] }) {
+/** tema="claro": light background instead of navy (approval variation, issue #30). */
+export function HeroCarousel({ slides, tema }: { slides: Slide[]; tema?: "claro" }) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -61,7 +62,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
 
   return (
     <section
-      className="carousel"
+      className={`carousel${tema === "claro" ? " is-claro" : ""}`}
       aria-roledescription="carrossel"
       aria-label="Soluções da Teia de Saberes"
       onMouseEnter={() => setHovered(true)}
@@ -90,7 +91,8 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
         {slides.map((s, i) => {
           const H = s.heading ?? "h2";
           const active = i === index;
-          const btn = `btn ${s.primary ? "btn-orange" : "btn-outline-light"}`;
+          const outline = tema === "claro" ? "btn-outline" : "btn-outline-light";
+          const btn = `btn ${s.primary ? "btn-orange" : outline}`;
           return (
             <div
               key={s.title}
@@ -116,7 +118,7 @@ export function HeroCarousel({ slides }: { slides: Slide[] }) {
                 <p className="slide-text">{s.text}</p>
                 <div className="slide-actions">
                   <CtaLink cta={s.cta} className={btn} />
-                  {s.secondary && <CtaLink cta={s.secondary} className="btn btn-outline-light" />}
+                  {s.secondary && <CtaLink cta={s.secondary} className={`btn ${outline}`} />}
                 </div>
               </div>
             </div>

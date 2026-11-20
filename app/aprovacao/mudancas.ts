@@ -12,7 +12,42 @@ export type Mudanca = {
   padrao: string; // variation the public site shows
 };
 
-export const mudancas: Mudanca[] = [];
+export const mudancas: Mudanca[] = [
+  // Home (issue #30)
+  {
+    id: "home-topo",
+    pagina: "/",
+    titulo: "Abertura da página",
+    explicacao: "A primeira coisa que o visitante vê ao entrar no site.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Foto única", descricao: "Fundo claro, o texto de abertura e uma foto, como no site antes da reformulação." },
+      { id: "b", nome: "Carrossel de soluções", descricao: "Fundo claro, com slides que passam sozinhos: Caminhos da Inclusão, Tear, a abertura da Teia e as demais soluções." },
+    ],
+  },
+  {
+    id: "home-2050",
+    pagina: "/",
+    titulo: "Frase de apresentação da Teia",
+    explicacao: "O texto logo abaixo do título da abertura.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Ajudar a UNESCO", descricao: "Diz que a Teia é voltada a ajudar a UNESCO a construir o Novo Contrato Social da Educação até 2050." },
+      { id: "b", nome: "Ajudar as redes públicas", descricao: "Diz que a Teia ajuda as redes públicas a construir, até 2050, o Novo Contrato Social proposto pela UNESCO. Evita dar a entender que a UNESCO apoia ou contrata a Teia." },
+    ],
+  },
+  {
+    id: "home-munis",
+    pagina: "/",
+    titulo: "Municípios parceiros",
+    explicacao: "Os brasões das cidades que trabalham com a Teia.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Faixa rolando", descricao: "Os brasões passam em uma faixa contínua, como no site antes da reformulação. Para ao passar o mouse." },
+      { id: "b", nome: "Grade", descricao: "Todos os brasões parados, lado a lado, cada um aparecendo uma única vez." },
+    ],
+  },
+];
 
 // Pages under approval and the GitHub issue that records each one's approvals and conversation.
 export const paginas: Record<string, { nome: string; issue: number }> = {
