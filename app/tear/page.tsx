@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
+import { Variante } from "../aprovacao/variante";
 import { TEAR_URL, WHATSAPP } from "../content";
 import { CheckList, FiosLigados, PageHero, Ponte, SectionHead, StepsThread, stagger } from "../ui";
 
@@ -192,6 +193,21 @@ export default function Tear() {
             </div>
           </div>
         }
+      />
+
+      <Variante
+        id="tear-frase"
+        opcoes={{
+          a: (
+            // top padding only: the next section already brings its own top padding
+            <section className="container narrow-col" style={{ paddingTop: "var(--section)" }} aria-label="Frase do Tear">
+              <p className="ponte-text" data-reveal>
+                O plano da cidade, tecido com quem a vive.
+              </p>
+            </section>
+          ),
+          b: null,
+        }}
       />
 
       {/* 02. Abril é o prazo */}
