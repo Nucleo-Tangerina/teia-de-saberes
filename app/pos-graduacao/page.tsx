@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Variante } from "../aprovacao/variante";
 import { CheckList, CtaBlock, Facts, FiosLigados, PageHero, Ponte, SectionHead, initials, stagger } from "../ui";
 
 export const metadata: Metadata = {
@@ -56,9 +57,10 @@ const receive = [
   "Bibliografia e ferramentas de gestão educacional.",
 ];
 
-// Tiago Martins Simões and Vagner Gomes de Souza were on the old site's faculty; left out until the client confirms they stay.
 const faculty = [
   { name: "Ricardo José de Azevedo Marinho", degree: "Pós-doutor em Políticas Públicas e Formação Humana, UERJ", accent: "#2679AD" },
+  { name: "Tiago Martins Simões", degree: "Doutor em História, FGV", accent: "#90D518" },
+  { name: "Vagner Gomes de Souza", degree: "Mestre em Ciências Sociais, UFRRJ", accent: "#8F2DE2" },
   { name: "José Márcio Figueira Júnior", degree: "Mestre e doutorando em Ciências Sociais, UFRRJ", accent: "#ED8C32" },
   { name: "Pablo De Las Torres Spinelli Fonseca", degree: "Mestre em Ciências Sociais, UFRRJ", accent: "#F02A89" },
   { name: "Pacelli Henrique Silva Lopes", degree: "Mestre em História, UNIVERSO", accent: "#90D518" },
@@ -123,6 +125,36 @@ export default function PosGraduacao() {
         </div>
       </section>
 
+      <Variante
+        id="pos-porque"
+        opcoes={{
+          a: (
+            <section className="section container split audience-block align-top" aria-labelledby="porque">
+              <div className="stack" data-reveal>
+                <p className="eyebrow">POR QUE ESTA PÓS-GRADUAÇÃO</p>
+                <h2 id="porque">Educação é patrimônio da humanidade e bem comum e público.</h2>
+              </div>
+              <div className="stack" data-reveal>
+                <p className="body">
+                  A educação brasileira vive uma crise profunda, acelerada pela pandemia de COVID-19: o vínculo entre
+                  escola, estudantes e comunidade se enfraquece, e muitos educadores adoecem ou desistem da profissão.
+                  Acreditamos que é em cenários de crise que se constroem soluções inovadoras capazes de transformar a
+                  realidade.
+                </p>
+                <p className="body">
+                  Por isso, a pós-graduação forma novos líderes educacionais capazes de construir, em rede, um movimento
+                  de transformação educacional pautado em valores republicanos e democráticos, ajudando a colocar em
+                  prática os 17 Objetivos de Desenvolvimento Sustentável (ODS). Ao final, os educandos estarão
+                  preparados para transformar estruturas educacionais existentes e liderar processos de inovação nas
+                  redes públicas e privadas.
+                </p>
+              </div>
+            </section>
+          ),
+          b: null,
+        }}
+      />
+
       <section className="section container split audience-block align-top" aria-labelledby="aprender">
         <div className="stack" data-reveal>
           <p className="eyebrow">O QUE VOCÊ VAI APRENDER</p>
@@ -166,6 +198,22 @@ export default function PosGraduacao() {
       <section className="section container" aria-labelledby="titulacao">
         <SectionHead id="titulacao" eyebrow="TITULAÇÃO" title="Critérios para a titulação." />
         <Facts items={criteria} />
+        <Variante
+          id="pos-avaliacao"
+          opcoes={{
+            a: (
+              <div className="narrow-col stack" data-reveal>
+                <p className="body">
+                  O aproveitamento é avaliado em uma escala de 100 pontos, com pelo menos uma atividade durante o curso e
+                  uma atividade de conclusão de cada módulo, segundo os critérios da coordenação. As avaliações podem ser
+                  trabalhos dentro e fora da aula, escritos e orais, provas, exercícios e seminários, individuais ou em
+                  grupo. O prazo para concluir o curso é de um ano.
+                </p>
+              </div>
+            ),
+            b: null,
+          }}
+        />
       </section>
 
       <section className="section container split audience-block align-top" aria-labelledby="trabalho-final">
