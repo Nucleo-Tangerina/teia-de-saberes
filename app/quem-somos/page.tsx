@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
+import { Variante } from "../aprovacao/variante";
 import { CheckList, CtaBlock, IconGrid, PageHero, SectionHead, StepsThread } from "../ui";
 
 export const metadata: Metadata = {
@@ -61,8 +62,16 @@ export default function QuemSomos() {
             não faz floresta: por isso, teia.
           </p>
           <p className="body">
-            Hoje somos um hub de soluções educacionais, isto é, um ponto de encontro com mentorias, formações, assessorias
-            e projetos que se conectam entre si e se ajustam a cada território. Trabalhamos com a Metodologia de Trabalho
+            {/* Approval variation (issue #43): same two texts as home-2050 in app/page.tsx. */}
+            <Variante
+              id="quem-2050"
+              inline
+              opcoes={{
+                a: "Somos um hub de soluções educacionais, um ponto de encontro de saberes, pessoas e projetos, voltado a ajudar a UNESCO a construir um Novo Contrato Social da Educação até 2050, ao lado das redes públicas de ensino.",
+                b: "Somos um hub de soluções educacionais, um ponto de encontro de saberes, pessoas e projetos, que ajuda redes públicas de ensino a construir, até 2050, o Novo Contrato Social da Educação proposto pela UNESCO.",
+              }}
+            />{" "}
+            Nele, mentorias, formações, assessorias e projetos se conectam entre si e se ajustam a cada território. Trabalhamos com a Metodologia de Trabalho
             de Projetos, a Problematização e as Comunidades de Aprendizagem, à luz do Novo Contrato Social para a Educação
             (UNESCO, 2021) e da Agenda 2030, em especial do ODS 4: educação inclusiva, equitativa e de qualidade, ao longo
             da vida e em todos os espaços.
