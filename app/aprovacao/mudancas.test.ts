@@ -4,8 +4,8 @@ import assert from "node:assert/strict";
 import { escreverEscolhas, lerEscolhas, type Mudanca } from "./mudancas.ts";
 
 const lista: Mudanca[] = [
-  { id: "topo", pagina: "/", issue: 1, titulo: "", explicacao: "", padrao: "a", variacoes: [{ id: "a", nome: "", descricao: "" }, { id: "b", nome: "", descricao: "" }] },
-  { id: "munis", pagina: "/", issue: 1, titulo: "", explicacao: "", padrao: "a", variacoes: [{ id: "a", nome: "", descricao: "" }] },
+  { id: "topo", pagina: "/", titulo: "", explicacao: "", padrao: "a", variacoes: [{ id: "a", nome: "", descricao: "" }, { id: "b", nome: "", descricao: "" }] },
+  { id: "munis", pagina: "/", titulo: "", explicacao: "", padrao: "a", variacoes: [{ id: "a", nome: "", descricao: "" }] },
 ];
 
 test("lê escolhas válidas e ignora o resto", () => {

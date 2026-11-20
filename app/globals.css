@@ -4037,3 +4037,85 @@ html.motion .checklist li:not(.in) .check {
 .aprov-sair {
   font-size: 0.82rem;
 }
+
+.aprov-status {
+  margin: 0 0 4px;
+  color: #8a5a00;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.aprov-status.is-ok {
+  color: #2f6b12;
+}
+
+.aprov-aprovar {
+  margin-top: 8px;
+}
+
+.aprov-barra button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.aprov-erro {
+  margin: 8px 0 0;
+  color: #b3261e;
+  font-size: 0.82rem;
+}
+
+.aprov-conversa {
+  display: grid;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.aprov-conversa h2 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.aprov-falas {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aprov-fala {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--soft);
+}
+
+.aprov-fala.is-equipe {
+  border-left: 3px solid var(--orange);
+}
+
+.aprov-fala p {
+  margin: 2px 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.aprov-autor {
+  color: #5a6b7d;
+  font-size: 0.75rem;
+}
+
+.aprov-conversa form {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.aprov-conversa textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  resize: vertical;
+}

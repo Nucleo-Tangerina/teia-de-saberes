@@ -6,7 +6,6 @@ export type Variacao = { id: string; nome: string; descricao: string };
 export type Mudanca = {
   id: string;
   pagina: string; // pathname where it shows
-  issue: number; // GitHub issue that records approvals and the conversation
   titulo: string;
   explicacao: string; // plain language, for the client
   variacoes: Variacao[];
@@ -15,10 +14,12 @@ export type Mudanca = {
 
 export const mudancas: Mudanca[] = [];
 
-export const paginaNome: Record<string, string> = {
-  "/": "Início",
+// Pages under approval and the GitHub issue that records each one's approvals and conversation.
+export const paginas: Record<string, { nome: string; issue: number }> = {
+  "/": { nome: "Início", issue: 30 },
 };
 
+export const paginaDe = (path: string) => (Object.hasOwn(paginas, path) ? paginas[path] : undefined);
 export const mudancaPorId = (id: string) => mudancas.find((m) => m.id === id);
 export const mudancasDa = (pagina: string) => mudancas.filter((m) => m.pagina === pagina);
 
