@@ -29,7 +29,7 @@ Peça: “Leia `docs/prosseguimento-rodada-2.md` e continue a partir da próxima
 ## Decisões já tomadas pelo Kaio (não perguntar de novo)
 
 - Fundo azul: sai. Cabeçalho branco com logo à esquerda (feito).
-- Home: abertura com foto única é a padrão; o carrossel em tema claro é a alternativa. Faixa de brasões rolando é a padrão; a grade é a alternativa. Ficam os 10 blocos, o destaque do Caminhos e a equipe.
+- Home: o carrossel em tema claro (abre com Ana Paula e o Caminhos) é a abertura padrão; a foto única é a alternativa. O Kaio só não queria o fundo azul. Faixa de brasões rolando é a padrão; a grade é a alternativa. Ficam os 10 blocos, o destaque do Caminhos e a equipe.
 - Animações de fio (quatro fios, bloco Ponte, checks): ficam.
 - Frase de 2050: entra como o cliente escreveu (“hub de soluções educacionais voltado a ajudar a UNESCO a construir um Novo Contrato Social da Educação até 2050”). A alternativa sem aval da UNESCO vai como variação B.
 - Assessoria técnica e Caixa Escolar: **somem como solução separada**. O texto entra no corpo da Mentoria para Gestão Pública Educacional. Ficam sete soluções.

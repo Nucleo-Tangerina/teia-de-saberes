@@ -19,7 +19,7 @@ export const mudancas: Mudanca[] = [
     pagina: "/",
     titulo: "Abertura da página",
     explicacao: "A primeira coisa que o visitante vê ao entrar no site.",
-    padrao: "a",
+    padrao: "b", // Kaio, 20/11/2026: the carousel stays (light theme, no blue)
     variacoes: [
       { id: "a", nome: "Foto única", descricao: "Fundo claro, o texto de abertura e uma foto, como no site antes da reformulação." },
       { id: "b", nome: "Carrossel de soluções", descricao: "Fundo claro, com slides que passam sozinhos: Caminhos da Inclusão, Tear, a abertura da Teia e as demais soluções." },
