@@ -78,7 +78,7 @@ export default function OlimpiadaPocketOds() {
 
       <CtaBlock
         title="Quer levar a Olimpíada para a sua rede ou apoiar uma edição?"
-        text="Conte qual rede ou edição você quer apoiar."
+        text="Fale com nossa equipe."
         label="Fale com nossa equipe"
         href="/contato?interesse=olimpiada"
       />
