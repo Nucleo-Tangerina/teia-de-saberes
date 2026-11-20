@@ -47,11 +47,37 @@ export const mudancas: Mudanca[] = [
       { id: "b", nome: "Grade", descricao: "Todos os brasões parados, lado a lado, cada um aparecendo uma única vez." },
     ],
   },
+  // Mentoria para Gestão Pública (issue #33)
+  {
+    id: "gestao-assessoria",
+    pagina: "/mentoria-gestao-publica",
+    titulo: "Onde fica a assessoria técnica",
+    explicacao:
+      "A assessoria técnica, a prestação de contas e o apoio à caixa escolar agora fazem parte da mentoria, e não são mais uma solução separada. Escolha onde esse conteúdo aparece na página.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Seção própria depois de Como funciona", descricao: "A assessoria ganha um bloco só dela, com o título “Também faz parte da mentoria”, logo depois de Como funciona. Os conteúdos da mentoria vêm em seguida." },
+      { id: "b", nome: "Dentro de Conteúdos", descricao: "A assessoria aparece como apoio técnico incluído, dentro do bloco Conteúdos, logo abaixo da lista do que a mentoria trabalha com a rede." },
+    ],
+  },
+  {
+    id: "gestao-ponte",
+    pagina: "/mentoria-gestao-publica",
+    titulo: "Frase da ponte na assessoria",
+    explicacao:
+      "A página tem duas frases de “Ponte com o Novo Contrato Social”. Esta escolha é sobre a que fica na parte da assessoria técnica.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Manter as duas frases", descricao: "A parte da assessoria mantém a frase “Sem financiamento público bem cuidado, o bem comum não se sustenta.”, além da frase principal da página." },
+      { id: "b", nome: "Só a frase principal", descricao: "A frase da assessoria sai. Fica apenas a ponte principal, perto do fim da página." },
+    ],
+  },
 ];
 
 // Pages under approval and the GitHub issue that records each one's approvals and conversation.
 export const paginas: Record<string, { nome: string; issue: number }> = {
   "/": { nome: "Início", issue: 30 },
+  "/mentoria-gestao-publica": { nome: "Mentoria para Gestão Pública", issue: 33 },
 };
 
 export const paginaDe = (path: string) => (Object.hasOwn(paginas, path) ? paginas[path] : undefined);

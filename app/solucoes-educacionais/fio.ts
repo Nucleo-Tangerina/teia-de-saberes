@@ -5,5 +5,5 @@ const keys: readonly string[] = ["rede", "escola", "pessoas", "trama"] satisfies
 /** Reads `?fio=`; anything unknown means "all solutions". */
 export const parseFio = (v: string | null): FioKey | null => (keys.includes(v) ? (v as FioKey) : null);
 
-export const filterByFio = <T extends { fio: FioKey }>(list: readonly T[], key: FioKey | null) =>
-  key ? list.filter((s) => s.fio === key) : [...list];
+export const filterByFio = <T extends { fio: FioKey; tambem?: FioKey[] }>(list: readonly T[], key: FioKey | null) =>
+  key ? list.filter((s) => s.fio === key || s.tambem?.includes(key)) : [...list];

@@ -192,7 +192,7 @@ export default function Home() {
             {fios.map((f, i) => (
               <li key={f.key} data-reveal style={stagger(i)}>
                 <Link
-                  href={`/solucoes-educacionais?fio=${f.key}`}
+                  href={f.key === "trama" ? "/mentoria-gestao-publica#assessoria-tecnica" : `/solucoes-educacionais?fio=${f.key}`}
                   className="fio-card"
                   style={{ "--accent": fioColor[f.key] } as React.CSSProperties}
                 >
@@ -202,7 +202,7 @@ export default function Home() {
                   <p>{f.resumo}</p>
                   <p className="fio-ponte">{f.ponte}</p>
                   <span className="link-arrow">
-                    Ver soluções<span className="sr-only"> do fio {f.nome}</span>
+                    {f.key === "trama" ? "Ver a assessoria" : "Ver soluções"}<span className="sr-only"> do fio {f.nome}</span>
                     <ArrowRight size={18} aria-hidden />
                   </span>
                 </Link>

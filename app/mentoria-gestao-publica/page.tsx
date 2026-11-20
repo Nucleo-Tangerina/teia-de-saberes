@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Variante } from "../aprovacao/variante";
 import { ContactForm } from "../interactive";
 import { CheckList, Facts, Faq, FiosLigados, IconGrid, PageHero, Ponte, SectionHead, StepsThread } from "../ui";
 
@@ -91,6 +92,39 @@ const faq = [
   },
 ];
 
+const assessoriaTexto =
+  "Apoiamos a Secretaria nos programas do FNDE (PAR, PDDE, PNAE e Educacenso), no monitoramento dos conselhos (CACS e CAE), no planejamento orçamentário e na prestação de contas (SIOPE) e na regularização e acompanhamento das caixas escolares (UEX). Nossa equipe reúne quatro áreas de apoio:";
+
+const ponteAssessoria = (
+  <Variante
+    id="gestao-ponte"
+    opcoes={{
+      a: (
+        // second Ponte on the page (doc: assessoria has its own), so no Ponte component: its id would repeat
+        <div className="ponte ponte-inline" data-reveal>
+          <p className="eyebrow">PONTE COM O NOVO CONTRATO SOCIAL</p>
+          <p className="ponte-text">Sem financiamento público bem cuidado, o bem comum não se sustenta.</p>
+        </div>
+      ),
+      b: null,
+    }}
+  />
+);
+
+// gestao-assessoria b puts the assessoria inside this section, after the list
+const conteudosSecao = (extra?: React.ReactNode) => (
+  <section className="band-soft" aria-labelledby="conteudos">
+    <div className="section container split audience-block align-top">
+      <div className="stack" data-reveal>
+        <p className="eyebrow">CONTEÚDOS</p>
+        <h2 id="conteudos">O que a mentoria trabalha com a rede.</h2>
+      </div>
+      <CheckList items={conteudos} />
+    </div>
+    {extra}
+  </section>
+);
+
 export default function MentoriaGestao() {
   return (
     <>
@@ -152,30 +186,36 @@ export default function MentoriaGestao() {
         </div>
       </section>
 
-      <section className="band-soft" aria-labelledby="conteudos">
-        <div className="section container split audience-block align-top">
-          <div className="stack" data-reveal>
-            <p className="eyebrow">CONTEÚDOS</p>
-            <h2 id="conteudos">O que a mentoria trabalha com a rede.</h2>
-          </div>
-          <CheckList items={conteudos} />
-        </div>
-      </section>
-
-      <section id="assessoria-tecnica" className="section container" aria-labelledby="assessoria-title">
-        <SectionHead
-          id="assessoria-title"
-          eyebrow="ASSESSORIA TÉCNICA, PRESTAÇÃO DE CONTAS E CAIXA ESCOLAR"
-          title="Recursos bem cuidados sustentam o bem comum."
-          text="Apoiamos a Secretaria nos programas do FNDE (PAR, PDDE, PNAE e Educacenso), no monitoramento dos conselhos (CACS e CAE), no planejamento orçamentário e na prestação de contas (SIOPE) e na regularização e acompanhamento das caixas escolares (UEX). Nossa equipe reúne quatro áreas de apoio:"
-        />
-        <IconGrid items={areas} cols={2} />
-        {/* second Ponte on the page (doc: assessoria has its own), so no Ponte component: its id would repeat */}
-        <div className="ponte ponte-inline" data-reveal>
-          <p className="eyebrow">PONTE COM O NOVO CONTRATO SOCIAL</p>
-          <p className="ponte-text">Sem financiamento público bem cuidado, o bem comum não se sustenta.</p>
-        </div>
-      </section>
+      <Variante
+        id="gestao-assessoria"
+        opcoes={{
+          a: (
+            <>
+              <section id="assessoria-tecnica" className="section container" aria-labelledby="assessoria-title">
+                <SectionHead
+                  id="assessoria-title"
+                  eyebrow="TAMBÉM FAZ PARTE DA MENTORIA"
+                  title="Assessoria técnica, prestação de contas e caixa escolar."
+                  text={assessoriaTexto}
+                />
+                <IconGrid items={areas} cols={2} />
+                {ponteAssessoria}
+              </section>
+              {conteudosSecao()}
+            </>
+          ),
+          b: conteudosSecao(
+            <div id="assessoria-tecnica" className="section-tail container">
+              <div className="section-head narrow" data-reveal>
+                <h3>Apoio técnico incluído: assessoria técnica, prestação de contas e caixa escolar.</h3>
+                <p className="body">{assessoriaTexto}</p>
+              </div>
+              <IconGrid items={areas} cols={2} />
+              {ponteAssessoria}
+            </div>,
+          ),
+        }}
+      />
 
       <section className="section container narrow-col" aria-labelledby="faq">
         <SectionHead id="faq" eyebrow="PERGUNTAS FREQUENTES" title="Dúvidas sobre a mentoria." />

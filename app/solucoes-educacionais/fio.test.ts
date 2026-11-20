@@ -10,7 +10,7 @@ test("cada fio mostra exatamente os nós da tabela", () => {
   assert.deepEqual(titles("rede"), ["Mentoria para Gestão Pública Educacional", "Tear: Plano Municipal de Educação"]);
   assert.deepEqual(titles("escola"), ["Mentoria para Transformação Escolar", "Olimpíada Pocket ODS"]);
   assert.deepEqual(titles("pessoas"), ["Caminhos da Inclusão", "Palestras e Rodas de Conversa", "Pós-graduação"]);
-  assert.deepEqual(titles("trama"), ["Assessoria técnica e Caixa Escolar"]);
+  assert.deepEqual(titles("trama"), ["Mentoria para Gestão Pública Educacional"]);
 });
 
 test("sem fio mostra todas, na ordem original", () => {

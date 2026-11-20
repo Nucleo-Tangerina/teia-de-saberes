@@ -147,7 +147,7 @@ export default function Solucoes() {
             <Link href={href("escolar")}>Mentoria para Transformação Escolar</Link> nas escolas priorizadas
           </li>
           <li>
-            <Link href={href("assessoria")}>Assessoria técnica</Link> para sustentar
+            <Link href="/mentoria-gestao-publica#assessoria-tecnica">Assessoria técnica</Link> para sustentar
           </li>
         </ol>
       </section>

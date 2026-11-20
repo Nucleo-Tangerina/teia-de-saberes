@@ -108,6 +108,7 @@ export type Solution = {
   text: string;
   ponte: string;
   fio: FioKey;
+  tambem?: FioKey[]; // extra fios this solution answers
   ligaA: string[];
   img: string;
   accent: string;
@@ -136,6 +137,7 @@ export const solutions: Solution[] = [
     text: "Acompanhamento especializado para gestores e equipes técnicas, com foco em planejamento, organização, desenvolvimento institucional e fortalecimento das políticas educacionais.",
     ponte: "Capacidade pública de planejar e financiar",
     fio: "rede",
+    tambem: ["trama"],
     ligaA: ["tear", "pos"],
     img: "/images/sol0.jpg",
     accent: "#ED8C32",
@@ -148,7 +150,7 @@ export const solutions: Solution[] = [
     text: "Conduz o município na construção e no monitoramento do Plano Municipal de Educação frente à Lei nº 15.388/2026.",
     ponte: "Educação como esforço público e bem comum",
     fio: "rede",
-    ligaA: ["gestao", "assessoria"],
+    ligaA: ["gestao"],
     img: "/tear/tear-marca.png",
     accent: "#4A2582",
     href: "/tear",
@@ -198,22 +200,10 @@ export const solutions: Solution[] = [
     ponte: "O relatório como documento vivo, construído no diálogo",
     fio: "pessoas",
     // Entry door: links to every other solution.
-    ligaA: ["escolar", "gestao", "tear", "olimpiada", "pos", "inclusao", "assessoria"],
+    ligaA: ["escolar", "gestao", "tear", "olimpiada", "pos", "inclusao"],
     img: "/images/sol2.jpg",
     accent: "#01A6F8",
     href: "/palestras-rodas-de-conversa",
-  },
-  {
-    slug: "assessoria",
-    title: "Assessoria técnica e Caixa Escolar",
-    phrase: "Recursos bem cuidados sustentam o bem comum.",
-    text: "Apoio à Secretaria nos programas do FNDE (PAR, PDDE, PNAE e Educacenso), na prestação de contas (SIOPE) e na regularização das caixas escolares (UEX).",
-    ponte: "Financiamento público como condição da educação como bem comum",
-    fio: "trama",
-    ligaA: ["tear", "gestao"],
-    img: "/images/sol4.jpg",
-    accent: "#8F2DE2",
-    href: "/mentoria-gestao-publica#assessoria-tecnica",
   },
 ];
 
