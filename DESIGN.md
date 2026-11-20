@@ -236,8 +236,14 @@ Confident, round, tactile.
 ### Section Labels (user-mandated)
 - Uppercase Manrope 700 13px (12px mobile) label in orange-ink, tracked 0.14em, above section headings. Part of the client's approved reference and must stay: the client asked that nothing from the reference be removed. The hero label is the brief's "Etiqueta"; on mobile it breaks before "TRANSFORMAÇÃO EDUCACIONAL" with its bullet hidden.
 
-### Municipal Crest Grid
-- Static grid of municipal crests on a soft 24px panel, with no motion.
+### Municipal Crest Ticker
+- Crests scroll in a continuous strip on a soft 24px panel, edges faded by a mask, pausing on hover or focus (70s loop). Each crest sits in a 176px cell (128px mobile) divided by hairlines. Without motion the strip stands still and scrolls by hand.
+- Under client approval (issue #30): a static grid where each crest appears once. The losing option is deleted once approved.
+- `/projetos` keeps the static grid.
+
+### Home Opening
+- Default: soft-field hero with the opening copy and one framed photo beside the floating pattern tile.
+- Under client approval (issue #30): a light-theme carousel of the solutions (soft field, navy type, white controls). The losing option is deleted once approved.
 
 ## Do's and Don'ts
 
