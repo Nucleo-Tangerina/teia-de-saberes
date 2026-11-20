@@ -3766,3 +3766,137 @@ html.motion [data-reveal="wipe"]:not(.in) img {
     align-self: stretch;
   }
 }
+
+/* Motion: threads that stitch the hub's nodes (the woven-network focal moment) */
+
+/* thread containers stay put; only their line and nodes move */
+html.motion [data-reveal="thread"]:not(.in) {
+  opacity: 1;
+  transform: none;
+}
+
+/* Home, os quatro fios: one gradient thread runs dot to dot across the four cards */
+.fio-cards {
+  position: relative;
+}
+
+.fio-cards::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 32px; /* card padding 28 + dot radius 5, minus half the stroke */
+  left: 33px;
+  right: calc((100% - 72px) / 4 - 33px);
+  height: 2px;
+  background: linear-gradient(90deg, #ed8c32, #2679ad 33%, #f02a89 66%, #90d518);
+  opacity: 0.55;
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.fio-dot {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--white); /* white ring: the thread enters the node */
+}
+
+html.motion .fio-cards::before {
+  transition: transform 1.6s var(--ease-out-expo) 0.15s;
+}
+
+html.motion .fio-cards:not(.in)::before {
+  transform: scaleX(0);
+}
+
+/* each node pops as the thread reaches it */
+html.motion .fio-cards .fio-dot {
+  transition: transform 0.55s var(--ease-out-quart) calc(0.25s + var(--i, 0) * 0.32s);
+}
+
+html.motion .fio-cards:not(.in) .fio-dot {
+  transform: scale(0);
+}
+
+@media (max-width: 960px) {
+  .fio-cards::before {
+    display: none;
+  }
+}
+
+/* Ponte com o Novo Contrato Social: a bridge line draws across the block and lands on a node */
+.ponte {
+  position: relative;
+  overflow: hidden;
+}
+
+.ponte::before,
+.ponte::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  pointer-events: none;
+}
+
+.ponte::before {
+  left: 48px;
+  right: 54px;
+  height: 2px;
+  margin-top: -1px;
+  background: linear-gradient(90deg, rgba(163, 85, 15, 0.1), rgba(163, 85, 15, 0.45));
+  transform-origin: left center;
+}
+
+.ponte::after {
+  right: 48px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--orange-ink);
+}
+
+html.motion .ponte::before {
+  transition: transform 1.3s var(--ease-out-expo) 0.35s;
+}
+
+html.motion .ponte::after {
+  transition: transform 0.5s var(--ease-out-quart) 1.15s;
+}
+
+html.motion .ponte:not(.in)::before {
+  transform: scaleX(0);
+}
+
+html.motion .ponte:not(.in)::after {
+  transform: scale(0);
+}
+
+.ponte-inline {
+  margin-top: 32px;
+}
+
+@media (max-width: 720px) {
+  .ponte::before {
+    left: 24px;
+    right: 30px;
+  }
+  .ponte::after {
+    right: 24px;
+  }
+  .ponte::before,
+  .ponte::after {
+    top: 16px;
+  }
+}
+
+/* Checklists: each check lands just after its line rises */
+html.motion .checklist .check {
+  transition:
+    transform 0.45s var(--ease-out-quart) calc(0.3s + var(--i, 0) * 90ms),
+    opacity 0.3s var(--ease-out-quart) calc(0.3s + var(--i, 0) * 90ms);
+}
+
+html.motion .checklist li:not(.in) .check {
+  transform: scale(0.4);
+  opacity: 0;
+}

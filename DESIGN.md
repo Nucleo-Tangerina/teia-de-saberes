@@ -226,6 +226,9 @@ Confident, round, tactile.
 ### Threads and Nodes (signature)
 - **Hero threads:** thin blue paths (1.5px, 22% opacity) that draw across the hero background, ending in 6px colored nodes with a white ring that pop in and pulse outward. Hidden under 720px.
 - **Methodology thread:** a 2px dashed line through the step markers whose fill (orange to blue to magenta to lime gradient) scales with scroll progress. Each step is a 64px white circle ringed in its pattern hue; when the fill reaches it, the step is lit and tints to 22% of its hue. Horizontal on desktop, vertical on mobile.
+- **Four-threads stitch (home):** as the "Os quatro fios" cards enter, a 2px gradient thread (same four hues, 55% opacity) draws left to right through the card dots (1.6s, ease-out-expo), and each dot, ringed in white, pops as the thread reaches it. Desktop only; under 960px the dots pop without the line.
+- **Ponte line:** every "Ponte com o Novo Contrato Social" block draws a thin orange-ink line across its top that lands on an 8px node.
+- **Checklist checks:** each check circle pops just after its line rises.
 
 ### Pattern Strip
 - Floating 150px tile (20px radius) beside the hero photo, gently bobbing; a 40px marquee band moving under the navy section; a drifting 220px column on the CTA (a 56px band on mobile).

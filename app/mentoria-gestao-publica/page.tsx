@@ -170,9 +170,11 @@ export default function MentoriaGestao() {
           text="Apoiamos a Secretaria nos programas do FNDE (PAR, PDDE, PNAE e Educacenso), no monitoramento dos conselhos (CACS e CAE), no planejamento orçamentário e na prestação de contas (SIOPE) e na regularização e acompanhamento das caixas escolares (UEX). Nossa equipe reúne quatro áreas de apoio:"
         />
         <IconGrid items={areas} cols={2} />
-        <p className="body" data-reveal>
-          <strong>Sem financiamento público bem cuidado, o bem comum não se sustenta.</strong>
-        </p>
+        {/* second Ponte on the page (doc: assessoria has its own), so no Ponte component: its id would repeat */}
+        <div className="ponte ponte-inline" data-reveal>
+          <p className="eyebrow">PONTE COM O NOVO CONTRATO SOCIAL</p>
+          <p className="ponte-text">Sem financiamento público bem cuidado, o bem comum não se sustenta.</p>
+        </div>
       </section>
 
       <section className="section container narrow-col" aria-labelledby="faq">

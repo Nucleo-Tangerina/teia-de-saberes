@@ -137,7 +137,8 @@ export default function Home() {
       <section className="band-soft" aria-labelledby="fios-title">
         <div className="section container">
           <SectionHead id="fios-title" eyebrow="OS QUATRO FIOS" title="Escolha o fio por onde começar." />
-          <ul className="fio-cards">
+          {/* data-reveal="thread": the list stays visible; a thread stitches the four nodes as it enters */}
+          <ul className="fio-cards" data-reveal="thread">
             {fios.map((f, i) => (
               <li key={f.key} data-reveal style={stagger(i)}>
                 <Link
