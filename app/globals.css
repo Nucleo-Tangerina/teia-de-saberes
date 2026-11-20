@@ -4109,7 +4109,7 @@ html.motion .checklist li:not(.in) .check {
 }
 
 .aprov-fala.is-equipe {
-  border-left: 3px solid var(--orange);
+  background: #fdf1e6;
 }
 
 .aprov-fala p {
