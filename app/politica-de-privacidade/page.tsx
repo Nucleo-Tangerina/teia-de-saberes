@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Variante } from "../aprovacao/variante";
 import { Badge, PageHero } from "../ui";
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export default function Privacidade() {
       />
       <section className="section container">
         <div className="prose">
-          <Badge>RASCUNHO · TEXTO A VALIDAR COM ASSESSORIA JURÍDICA ANTES DA PUBLICAÇÃO</Badge>
+          <Variante
+            id="privacidade-selo"
+            opcoes={{ a: <Badge>RASCUNHO · TEXTO A VALIDAR COM ASSESSORIA JURÍDICA ANTES DA PUBLICAÇÃO</Badge>, b: null }}
+          />
 
           <h2>Quais dados coletamos</h2>
           <p>
