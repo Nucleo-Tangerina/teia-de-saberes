@@ -1,19 +1,6 @@
 import type { Metadata } from "next";
-import { Lexend, Young_Serif } from "next/font/google";
-import { FiosLigados, Ponte } from "../ui";
-import { PageThread } from "./_lp/PageThread";
-import { Hero } from "./_lp/Hero";
-import { Pain } from "./_lp/Pain";
-import { BigIdea } from "./_lp/BigIdea";
-import { Transformation, Solution, Pillars, Benefits, Audience } from "./_lp/Journey";
-import { Author, Study, Curriculum } from "./_lp/Proof";
-import { Video, Testimonials } from "./_lp/Social";
-import { Offer, Guarantee, Objections, Faq, Closing } from "./_lp/Close";
-import "./lp.css";
-
-// The landing's own type, only inside this page's wrapper (.lp reads these variables).
-const lexend = Lexend({ subsets: ["latin"], variable: "--font-lexend" });
-const youngSerif = Young_Serif({ subsets: ["latin"], weight: "400", variable: "--font-young-serif" });
+import { CAMINHOS_URL } from "../content";
+import { CtaBlock, Facts, FiosLigados, PageHero, Ponte } from "../ui";
 
 export const metadata: Metadata = {
   title: "Caminhos da Inclusão: Formação para Mediadores",
@@ -22,53 +9,54 @@ export const metadata: Metadata = {
   alternates: { canonical: "/caminhos-da-inclusao" },
 };
 
-const courseJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Course",
-  name: "Caminhos da Inclusão: Formação para Mediadores",
-  description:
-    "Formação de 180 horas em 5 módulos para atuar na inclusão escolar: fundamentos e legislação, desenvolvimento humano e deficiências, comunicação e mediação, adaptação curricular e técnicas de apoio.",
-  inLanguage: "pt-BR",
-  provider: { "@type": "Organization", name: "Teia de Saberes" },
-  instructor: { "@type": "Person", name: "Ana Paula Jorge" },
-  offers: { "@type": "Offer", price: "197.00", priceCurrency: "BRL", category: "Paid" },
-  hasCourseInstance: { "@type": "CourseInstance", courseMode: "online", courseWorkload: "PT180H" },
-};
+const facts = [
+  { label: "Formação completa", value: "180 horas" },
+  { label: "Conteúdo estruturado", value: "5 módulos" },
+  { label: "Formato", value: "Aulas online e encontros ao vivo" },
+  { label: "De conclusão", value: "Certificado" },
+];
 
-// Porte da landing oficial: seções na ordem do App.tsx dela, sem o cabeçalho e o rodapé
-// (o site já tem os seus). A Ponte e os fios ligam a página de volta ao hub.
+// The full course page, enrolment and checkout live on the course's own site.
 export default function CaminhosDaInclusao() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
-      <div className={`lp ${lexend.variable} ${youngSerif.variable}`}>
-        <div className="page">
-          <Hero />
-          <Video />
-          <Pain />
-          <BigIdea />
-          <Transformation />
-          <Solution />
-          <Pillars />
-          <Benefits />
-          <Audience />
-          <Author />
-          <Testimonials />
-          <Study />
-          <Curriculum />
-          <Objections />
-          <Offer />
-          <Guarantee />
-          <Faq />
-          <Closing />
-          <PageThread />
-        </div>
+      <PageHero
+        crumbs={[{ label: "Soluções", href: "/solucoes-educacionais" }, { label: "Caminhos da Inclusão" }]}
+        eyebrow="FORMAÇÃO"
+        title="Ninguém fora da trama."
+        lead="Formação de 180 horas para mediadores que atuam na inclusão escolar, com Ana Paula Jorge: 5 módulos, aulas online, encontros ao vivo e certificado."
+        img="/caminhos/ana-paula-blazer.jpg"
+        imgAlt="Ana Paula Jorge sorrindo, de blazer magenta, com os braços apoiados em uma mesa de madeira"
+      >
+        <a href={CAMINHOS_URL} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
+          Conheça a formação completa
+          <span className="sr-only"> (abre em uma nova aba)</span>
+        </a>
+      </PageHero>
+
+      <div className="container facts-wrap">
+        <Facts items={facts} />
       </div>
+
+      <section className="section container narrow-col" aria-label="Abertura">
+        <p className="body" data-reveal>
+          Uma jornada de 180 horas para profissionais que desejam compreender os fundamentos da Educação Especial e
+          aproximar esse conhecimento das situações encontradas no cotidiano escolar.
+        </p>
+      </section>
 
       <Ponte>
         O relatório defende o direito à educação de qualidade ao longo da vida, para todas as pessoas. Uma escola que
         inclui cumpre esse contrato.
       </Ponte>
+
+      <CtaBlock
+        title="Conheça o Caminhos da Inclusão por completo."
+        text="Os módulos, os encontros ao vivo, a certificação e a inscrição estão no site da formação."
+        label="Conheça a formação completa"
+        href={CAMINHOS_URL}
+        external
+      />
 
       <FiosLigados slug="inclusao" />
     </>
