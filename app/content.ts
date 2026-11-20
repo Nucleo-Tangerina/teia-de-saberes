@@ -6,6 +6,8 @@ export const WHATSAPP = "https://wa.me/5513992081120";
 export const INSTAGRAM = "https://www.instagram.com/teia.de.saberes/";
 // Caminhos da Inclusão checkout (Ticto), the same link as the course landing page.
 export const CAMINHOS_OFERTA = "https://payment.ticto.app/O15C67760";
+// Caminhos da Inclusão official landing page (off-site).
+export const CAMINHOS_URL = "https://caminhoinclusao.teiadesaberes.com.br/";
 // Tear, the municipal education plan system (opens off-site).
 export const TEAR_URL = "https://tear.teiadesaberes.com.br/";
 

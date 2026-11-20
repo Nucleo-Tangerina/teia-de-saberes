@@ -72,12 +72,67 @@ export const mudancas: Mudanca[] = [
       { id: "b", nome: "Só a frase principal", descricao: "A frase da assessoria sai. Fica apenas a ponte principal, perto do fim da página." },
     ],
   },
+  // Soluções, o hub (issue #34)
+  {
+    id: "hub-caminhos",
+    pagina: "/solucoes-educacionais",
+    titulo: "Botões do destaque Caminhos da Inclusão",
+    explicacao:
+      "O quadro em destaque da formação Caminhos da Inclusão tem dois botões. Escolha se o botão principal leva o visitante a conhecer a formação aqui no site ou direto para a inscrição.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Conhecer primeiro", descricao: "O botão principal abre a página da formação aqui no site. O segundo abre o site próprio da formação em outra aba." },
+      { id: "b", nome: "Inscrição direta", descricao: "O botão principal, “Quero garantir minha vaga”, vai direto para a inscrição. O segundo abre a página da formação aqui no site." },
+    ],
+  },
+  // Pós-graduação (issue #36)
+  {
+    id: "pos-porque",
+    pagina: "/pos-graduacao",
+    titulo: "Por que esta pós-graduação",
+    explicacao:
+      "O site antigo tinha um texto explicando por que o curso existe: a crise na educação, os ODS e a formação de novos líderes. Ele ainda não estava no site novo.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Incluir o texto", descricao: "Mostra a seção “Por que esta pós-graduação” depois de “Para quem é”." },
+      { id: "b", nome: "Não incluir", descricao: "A página segue sem essa seção." },
+    ],
+  },
+  {
+    id: "pos-avaliacao",
+    pagina: "/pos-graduacao",
+    titulo: "Como é a avaliação",
+    explicacao: "O site antigo detalhava como os alunos são avaliados e o prazo para concluir o curso.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Incluir o detalhe da avaliação", descricao: "Mostra um parágrafo abaixo dos critérios para a titulação." },
+      { id: "b", nome: "Não incluir", descricao: "Ficam só os critérios resumidos." },
+    ],
+  },
+  // Tear (issue #38)
+  {
+    id: "tear-frase",
+    pagina: "/tear",
+    titulo: "Frase do Tear",
+    explicacao: "O documento pede a frase “O plano da cidade, tecido com quem a vive.” na página do Tear. Ela aparece logo abaixo da abertura.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Com a frase", descricao: "A frase aparece em destaque logo depois da abertura." },
+      { id: "b", nome: "Sem a frase", descricao: "A página continua como está hoje, sem a frase." },
+    ],
+  },
 ];
 
 // Pages under approval and the GitHub issue that records each one's approvals and conversation.
 export const paginas: Record<string, { nome: string; issue: number }> = {
   "/": { nome: "Início", issue: 30 },
   "/mentoria-gestao-publica": { nome: "Mentoria para Gestão Pública", issue: 33 },
+  "/solucoes-educacionais": { nome: "Soluções", issue: 34 },
+  "/pos-graduacao": { nome: "Pós-graduação", issue: 36 },
+  "/caminhos-da-inclusao": { nome: "Caminhos da Inclusão", issue: 37 },
+  "/tear": { nome: "Tear", issue: 38 },
+  "/palestras-rodas-de-conversa": { nome: "Palestras e Rodas de Conversa", issue: 39 },
+  "/olimpiada-pocket-ods": { nome: "Olimpíada Pocket ODS", issue: 40 },
 };
 
 export const paginaDe = (path: string) => (Object.hasOwn(paginas, path) ? paginas[path] : undefined);
