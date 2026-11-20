@@ -121,6 +121,44 @@ export const mudancas: Mudanca[] = [
       { id: "b", nome: "Sem a frase", descricao: "A página continua como está hoje, sem a frase." },
     ],
   },
+  // Equipe (issue #42)
+  {
+    id: "equipe-fotos",
+    pagina: "/nossa-equipe",
+    titulo: "Fotos da equipe",
+    explicacao:
+      "Cezar, Pacelli e Ricardo podem aparecer com as fotos do site antigo, no lugar do círculo com as iniciais. Ana Paula e Márcio ainda não têm foto e continuam com as iniciais.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Com fotos", descricao: "Mostra a foto de quem já tem uma; quem não tem segue com as iniciais." },
+      { id: "b", nome: "Só as iniciais", descricao: "Todos aparecem com o círculo colorido e as iniciais, como hoje." },
+    ],
+  },
+  // Quem somos (issue #43)
+  {
+    id: "quem-2050",
+    pagina: "/quem-somos",
+    titulo: "Frase de apresentação da Teia",
+    explicacao: "A frase que apresenta a Teia como hub de soluções, no texto de abertura da página. Usa as mesmas duas versões da página inicial.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Ajudar a UNESCO", descricao: "Diz que a Teia é voltada a ajudar a UNESCO a construir o Novo Contrato Social da Educação até 2050." },
+      { id: "b", nome: "Ajudar as redes públicas", descricao: "Diz que a Teia ajuda as redes públicas a construir, até 2050, o Novo Contrato Social proposto pela UNESCO. Evita dar a entender que a UNESCO apoia ou contrata a Teia." },
+    ],
+  },
+  // Política de Privacidade (issue #46)
+  {
+    id: "privacidade-selo",
+    pagina: "/politica-de-privacidade",
+    titulo: "Selo de rascunho",
+    explicacao:
+      "No alto da página aparece um aviso dizendo que o texto ainda é um rascunho e precisa ser revisado por um advogado. Recomendamos manter o aviso até essa revisão ser feita.",
+    padrao: "a",
+    variacoes: [
+      { id: "a", nome: "Manter o selo de rascunho", descricao: "O aviso continua visível até a assessoria jurídica aprovar o texto." },
+      { id: "b", nome: "Tirar o selo", descricao: "A página aparece sem o aviso, como texto final. Escolha esta opção só se o texto já foi revisado." },
+    ],
+  },
 ];
 
 // Pages under approval and the GitHub issue that records each one's approvals and conversation.
@@ -133,6 +171,13 @@ export const paginas: Record<string, { nome: string; issue: number }> = {
   "/tear": { nome: "Tear", issue: 38 },
   "/palestras-rodas-de-conversa": { nome: "Palestras e Rodas de Conversa", issue: 39 },
   "/olimpiada-pocket-ods": { nome: "Olimpíada Pocket ODS", issue: 40 },
+  "/nossa-equipe": { nome: "Equipe", issue: 42 },
+  "/quem-somos": { nome: "Quem somos", issue: 43 },
+  "/projetos": { nome: "Projetos e resultados", issue: 44 },
+  "/em-movimento": { nome: "Em movimento", issue: 45 },
+  "/blog": { nome: "Conteúdos", issue: 45 },
+  "/contato": { nome: "Contato", issue: 46 },
+  "/politica-de-privacidade": { nome: "Política de Privacidade", issue: 46 },
 };
 
 export const paginaDe = (path: string) => (Object.hasOwn(paginas, path) ? paginas[path] : undefined);

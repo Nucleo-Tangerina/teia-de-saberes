@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { Variante } from "../aprovacao/variante";
 import { team, type TeamMember } from "../content";
 import { CtaBlock, PageHero, initials, stagger } from "../ui";
 
@@ -13,11 +15,33 @@ export const metadata: Metadata = {
 };
 
 function Profile({ p, i }: { p: TeamMember; i: number }) {
+  const accent = { "--accent": p.accent } as React.CSSProperties;
+  const monogram = (
+    <span className="monogram" style={accent} aria-hidden>
+      {initials(p.name)}
+    </span>
+  );
   return (
     <li className="profile" data-reveal style={stagger(i)}>
-      <span className="monogram" style={{ "--accent": p.accent } as React.CSSProperties} aria-hidden>
-        {initials(p.name)}
-      </span>
+      <Variante
+        id="equipe-fotos"
+        opcoes={{
+          a: p.photo ? (
+            // .monogram gives the same circle, size and accent border as the initials
+            <Image
+              src={p.photo}
+              alt={p.name}
+              width={72}
+              height={72}
+              className="monogram"
+              style={{ ...accent, objectFit: "cover", objectPosition: "50% 20%" }}
+            />
+          ) : (
+            monogram
+          ),
+          b: monogram,
+        }}
+      />
       <div className="profile-body">
         <span className="profile-role">{p.role}</span>
         <h3>{p.name}</h3>

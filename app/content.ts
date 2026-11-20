@@ -272,26 +272,31 @@ export type TeamMember = {
   photo?: string;
 };
 
-// Only people the client confirmed; Tiago, Vagner and "Saito" are pending (issue #16).
+// Five profiles in the client's order (issue #42). "Saito" is out by decision of 20/11/2026;
+// Tiago and Vagner appear only on the pós-graduação page.
+// Bios of Cezar, Pacelli and Ricardo (and their photos) are verbatim from the old site's "Nossa equipe" (/sobre-nós).
 export const team: TeamMember[] = [
-  {
-    name: "Pacelli H. S. Lopes",
-    role: "Idealizador",
-    bio: "Historiador, mestre em História (Universidade Salgado de Oliveira), especialista em História do Brasil (PUC Minas) e licenciado pela Faculdade Santa Marcelina. Idealizador da Teia de Saberes, atua na formação de gestores, no acompanhamento de políticas públicas e em projetos educacionais ligados ao território. Professor efetivo da rede pública de Minas Gerais, foi gestor da Escola Estadual Fazenda Paraíso de 2019 a 2023.",
-    accent: "#ED8C32",
-    lattes: "http://lattes.cnpq.br/5755985965293910",
-  },
   {
     name: "Cezar Trindade Ituassu",
     role: "Coordenação de projetos",
-    bio: "Graduado em Ciências Sociais pela UFMG, com experiência como professor e gestor escolar e em gestão de processos. Cuida da coordenação de projetos e da relação institucional com as redes parceiras.",
+    bio: "Graduado em Ciências Sociais pela UFMG. Atuou como gestor escolar e professor, com experiência em comercialização de soluções educacionais e gestão de processos. Trabalha com mobilização institucional, coordenação de projetos e relacionamento com as redes de ensino parceiras da Teia.",
     accent: "#F02A89",
+    photo: "/images/equipe-cezar.jpg",
+  },
+  {
+    name: "Pacelli H. S. Lopes",
+    role: "Idealizador",
+    bio: "Historiador, mestre em História pela Universidade Salgado de Oliveira (UNIVERSO), especialista em História do Brasil pela PUC Minas e graduado pela Faculdade de Filosofia, Ciências e Letras Santa Marcelina. Intelectual público e idealizador da Teia de Saberes, atua na formação de gestores, no acompanhamento de políticas públicas e na construção de projetos educacionais integrados ao território.",
+    accent: "#ED8C32",
+    lattes: "http://lattes.cnpq.br/5755985965293910",
+    photo: "/images/equipe-pacelli.jpg",
   },
   {
     name: "Ricardo Marinho",
     role: "Coordenação da Pós-graduação",
-    bio: "Pós-doutor em Políticas Públicas e Formação Humana (UERJ), com atuação em formulação, monitoramento e avaliação de políticas educacionais. Especialista em financiamento da educação, planejamento estratégico e regulação institucional.",
+    bio: "Pós-doutor em Políticas Públicas pela UERJ, com ampla atuação na formulação, monitoramento e avaliação de políticas educacionais. Especialista em financiamento da educação, planejamento estratégico e regulação institucional.",
     accent: "#2679AD",
+    photo: "/images/equipe-ricardo.jpg",
   },
   {
     name: "Ana Paula Jorge",
