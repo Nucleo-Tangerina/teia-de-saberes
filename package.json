@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --test app/contato/validate.test.ts app/solucoes-educacionais/fio.test.ts"
+    "test": "node --test app/contato/validate.test.ts app/solucoes-educacionais/fio.test.ts app/aprovacao/sessao.test.ts"
   },
   "dependencies": {
     "lucide-react": "^1.59.0",
