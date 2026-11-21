@@ -39,7 +39,7 @@ function View({
       </p>
       <div className="sol-grid" ref={gridRef}>
         {shown.map((s) => (
-          // number = position in the full list, so a card keeps its 01-08 under any filter
+          // number = position in the full list, so a card keeps its 01-07 under any filter
           <SolutionCard key={s.slug} s={s} i={solutions.indexOf(s)} />
         ))}
       </div>

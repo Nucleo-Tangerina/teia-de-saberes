@@ -348,6 +348,7 @@ export function CtaBlock({
             {external ? (
               <a href={href} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
                 {label}
+                <span className="sr-only"> (abre em uma nova aba)</span>
               </a>
             ) : (
               <Link href={href} className="btn btn-orange btn-wrap">

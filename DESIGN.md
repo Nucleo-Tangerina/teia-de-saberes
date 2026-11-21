@@ -226,6 +226,9 @@ Confident, round, tactile.
 ### Threads and Nodes (signature)
 - **Hero threads:** thin blue paths (1.5px, 22% opacity) that draw across the hero background, ending in 6px colored nodes with a white ring that pop in and pulse outward. Hidden under 720px.
 - **Methodology thread:** a 2px dashed line through the step markers whose fill (orange to blue to magenta to lime gradient) scales with scroll progress. Each step is a 64px white circle ringed in its pattern hue; when the fill reaches it, the step is lit and tints to 22% of its hue. Horizontal on desktop, vertical on mobile.
+- **Four-threads stitch (home):** as the "Os quatro fios" cards enter, a 2px gradient thread (same four hues, 55% opacity) draws left to right through the card dots (1.6s, ease-out-expo), and each dot, ringed in white, pops as the thread reaches it. Desktop only; under 960px the dots pop without the line.
+- **Ponte line:** every "Ponte com o Novo Contrato Social" block draws a thin orange-ink line across its top that lands on an 8px node.
+- **Checklist checks:** each check circle pops just after its line rises.
 
 ### Pattern Strip
 - Floating 150px tile (20px radius) beside the hero photo, gently bobbing; a 40px marquee band moving under the navy section; a drifting 220px column on the CTA (a 56px band on mobile).
@@ -233,8 +236,19 @@ Confident, round, tactile.
 ### Section Labels (user-mandated)
 - Uppercase Manrope 700 13px (12px mobile) label in orange-ink, tracked 0.14em, above section headings. Part of the client's approved reference and must stay: the client asked that nothing from the reference be removed. The hero label is the brief's "Etiqueta"; on mobile it breaks before "TRANSFORMAÇÃO EDUCACIONAL" with its bullet hidden.
 
-### Municipal Crest Grid
-- Static grid of municipal crests on a soft 24px panel, with no motion.
+### Municipal Crest Ticker
+- Crests scroll in a continuous strip on a soft 24px panel, edges faded by a mask, pausing on hover or focus (70s loop). Each crest sits in a 176px cell (128px mobile) divided by hairlines. Without motion the strip stands still and scrolls by hand.
+- Under client approval (issue #30): a static grid where each crest appears once. The losing option is deleted once approved.
+- `/projetos` keeps the static grid.
+
+### Home Opening
+- Default: a light-theme carousel (soft field, navy type, white circular controls, autoplay with pause). It opens on Caminhos da Inclusão (Ana Paula photo), then Tear, then the Teia's own slide, which carries the h1 and the 2050 sentence. No navy hero: the client only rejected the blue background.
+- Under client approval (issue #30): the single-photo hero (opening copy and one framed photo beside the floating pattern tile). The losing option is deleted once approved.
+
+### Approval Panel (test site only)
+- Exists only where `APROVACAO_TOKEN` is set and after the secret link; visitors never see it. Removed or left off on the official domain.
+- Fixed bottom-right, 380px, white, 16px radius, float shadow; full width with 8px margins under 720px. Collapsed it is a single orange pill button, "Aprovar esta página · n/total" (or "Revisar esta página"); it starts collapsed on phones, open on desktop.
+- Open: sticky header (orange-ink eyebrow "Aprovação do site", page name in navy, progress pill that turns green with a check when all are approved), then sections with small uppercase labels: numbered change cards with whole-card radio options lettered A/B (selected = navy 2px border and tint), a full-width navy "Aprovar opção X" button or a green "Aprovada" row; observations as chat bubbles with an orange send button (gray when disabled); a collapsible list of all pages under review; an outline "Próxima página" button; a muted exit link.
 
 ## Do's and Don'ts
 

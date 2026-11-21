@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Suspense } from "react";
-import { CAMINHOS_OFERTA, fios, solutions, TEAR_URL } from "../content";
+import { Variante } from "../aprovacao/variante";
+import { CAMINHOS_OFERTA, CAMINHOS_URL, fios, solutions, TEAR_URL } from "../content";
 import { CtaBlock, PageHero, SectionHead, StepsThread } from "../ui";
 import { SolutionsFilter, SolutionsFilterFallback } from "./filter";
 
@@ -71,13 +72,33 @@ export default function Solucoes() {
               <li>Certificado</li>
             </ul>
             <div className="actions">
-              <a href={CAMINHOS_OFERTA} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
-                Quero garantir minha vaga
-                <span className="sr-only"> na formação Caminhos da Inclusão (abre em uma nova aba)</span>
-              </a>
-              <Link href="/caminhos-da-inclusao" className="btn btn-outline btn-wrap">
-                Conheça a formação
-              </Link>
+              <Variante
+                id="hub-caminhos"
+                opcoes={{
+                  a: (
+                    <>
+                      <Link href="/caminhos-da-inclusao" className="btn btn-orange btn-wrap">
+                        Conheça a formação
+                      </Link>
+                      <a href={CAMINHOS_URL} target="_blank" rel="noopener" className="btn btn-outline btn-wrap">
+                        Site da formação
+                        <span className="sr-only"> Caminhos da Inclusão (abre em uma nova aba)</span>
+                      </a>
+                    </>
+                  ),
+                  b: (
+                    <>
+                      <a href={CAMINHOS_OFERTA} target="_blank" rel="noopener" className="btn btn-orange btn-wrap">
+                        Quero garantir minha vaga
+                        <span className="sr-only"> na formação Caminhos da Inclusão (abre em uma nova aba)</span>
+                      </a>
+                      <Link href="/caminhos-da-inclusao" className="btn btn-outline btn-wrap">
+                        Conheça a formação
+                      </Link>
+                    </>
+                  ),
+                }}
+              />
             </div>
           </div>
         </article>
@@ -147,7 +168,7 @@ export default function Solucoes() {
             <Link href={href("escolar")}>Mentoria para Transformação Escolar</Link> nas escolas priorizadas
           </li>
           <li>
-            <Link href={href("assessoria")}>Assessoria técnica</Link> para sustentar
+            <Link href="/mentoria-gestao-publica#assessoria-tecnica">Assessoria técnica</Link> para sustentar
           </li>
         </ol>
       </section>

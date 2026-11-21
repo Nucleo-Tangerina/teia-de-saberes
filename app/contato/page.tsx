@@ -21,7 +21,6 @@ const preset: Record<string, (typeof interests)[number]> = {
   pos: "Pós-graduação",
   inclusao: "Caminhos da Inclusão",
   palestras: "Palestras e Rodas de Conversa",
-  assessoria: "Assessoria técnica e Caixa Escolar",
 };
 
 const icons: Record<string, typeof Globe> = { WhatsApp: MessageCircle, Instagram: AtSign, Site: Globe };

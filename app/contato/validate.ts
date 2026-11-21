@@ -9,7 +9,6 @@ export const interests = [
   "Pós-graduação",
   "Caminhos da Inclusão",
   "Palestras e Rodas de Conversa",
-  "Assessoria técnica e Caixa Escolar",
   "Outras soluções",
 ] as const;
 

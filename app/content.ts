@@ -6,6 +6,8 @@ export const WHATSAPP = "https://wa.me/5513992081120";
 export const INSTAGRAM = "https://www.instagram.com/teia.de.saberes/";
 // Caminhos da Inclusão checkout (Ticto), the same link as the course landing page.
 export const CAMINHOS_OFERTA = "https://payment.ticto.app/O15C67760";
+// Caminhos da Inclusão official landing page (off-site).
+export const CAMINHOS_URL = "https://caminhoinclusao.teiadesaberes.com.br/";
 // Tear, the municipal education plan system (opens off-site).
 export const TEAR_URL = "https://tear.teiadesaberes.com.br/";
 
@@ -108,6 +110,7 @@ export type Solution = {
   text: string;
   ponte: string;
   fio: FioKey;
+  tambem?: FioKey[]; // extra fios this solution answers
   ligaA: string[];
   img: string;
   accent: string;
@@ -136,6 +139,7 @@ export const solutions: Solution[] = [
     text: "Acompanhamento especializado para gestores e equipes técnicas, com foco em planejamento, organização, desenvolvimento institucional e fortalecimento das políticas educacionais.",
     ponte: "Capacidade pública de planejar e financiar",
     fio: "rede",
+    tambem: ["trama"],
     ligaA: ["tear", "pos"],
     img: "/images/sol0.jpg",
     accent: "#ED8C32",
@@ -148,7 +152,7 @@ export const solutions: Solution[] = [
     text: "Conduz o município na construção e no monitoramento do Plano Municipal de Educação frente à Lei nº 15.388/2026.",
     ponte: "Educação como esforço público e bem comum",
     fio: "rede",
-    ligaA: ["gestao", "assessoria"],
+    ligaA: ["gestao"],
     img: "/tear/tear-marca.png",
     accent: "#4A2582",
     href: "/tear",
@@ -198,22 +202,10 @@ export const solutions: Solution[] = [
     ponte: "O relatório como documento vivo, construído no diálogo",
     fio: "pessoas",
     // Entry door: links to every other solution.
-    ligaA: ["escolar", "gestao", "tear", "olimpiada", "pos", "inclusao", "assessoria"],
+    ligaA: ["escolar", "gestao", "tear", "olimpiada", "pos", "inclusao"],
     img: "/images/sol2.jpg",
     accent: "#01A6F8",
     href: "/palestras-rodas-de-conversa",
-  },
-  {
-    slug: "assessoria",
-    title: "Assessoria técnica e Caixa Escolar",
-    phrase: "Recursos bem cuidados sustentam o bem comum.",
-    text: "Apoio à Secretaria nos programas do FNDE (PAR, PDDE, PNAE e Educacenso), na prestação de contas (SIOPE) e na regularização das caixas escolares (UEX).",
-    ponte: "Financiamento público como condição da educação como bem comum",
-    fio: "trama",
-    ligaA: ["tear", "gestao"],
-    img: "/images/sol4.jpg",
-    accent: "#8F2DE2",
-    href: "/mentoria-gestao-publica#assessoria-tecnica",
   },
 ];
 
@@ -280,26 +272,31 @@ export type TeamMember = {
   photo?: string;
 };
 
-// Only people the client confirmed; Tiago, Vagner and "Saito" are pending (issue #16).
+// Five profiles in the client's order (issue #42). "Saito" is out by decision of 20/11/2026;
+// Tiago and Vagner appear only on the pós-graduação page.
+// Bios of Cezar, Pacelli and Ricardo (and their photos) are verbatim from the old site's "Nossa equipe" (/sobre-nós).
 export const team: TeamMember[] = [
-  {
-    name: "Pacelli H. S. Lopes",
-    role: "Idealizador",
-    bio: "Historiador, mestre em História (Universidade Salgado de Oliveira), especialista em História do Brasil (PUC Minas) e licenciado pela Faculdade Santa Marcelina. Idealizador da Teia de Saberes, atua na formação de gestores, no acompanhamento de políticas públicas e em projetos educacionais ligados ao território. Professor efetivo da rede pública de Minas Gerais, foi gestor da Escola Estadual Fazenda Paraíso de 2019 a 2023.",
-    accent: "#ED8C32",
-    lattes: "http://lattes.cnpq.br/5755985965293910",
-  },
   {
     name: "Cezar Trindade Ituassu",
     role: "Coordenação de projetos",
-    bio: "Graduado em Ciências Sociais pela UFMG, com experiência como professor e gestor escolar e em gestão de processos. Cuida da coordenação de projetos e da relação institucional com as redes parceiras.",
+    bio: "Graduado em Ciências Sociais pela UFMG. Atuou como gestor escolar e professor, com experiência em comercialização de soluções educacionais e gestão de processos. Trabalha com mobilização institucional, coordenação de projetos e relacionamento com as redes de ensino parceiras da Teia.",
     accent: "#F02A89",
+    photo: "/images/equipe-cezar.jpg",
+  },
+  {
+    name: "Pacelli H. S. Lopes",
+    role: "Idealizador",
+    bio: "Historiador, mestre em História pela Universidade Salgado de Oliveira (UNIVERSO), especialista em História do Brasil pela PUC Minas e graduado pela Faculdade de Filosofia, Ciências e Letras Santa Marcelina. Intelectual público e idealizador da Teia de Saberes, atua na formação de gestores, no acompanhamento de políticas públicas e na construção de projetos educacionais integrados ao território.",
+    accent: "#ED8C32",
+    lattes: "http://lattes.cnpq.br/5755985965293910",
+    photo: "/images/equipe-pacelli.jpg",
   },
   {
     name: "Ricardo Marinho",
     role: "Coordenação da Pós-graduação",
-    bio: "Pós-doutor em Políticas Públicas e Formação Humana (UERJ), com atuação em formulação, monitoramento e avaliação de políticas educacionais. Especialista em financiamento da educação, planejamento estratégico e regulação institucional.",
+    bio: "Pós-doutor em Políticas Públicas pela UERJ, com ampla atuação na formulação, monitoramento e avaliação de políticas educacionais. Especialista em financiamento da educação, planejamento estratégico e regulação institucional.",
     accent: "#2679AD",
+    photo: "/images/equipe-ricardo.jpg",
   },
   {
     name: "Ana Paula Jorge",
