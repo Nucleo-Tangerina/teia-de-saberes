@@ -9,8 +9,10 @@ export function GET(req: NextRequest) {
   if (!token) return new NextResponse(null, { status: 404 });
 
   const url = req.nextUrl;
-  // relative Location with its own empty query: Netlify otherwise carries ?c=<code> over to "/"
-  const res = new NextResponse(null, { status: 307, headers: { Location: "/?" } });
+  // page-level redirect, not a 3xx: Netlify appends the request query (?c=<code>) to any Location
+  const res = new NextResponse('<!doctype html><meta http-equiv="refresh" content="0;url=/"><title>Teia de Saberes</title>', {
+    headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" },
+  });
   res.headers.set("X-Robots-Tag", "noindex");
 
   if (url.searchParams.has("sair")) {
