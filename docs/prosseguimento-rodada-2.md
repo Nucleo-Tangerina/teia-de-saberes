@@ -75,7 +75,7 @@ Configuração (feita em 21/11/2026):
 
 - `.env.local` (fora do git) com `APROVACAO_TOKEN` e `GITHUB_TOKEN`.
 - Netlify `teiadesaberes.netlify.app` (site de teste, sem domínio próprio): as duas variáveis como secretas; Deploy Previews **públicos**; Netlify Drawer desligado nos previews. O site publica só a partir de `main`; o trabalho aparece no Deploy Preview do PR #54: `https://deploy-preview-54--teiadesaberes.netlify.app/aprovar?c=<APROVACAO_TOKEN>`.
-- Token GitHub fine-grained `teia-site-aprovacao`: só `Nucleo-Tangerina/teia-de-saberes`, Issues read/write, vence em 19/02/2027. **Pendente de aprovação do admin da organização (saitoboy)** em Organization settings > Personal access tokens > Pending requests. Até lá, ler a conversa funciona; aprovar e enviar mensagem falham.
+- Token GitHub fine-grained `teia-site-aprovacao`: só `Nucleo-Tangerina/teia-de-saberes`, Issues read/write, vence em 19/02/2027. Aprovado pelo admin da organização (saitoboy) em 21/11/2026; piloto testado pelo Kaio no preview (aprovar, mensagem, resposta).
 
 ## Fluxo de cada página
 
@@ -90,15 +90,13 @@ Configuração (feita em 21/11/2026):
 
 | Quem | O quê | Issues |
 | --- | --- | --- |
-| saitoboy (admin) | Aprovar o token `teia-site-aprovacao` | #50 |
-| Kaio | Testar o piloto no preview (aprovar, mandar mensagem, ver na issue, responder) e mandar o link ao cliente | #50, #51 |
+| Kaio | Mandar o link do preview ao cliente (piloto testado em 21/11; #49, #50 e #51 fechadas) | — |
 | Cliente | Aprovar as variações de cada página pelo site | #30, #33–#46 |
 | Cliente | Responder as pendências (telefone, e-mail, domínio, grafia, autorizações, Lei do Tear etc.) | #25 |
 | Cliente/Kaio | Fotos de Paty do Alferes e da Fazenda Paraíso | #35 |
 | Cliente | Dizer quais são e enviar os materiais citados (“os materiais que enviamos”, “material enviado” da pós); o Kaio não os recebeu | #52 |
 | Kaio | Preço “12x de R$20,36” e checkout no destaque do Caminhos na home | #30 |
 | Kaio | Atualização de segurança do Next (fazer ou não, em branch separado) | — |
-| Claude | Fechar #49 junto com a #50 (#29, #31 e #48 fechadas em 21/11; `DESIGN.md` atualizado) | #49 |
 | Claude | Depois das aprovações: limpar variações, conferir links e rótulos, PR final | #53 |
 
 ## Armadilhas já encontradas
