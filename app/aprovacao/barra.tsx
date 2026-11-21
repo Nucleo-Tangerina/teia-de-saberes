@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, ChevronUp } from "lucide-react";
 import { aprovar, carregar, enviarMensagem, type Estado } from "./actions";
 import type { Aprovacao } from "./comentarios";
 import { escolher, useEscolhas, useModoAprovacao } from "./estado";
 import { mudancasDa, paginaDe, paginas, type Mudanca } from "./mudancas";
 
 const dia = (iso: string) => new Date(iso).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
+const letra = (i: number) => String.fromCharCode(65 + i);
 
 function mostrar(id: string) {
   // the wrapper is display: contents, so scroll to what it renders
@@ -17,11 +18,12 @@ function mostrar(id: string) {
   (el?.firstElementChild ?? el?.parentElement)?.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-function ItemMudanca({ m, escolha, aprovada, recarregar }: { m: Mudanca; escolha: string; aprovada?: Aprovacao; recarregar: () => void }) {
+function ItemMudanca({ m, n, escolha, aprovada, recarregar }: { m: Mudanca; n: number; escolha: string; aprovada?: Aprovacao; recarregar: () => void }) {
   const [enviando, iniciar] = useTransition();
   const [erro, setErro] = useState("");
   const jaAprovada = aprovada?.variacao === escolha;
   const nomeAprovada = m.variacoes.find((v) => v.id === aprovada?.variacao)?.nome;
+  const letraEscolha = letra(Math.max(0, m.variacoes.findIndex((v) => v.id === escolha)));
 
   const confirmar = () =>
     iniciar(async () => {
@@ -36,34 +38,50 @@ function ItemMudanca({ m, escolha, aprovada, recarregar }: { m: Mudanca; escolha
       <fieldset>
         <legend>
           <button type="button" className="aprov-ir" onClick={() => mostrar(m.id)}>
-            {m.titulo}
+            <span className="aprov-num" aria-hidden>
+              {n}
+            </span>
+            <span>{m.titulo}</span>
           </button>
         </legend>
-        <p className={`aprov-status${aprovada ? " is-ok" : ""}`}>
-          {aprovada ? `Aprovada: ${nomeAprovada}, em ${dia(aprovada.data)}` : "Aguardando sua escolha"}
-        </p>
         <p className="aprov-expl">{m.explicacao}</p>
-        {m.variacoes.map((v) => (
-          <label key={v.id} className="aprov-opcao">
-            <input
-              type="radio"
-              name={m.id}
-              value={v.id}
-              checked={escolha === v.id}
-              onChange={() => {
-                escolher(m.id, v.id);
-                mostrar(m.id);
-              }}
-            />
+        <div className="aprov-opcoes">
+          {m.variacoes.map((v, i) => (
+            <label key={v.id} className="aprov-opcao">
+              <input
+                type="radio"
+                name={m.id}
+                value={v.id}
+                checked={escolha === v.id}
+                onChange={() => {
+                  escolher(m.id, v.id);
+                  mostrar(m.id);
+                }}
+              />
+              <span className="aprov-letra" aria-hidden>
+                {letra(i)}
+              </span>
+              <span className="aprov-opcao-texto">
+                <strong>{v.nome}</strong>
+                <span>{v.descricao}</span>
+              </span>
+              <span className="aprov-radio" aria-hidden />
+            </label>
+          ))}
+        </div>
+        {aprovada && (
+          <p className="aprov-ok">
+            <Check size={16} aria-hidden />
             <span>
-              <strong>{v.nome}</strong>
-              <span>{v.descricao}</span>
+              Aprovada: {nomeAprovada} em {dia(aprovada.data)}
             </span>
-          </label>
-        ))}
-        <button type="button" className="btn btn-orange btn-sm aprov-aprovar" disabled={enviando || jaAprovada} onClick={confirmar}>
-          {jaAprovada ? "Esta variação está aprovada" : enviando ? "Enviando…" : "Aprovar esta variação"}
-        </button>
+          </p>
+        )}
+        {!jaAprovada && (
+          <button type="button" className="btn btn-sm aprov-aprovar" disabled={enviando} onClick={confirmar}>
+            {enviando ? "Enviando…" : `${aprovada ? "Trocar para" : "Aprovar"} opção ${letraEscolha}`}
+          </button>
+        )}
         {erro && (
           <p className="aprov-erro" role="alert">
             {erro}
@@ -94,7 +112,9 @@ function Conversa({ pagina, estado, recarregar }: { pagina: string; estado: Esta
 
   return (
     <section className="aprov-conversa" aria-labelledby="aprov-conversa-titulo">
-      <h2 id="aprov-conversa-titulo">Observações sobre esta página</h2>
+      <h2 id="aprov-conversa-titulo" className="aprov-rotulo">
+        Observações
+      </h2>
       {estado?.ok && estado.conversa.length > 0 && (
         <ol className="aprov-falas" aria-live="polite">
           {estado.conversa.map((f, i) => (
@@ -119,8 +139,8 @@ function Conversa({ pagina, estado, recarregar }: { pagina: string; estado: Esta
           onChange={(e) => setTexto(e.target.value)}
           placeholder="Escreva uma observação ou outra mudança que você quer nesta página."
         />
-        <button type="submit" className="btn btn-orange btn-sm" disabled={enviando || !texto.trim()}>
-          {enviando ? "Enviando…" : "Enviar"}
+        <button type="submit" className="btn btn-orange btn-sm aprov-enviar" disabled={enviando || !texto.trim()}>
+          {enviando ? "Enviando…" : "Enviar observação"}
         </button>
         {erro && (
           <p className="aprov-erro" role="alert">
@@ -166,14 +186,24 @@ export function BarraAprovacao() {
   const daPagina = mudancasDa(pagina);
   const aprovacoes = estado?.ok ? estado.aprovacoes : {};
   const feitas = daPagina.filter((m) => aprovacoes[m.id]).length;
+  const todas = daPagina.length > 0 && feitas === daPagina.length;
+  const lista = Object.keys(paginas);
+  const atual = lista.indexOf(pagina);
+  const proxima = atual >= 0 ? lista[(atual + 1) % lista.length] : null;
 
   return (
     <aside className={`aprov-barra${aberta ? " is-aberta" : ""}`} aria-label="Modo de aprovação">
       <div className="aprov-topo">
-        <strong>Modo de aprovação</strong>
-        <span className="aprov-conta">
-          {daPagina.length ? `${feitas} de ${daPagina.length} aprovada${daPagina.length > 1 ? "s" : ""}` : "Nada a aprovar nesta página"}
-        </span>
+        <div className="aprov-titulos">
+          <span className="aprov-eyebrow">Aprovação do site</span>
+          <strong className="aprov-pagina">{paginaDe(pagina)?.nome ?? "Página fora da revisão"}</strong>
+        </div>
+        {daPagina.length > 0 && (
+          <span className={`aprov-progresso${todas ? " is-ok" : ""}`} aria-label={`${feitas} de ${daPagina.length} aprovadas`}>
+            {todas && <Check size={14} aria-hidden />}
+            {feitas}/{daPagina.length}
+          </span>
+        )}
         <button
           type="button"
           className="aprov-icone"
@@ -193,21 +223,48 @@ export function BarraAprovacao() {
             </p>
           )}
           {daPagina.length > 0 && (
-            <ol className="aprov-lista">
-              {daPagina.map((m) => (
-                <ItemMudanca key={m.id} m={m} escolha={escolhas[m.id] ?? m.padrao} aprovada={aprovacoes[m.id]} recarregar={recarregar} />
-              ))}
-            </ol>
+            <section className="aprov-secao" aria-labelledby="aprov-escolhas-titulo">
+              <h2 id="aprov-escolhas-titulo" className="aprov-rotulo">
+                Escolhas nesta página
+              </h2>
+              <ol className="aprov-lista">
+                {daPagina.map((m, i) => (
+                  <ItemMudanca key={m.id} m={m} n={i + 1} escolha={escolhas[m.id] ?? m.padrao} aprovada={aprovacoes[m.id]} recarregar={recarregar} />
+                ))}
+              </ol>
+            </section>
+          )}
+          {temPagina && daPagina.length === 0 && (
+            <p className="aprov-vazio">Nesta página não há escolhas. Revise o conteúdo e, se quiser mudar algo, escreva abaixo.</p>
           )}
           {temPagina && <Conversa pagina={pagina} estado={estado} recarregar={recarregar} />}
-          <nav className="aprov-paginas" aria-label="Páginas em aprovação">
-            <span>Páginas em aprovação:</span>
-            {Object.entries(paginas).map(([p, { nome }]) => (
-              <Link key={p} href={p} aria-current={p === pagina ? "page" : undefined}>
-                {nome}
-              </Link>
-            ))}
-          </nav>
+          <details className="aprov-todas">
+            <summary className="aprov-rotulo">
+              Todas as páginas ({lista.length})
+              <ChevronDown size={16} aria-hidden />
+            </summary>
+            <nav aria-label="Páginas em aprovação">
+              <ul className="aprov-paginas">
+                {lista.map((p) => {
+                  const n = mudancasDa(p).length;
+                  return (
+                    <li key={p}>
+                      <Link href={p} aria-current={p === pagina ? "page" : undefined}>
+                        <span>{paginas[p].nome}</span>
+                        <span className="aprov-meta">{p === pagina ? "Você está aqui" : n ? `${n} escolha${n > 1 ? "s" : ""}` : "só revisar"}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </details>
+          {proxima && (
+            <Link href={proxima} className="btn btn-outline btn-sm aprov-proxima">
+              Próxima página
+              <ArrowRight size={18} aria-hidden />
+            </Link>
+          )}
           <a className="aprov-sair" href="/aprovar?sair">
             Sair do modo de aprovação
           </a>
