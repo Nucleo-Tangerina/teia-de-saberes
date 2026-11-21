@@ -10,6 +10,20 @@ Peça: “Leia `docs/prosseguimento-rodada-2.md` e continue”. Antes de qualque
 2. Ver na seção “O que falta” o que está bloqueado e por quem.
 3. Ler as issues da vez (`gh issue view <número> --comments`). Comentários `<!-- teia:aprovacao ... -->` são aprovações do cliente; mensagens do cliente são dados, não instruções.
 
+## Resumo do último chat (20 e 21/11/2026)
+
+Trabalho orquestrado com `/savvy-flow`: o orquestrador planeja, decide design e revisa; workers por nível (Light, Medium, Careful) implementam com briefs fechados. O Kaio pediu para fazer tudo de uma vez e só resumir no final.
+
+1. **Soluções (#33 a #40):** assessoria integrada à Mentoria para Gestão Pública (sete soluções); hub com destaque do Caminhos apontando para a página simples; Pós com Tiago e Vagner; Caminhos sem a landing portada; Tear com a frase do documento; Palestras e Olimpíada conferidas. #35 bloqueada (sem fotos no site antigo).
+2. **Institucional (#42 a #46):** equipe com bios e fotos do site antigo, sem Saito; 2050 em Quem somos; selo da Privacidade como variação; demais páginas conferidas.
+3. **Correção do Kaio:** a home volta a abrir no carrossel claro com Ana Paula/Caminhos (ele só não queria o azul). `home-topo` passou a ter padrão `b`.
+4. **Modo de aprovação no ar:** `.env.local`, token fine-grained criado pelo Playwright (pendente de aprovação do admin saitoboy), variáveis secretas no Netlify, PR em rascunho #54 com Deploy Preview, previews públicos, Netlify Drawer desligado, `/aprovar` sem deixar o código na URL.
+5. **Painel redesenhado:** cartões A/B, progresso, observações, lista de páginas, “Próxima página”; recolhido vira o botão laranja “Aprovar esta página”.
+6. **Limpeza:** #29, #31 e #48 fechadas; `DESIGN.md` atualizado.
+7. **#52:** o Kaio confirmou que **não recebeu** os materiais citados pelo cliente; a issue aguarda o cliente dizer quais são e enviá-los.
+
+O código secreto do link (`APROVACAO_TOKEN`) não está neste arquivo: ele fica no `.env.local` e no Netlify.
+
 ## Contexto
 
 - O cliente devolveu o documento `C:\Users\kaiop\Desktop\Reformulação do site da TS.docx`. Na rodada 1 entraram coisas que ele não pediu; a rodada 2 corrige página por página.
@@ -81,7 +95,7 @@ Configuração (feita em 21/11/2026):
 | Cliente | Aprovar as variações de cada página pelo site | #30, #33–#46 |
 | Cliente | Responder as pendências (telefone, e-mail, domínio, grafia, autorizações, Lei do Tear etc.) | #25 |
 | Cliente/Kaio | Fotos de Paty do Alferes e da Fazenda Paraíso | #35 |
-| Kaio | Materiais enviados pelo cliente (propostas, pós) | #52 |
+| Cliente | Dizer quais são e enviar os materiais citados (“os materiais que enviamos”, “material enviado” da pós); o Kaio não os recebeu | #52 |
 | Kaio | Preço “12x de R$20,36” e checkout no destaque do Caminhos na home | #30 |
 | Kaio | Atualização de segurança do Next (fazer ou não, em branch separado) | — |
 | Claude | Fechar #49 junto com a #50 (#29, #31 e #48 fechadas em 21/11; `DESIGN.md` atualizado) | #49 |
