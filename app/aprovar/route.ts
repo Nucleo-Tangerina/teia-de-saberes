@@ -9,7 +9,8 @@ export function GET(req: NextRequest) {
   if (!token) return new NextResponse(null, { status: 404 });
 
   const url = req.nextUrl;
-  const res = NextResponse.redirect(new URL("/", url));
+  // relative Location with its own empty query: Netlify otherwise carries ?c=<code> over to "/"
+  const res = new NextResponse(null, { status: 307, headers: { Location: "/?" } });
   res.headers.set("X-Robots-Tag", "noindex");
 
   if (url.searchParams.has("sair")) {
