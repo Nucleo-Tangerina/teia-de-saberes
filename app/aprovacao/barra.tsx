@@ -191,6 +191,22 @@ export function BarraAprovacao() {
   const atual = lista.indexOf(pagina);
   const proxima = atual >= 0 ? lista[(atual + 1) % lista.length] : null;
 
+  // collapsed: one obvious button instead of a quiet header the client misses
+  if (!aberta)
+    return (
+      <aside className="aprov-barra is-fechada" aria-label="Modo de aprovação">
+        <button type="button" className="aprov-abrir" aria-expanded={false} aria-controls="aprov-corpo" onClick={() => setAberta(true)}>
+          {daPagina.length ? "Aprovar esta página" : "Revisar esta página"}
+          {daPagina.length > 0 && (
+            <span className="aprov-abrir-conta">
+              {feitas}/{daPagina.length}
+            </span>
+          )}
+          <ChevronUp size={18} aria-hidden />
+        </button>
+      </aside>
+    );
+
   return (
     <aside className={`aprov-barra${aberta ? " is-aberta" : ""}`} aria-label="Modo de aprovação">
       <div className="aprov-topo">

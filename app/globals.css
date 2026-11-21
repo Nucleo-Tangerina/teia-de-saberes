@@ -3924,6 +3924,41 @@ html.motion .checklist li:not(.in) .check {
   display: contents;
 }
 
+/* collapsed panel: a single orange pill button */
+.aprov-barra.is-fechada {
+  width: auto;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.aprov-abrir {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 18px 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--ink);
+  font: 700 16px/1 var(--font-display), system-ui, sans-serif;
+  box-shadow: var(--shadow-float);
+  cursor: pointer;
+}
+
+.aprov-abrir:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.aprov-abrir-conta {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.6);
+  font-size: 13px;
+}
+
 .aprov-barra {
   position: fixed;
   z-index: 90;
@@ -4432,5 +4467,9 @@ html.motion .checklist li:not(.in) .check {
     left: 8px;
     width: auto;
     max-height: 75vh;
+  }
+
+  .aprov-barra.is-fechada {
+    left: auto;
   }
 }
