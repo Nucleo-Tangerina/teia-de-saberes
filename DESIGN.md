@@ -242,8 +242,13 @@ Confident, round, tactile.
 - `/projetos` keeps the static grid.
 
 ### Home Opening
-- Default: soft-field hero with the opening copy and one framed photo beside the floating pattern tile.
-- Under client approval (issue #30): a light-theme carousel of the solutions (soft field, navy type, white controls). The losing option is deleted once approved.
+- Default: a light-theme carousel (soft field, navy type, white circular controls, autoplay with pause). It opens on Caminhos da Inclusão (Ana Paula photo), then Tear, then the Teia's own slide, which carries the h1 and the 2050 sentence. No navy hero: the client only rejected the blue background.
+- Under client approval (issue #30): the single-photo hero (opening copy and one framed photo beside the floating pattern tile). The losing option is deleted once approved.
+
+### Approval Panel (test site only)
+- Exists only where `APROVACAO_TOKEN` is set and after the secret link; visitors never see it. Removed or left off on the official domain.
+- Fixed bottom-right, 380px, white, 16px radius, float shadow; full width with 8px margins under 720px. Collapsed it is a single orange pill button, "Aprovar esta página · n/total" (or "Revisar esta página"); it starts collapsed on phones, open on desktop.
+- Open: sticky header (orange-ink eyebrow "Aprovação do site", page name in navy, progress pill that turns green with a check when all are approved), then sections with small uppercase labels: numbered change cards with whole-card radio options lettered A/B (selected = navy 2px border and tint), a full-width navy "Aprovar opção X" button or a green "Aprovada" row; observations as chat bubbles with an orange send button (gray when disabled); a collapsible list of all pages under review; an outline "Próxima página" button; a muted exit link.
 
 ## Do's and Don'ts
 
