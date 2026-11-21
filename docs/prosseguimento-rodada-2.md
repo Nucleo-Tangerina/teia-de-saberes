@@ -84,7 +84,7 @@ Configuração (feita em 21/11/2026):
 | Kaio | Materiais enviados pelo cliente (propostas, pós) | #52 |
 | Kaio | Preço “12x de R$20,36” e checkout no destaque do Caminhos na home | #30 |
 | Kaio | Atualização de segurança do Next (fazer ou não, em branch separado) | — |
-| Claude | Fechar #29, #31, #48 (feitas; aguardam só a validação do Kaio) e #49 com a #50; atualizar `DESIGN.md` com o carrossel padrão e o painel novo | #29, #31, #48, #49 |
+| Claude | Fechar #49 junto com a #50 (#29, #31 e #48 fechadas em 21/11; `DESIGN.md` atualizado) | #49 |
 | Claude | Depois das aprovações: limpar variações, conferir links e rótulos, PR final | #53 |
 
 ## Armadilhas já encontradas
